@@ -3,14 +3,15 @@ from llama_cpp import Llama
 import random
 
 model = Llama(
-    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
+    model_path="../llama.cpp/models/deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
     n_gpu_layers=-1,
     n_ctx=2048,
     n_batch=256,
     n_threads=10,
+    logits_all=True,
 )
 
-max_rollouts = 512
+max_rollouts = 64
 explore_c = 1e-2
 top_k = 3
 beam_width = 1
@@ -20,9 +21,10 @@ program_dict = {}
 
 
 class Node:
-    def __init__(self, text, parent):
+    def __init__(self, label, state, parent):
         self.value = 0
-        self.text = text
+        self.label = label  # token label text for visualisation
+        self.state = state  # full generated text
         self._children = []
         self._parent = parent
         self.visits = 0
@@ -34,31 +36,30 @@ class Node:
                 self._parent.backprop(value)
 
 
+# TODO: implement proper p-ucb function
 def p_ucb_select(nodes):
-    # start with randomly selected idx
-    max_idx = random.randint(0, len(nodes))
+    max_node = nodes[0]
     for i in range(len(nodes)):
-        if nodes[i].value > nodes[max_idx].value:
-            max_idx = i
-    return nodes[max_idx]
+        if nodes[i].value > max_node.value:
+            max_node = nodes[i]
+    return max_node
+
+
+def get_top_k_tokens(curr_node, k):
+    output = model(prompt=curr_node.state, max_tokens=1, temperature=0.2, logprobs=k)
+    output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
+    return output_probs.keys()
 
 
 def generate_next_n_tokens(model, input, n_tokens=-1):
     output = model(prompt=input, max_tokens=n_tokens, temperature=0.2, top_k=beam_width)
-    output_text = output["choices"][0]["text"].strip()
+    output_text = output["choices"][0]["text"]
     return output_text
 
 
-def get_top_k_texts(curr_node, k):
-    texts = []
-    for _ in range(k):
-        output = generate_next_n_tokens(model, curr_node.text, 1)
-        texts.append(output)
-    return texts
-
-
+# TODO: use HF beam search/generate API for this part
 def beam_search(curr_node):
-    output_text = generate_next_n_tokens(model, curr_node.text)
+    output_text = generate_next_n_tokens(model, curr_node.state)
     return output_text[
         len(problem_description) :
     ].strip()  # ignore original problem description in prefix
@@ -69,7 +70,7 @@ def calculate_reward(program_text):
     return random.random()
 
 
-root = Node(problem_description, None)
+root = Node("PD", problem_description, None)
 for i in range(max_rollouts):
     curr_node = root
     curr_node.visits += 1
@@ -79,16 +80,25 @@ for i in range(max_rollouts):
         curr_node.visits += 1
 
     # expansion
-    texts = get_top_k_texts(curr_node, top_k)
-    child_nodes = [Node(text, curr_node) for text in texts]
+    tokens = get_top_k_tokens(curr_node, top_k)
+    child_nodes = [Node(token, curr_node.state + token, curr_node) for token in tokens]
     curr_node._children = child_nodes
 
     # evaluation
-    generated_program = beam_search(curr_node)
+    # TODO: fix beam search
+    # generated_program = beam_search(curr_node)
+    generated_program = ""
     reward = calculate_reward(generated_program)
 
     # backprop
     curr_node.backprop(reward)
+
+    # TODO: early termination if fully accurate program has been generated
+    if reward == 1:
+        pass
+
+
+##### Visualisation #####
 
 
 def trace(root):
@@ -108,15 +118,30 @@ def trace(root):
 
 def draw_dot(root):
     dot = Digraph(format="svg", graph_attr={"rankdir": "TB"})  # TB = top to bottom
-
     nodes, edges = trace(root)
     for n in nodes:
         uid = str(id(n))
         # for any value in the graph, create a rectangular ('record') node for it
         dot.node(
             name=uid,
-            label="{ %s | reward %.4f }" % (n.text[-1], n.value),
+            label="{ %s | reward %.4f | visits %d }"
+            % (
+                # HACK: quick-fix to escape special chars for label processing
+                repr(n.label)
+                .replace(">", "\>")
+                .replace("<", "\<")
+                .replace("}", "\}")
+                .replace("{", "\{"),
+                n.value,
+                n.visits,
+            ),
             shape="record",
         )
-    # TODO: finish rendering edges
+    for n1, n2 in edges:
+        # connect n1 to the op node of n2
+        dot.edge(str(id(n2)), str(id(n1)))
     return dot
+
+
+dot = draw_dot(root)
+dot.render(filename="tree", view=True)
