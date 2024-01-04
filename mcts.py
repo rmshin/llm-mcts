@@ -46,7 +46,6 @@ class Node:
 # -> where ß(s) = log((s.visits + c_base + 1) / c_base) + c
 # -> c_base & c are hyperparameters, set to values c_base = 10 & c = 4
 def p_ucb_select(parent_node, child_nodes):
-    Q = parent_node.value
     s_visits = parent_node.visits
     beta = log((s_visits + c_base + 1) / c_base) + c
 
@@ -54,9 +53,10 @@ def p_ucb_select(parent_node, child_nodes):
     max_node = None
     for i in range(len(child_nodes)):
         node = child_nodes[i]
-        p_ucb = Q + beta * node.prob * sqrt(log(s_visits)) / (1 + node.visits)
+        p_ucb = node.value + beta * node.prob * sqrt(log(s_visits)) / (1 + node.visits)
         if p_ucb > max_p_ucb:
-            max_node = child_nodes[i]
+            max_node = node
+            max_p_ucb = p_ucb
     return max_node
 
 
