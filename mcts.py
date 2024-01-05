@@ -4,7 +4,7 @@ from math import exp, log, inf, sqrt
 import random
 
 model = Llama(
-    model_path="../llama.cpp/models/deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
+    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
     n_gpu_layers=-1,
     n_ctx=2048,
     n_batch=256,
@@ -34,7 +34,7 @@ class Node:
         self.visits = 0
 
     def backprop(self, value):
-        if value > self.value:
+        if value > self.value:  # TODO: confirm whether this is correct
             self.value = value
             if self._parent is not None:
                 self._parent.backprop(value)
@@ -66,16 +66,19 @@ def get_top_k_tokens(curr_node, k):
     return output_probs.items()
 
 
-# TODO: use HF beam search/generate API for this part
+# TODO: this will have to be updated using low-level llama-cpp-python APIs for
+# beam width > 1. May consider switching to HF transformers library if overly
+# complex, though this precludes the use of any quantised models
 def beam_search(curr_node):
-    # output = model(
-    #     prompt=curr_node.state, max_tokens=-1, temperature=0.2, top_k=beam_width
-    # )
-    # output_text = output["choices"][0]["text"]
-    # return output_text[
-    #     len(problem_description) :
-    # ].strip()  # ignore original problem description in prefix
-    return ""
+    output = model(
+        prompt=curr_node.state,
+        max_tokens=256,
+        temperature=0.2,
+        top_k=beam_width,
+        stop=["Problem"],  # example stop sequence
+    )
+    output_text = output["choices"][0]["text"]
+    return curr_node.state + output_text
 
 
 # TODO: implement proper reward function
