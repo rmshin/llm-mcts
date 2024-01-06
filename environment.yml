@@ -1,6 +1,6 @@
 name: llm-mcts
 dependencies:
-  - python=3
+  - python=3.11
   - pip
   # python libs
   - pytest
@@ -12,6 +12,5 @@ dependencies:
   - transformers
   - llama-cpp-python
   - outlines
-  - -e human-eval
   # graph libs
   - python-graphviz

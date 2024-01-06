@@ -32,7 +32,7 @@ def draw_graphviz_dot(root):
             .replace("}", "\}")
             .replace("{", "\{")
         )
-        label = f"{{ {i} | {escaped_n_label} | {n.value:.4f} | {n.p_ucb:.4f} | {n.visits} | {n.prob:.4f} }}"
+        label = f"{{ {i} | {escaped_n_label} | value {n.value:.4f} | p_ucb {n.p_ucb:.4f} | visits {n.visits} | prob {n.prob:.4f} }}"
         # for any value in the graph, create a rectangular ('record') node for it
         dot.node(
             name=uid,
