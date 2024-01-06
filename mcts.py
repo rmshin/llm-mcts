@@ -1,4 +1,4 @@
-from graphviz import Digraph
+from visualise import render_graphviz_tree
 from llama_cpp import Llama
 from math import exp, log, inf, sqrt
 import random
@@ -25,13 +25,15 @@ c = 4
 
 class Node:
     def __init__(self, label, logprob, state, parent):
-        self.value = 0
-        self.label = label  # token label text for visualisation
+        self.value = 0  # total reward obtainable from node
         self.prob = exp(logprob)  # necessary for P-UCB calculation
         self.state = state  # full generated text
         self._children = []
         self._parent = parent
         self.visits = 0
+        ### attributes for graph visualisation
+        self.label = label  # token label text
+        self.p_ucb = 0  # last calculated p_ucb value
 
     def backprop(self, value):
         if value > self.value:  # TODO: confirm whether this is correct
@@ -54,6 +56,7 @@ def p_ucb_select(parent_node, child_nodes):
     for i in range(len(child_nodes)):
         node = child_nodes[i]
         p_ucb = node.value + beta * node.prob * sqrt(log(s_visits)) / (1 + node.visits)
+        node.p_ucb = p_ucb  # store most recent p_ucb for visualisation
         if p_ucb > max_p_ucb:
             max_node = node
             max_p_ucb = p_ucb
@@ -70,9 +73,13 @@ def get_top_k_tokens(curr_node, k):
 # beam width > 1. May consider switching to HF transformers library if overly
 # complex, though this precludes the use of any quantised models
 def beam_search(curr_node):
+    """
+    Returns the full generation with both prompt + completion concatenated.
+    Original prompt needs to be indexed out to get the actual generated program.
+    """
     output = model(
         prompt=curr_node.state,
-        max_tokens=256,
+        max_tokens=80,
         temperature=0.2,
         top_k=beam_width,
         stop=["Problem"],  # example stop sequence
@@ -104,7 +111,6 @@ for i in range(max_rollouts):
     curr_node._children = child_nodes
 
     # evaluation
-    # TODO: fix beam search
     generated_program = beam_search(curr_node)
     reward = calculate_reward(generated_program)
 
@@ -116,51 +122,4 @@ for i in range(max_rollouts):
         pass
 
 
-##### Visualisation #####
-
-
-def trace(root):
-    # builds a set of all nodes and edges in a graph
-    nodes, edges = set(), set()
-
-    def build(v):
-        if v not in nodes:
-            nodes.add(v)
-            for child in v._children:
-                edges.add((child, v))
-                build(child)
-
-    build(root)
-    return nodes, edges
-
-
-def draw_dot(root):
-    dot = Digraph(format="svg", graph_attr={"rankdir": "TB"})  # TB = top to bottom
-    nodes, edges = trace(root)
-    for n in nodes:
-        uid = str(id(n))
-        # for any value in the graph, create a rectangular ('record') node for it
-        dot.node(
-            name=uid,
-            label="{ %s | reward %.4f | visits %d | prob %.4f }"
-            % (
-                # HACK: quick-fix to escape special chars for label processing
-                repr(n.label)
-                .replace(">", "\>")
-                .replace("<", "\<")
-                .replace("}", "\}")
-                .replace("{", "\{"),
-                n.value,
-                n.visits,
-                n.prob,
-            ),
-            shape="record",
-        )
-    for n1, n2 in edges:
-        # connect n1 to the op node of n2
-        dot.edge(str(id(n2)), str(id(n1)))
-    return dot
-
-
-dot = draw_dot(root)
-dot.render(filename="tree", view=True)
+render_graphviz_tree(root)

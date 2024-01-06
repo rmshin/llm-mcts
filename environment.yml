@@ -11,5 +11,7 @@ dependencies:
   - pytorch
   - transformers
   - llama-cpp-python
+  - outlines
+  - -e human-eval
   # graph libs
   - python-graphviz
