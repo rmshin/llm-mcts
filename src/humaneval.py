@@ -16,7 +16,11 @@ def stats_execute(prompt_idx, completion, timeout=10):
     problem = problems[prompt_idx + num_few_shot_examples]
     pre_base_str, tests = problem["test"].split("def check(candidate):\n")
     base_str = "def check(candidate):\n"
-    split_tests = [pre_base_str + base_str + i for i in tests.split("\n") if i != ""]
+    split_tests = []
+    for i in tests.split("\n"):
+        if (i.lstrip() == "") or (i.lstrip().startswith("#")):
+            continue
+        split_tests.append(pre_base_str + base_str + i)
 
     _problem = problem.copy()
     results = []
