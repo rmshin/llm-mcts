@@ -1,4 +1,4 @@
-from humaneval import get_prompts_with_ids, get_hard_prompts_with_ids
+from humaneval import get_prompts_with_ids
 from human_eval.data import write_jsonl
 from llama_cpp import Llama
 from tqdm import tqdm
@@ -13,8 +13,7 @@ model = Llama(
 
 N_SAMPLES = 5
 samples = []
-# prompts_ids = get_prompts_with_ids()
-prompts_ids = get_hard_prompts_with_ids()
+prompts_ids = get_prompts_with_ids()
 for prompt, task_id in tqdm(prompts_ids):
     # TODO: update to generate in parallel once https://github.com/abetlen/llama-cpp-python/pull/951 lands.
     for _ in tqdm(range(N_SAMPLES)):
@@ -23,8 +22,7 @@ for prompt, task_id in tqdm(prompts_ids):
         item = dict(task_id=task_id, completion=res)
         samples.append(item)
 
-# write_jsonl("few_shot_baselines.jsonl", samples)
-write_jsonl("few_shot_baselines_hard.jsonl", samples, append=True)
+write_jsonl("few_shot_baselines.jsonl", samples)
 
 # run this to get the pass@k metrics
 # evaluate_functional_correctness samples.jsonl

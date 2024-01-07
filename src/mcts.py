@@ -1,7 +1,9 @@
 from visualise import render_graphviz_tree
-from humaneval import stats_execute, get_prompts, STOP_SEQUENCES
+from humaneval import stats_execute, get_hard_prompts_with_ids, STOP_SEQUENCES
+from human_eval.data import write_jsonl
 from llama_cpp import Llama
 from math import exp, log, inf, sqrt
+import time
 
 
 def main():
@@ -14,11 +16,9 @@ def main():
         logits_all=True,
     )
 
-    max_rollouts = 64
+    max_rollouts = 128
     top_k = 3
     beam_width = 1
-    # cache of generated programs => rewards
-    program_dict = {}
     # hyperparameters for P-UCB function
     c_base = 10
     c = 4
@@ -81,7 +81,7 @@ def main():
         """
         output = model(
             prompt=curr_node.state,
-            max_tokens=80,
+            max_tokens=256,
             temperature=0.2,
             top_k=beam_width,
             stop=STOP_SEQUENCES,
@@ -89,55 +89,88 @@ def main():
         output_text = output["choices"][0]["text"]
         return curr_node.state + output_text
 
-    def calculate_reward(prompt_idx, completion):
-        stats = stats_execute(prompt_idx, completion)
+    def calculate_reward(task_id, completion):
+        stats = stats_execute(task_id, completion)
         return stats["pass_rate"]
 
     # check if a generated program exists for a given node state and return reward if found
-    def match_cached_programs(prefix):
+    def match_cached_programs(prefix, program_dict):
         for program, reward in program_dict.items():
             if program.startswith(prefix):
                 return reward
         return -1
 
-    prompts = get_prompts()
-    prompt_idx = 7  # select arbitrary problem from human_eval dataset
-    prompt = prompts[prompt_idx]
-    root = Node("<PD>", log(1), prompt, None)
-    for _ in range(max_rollouts):
-        curr_node = root
-        curr_node.visits += 1
-        # selection
-        while len(curr_node._children) > 0:
-            curr_node = p_ucb_select(curr_node, curr_node._children)
+    def get_best_program(program_dict):
+        max_reward = -inf
+        best_program = None
+        for program, reward in program_dict.items():
+            if reward > max_reward:
+                best_program = program
+                reward = max_reward
+        return best_program
+
+    prompts_ids = get_hard_prompts_with_ids()
+    start = time.perf_counter()
+    num_iter = 1
+    for prompt, task_id in prompts_ids[2:]:
+        prompt_start = time.perf_counter()
+        print(f"---- STARTING MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)}) ----")
+        # cache of generated programs => rewards
+        program_dict = {}
+        num_rollouts = max_rollouts
+        root = Node("<PD>", log(1), prompt, None)
+        for i in range(max_rollouts):
+            curr_node = root
             curr_node.visits += 1
+            # selection
+            while len(curr_node._children) > 0:
+                curr_node = p_ucb_select(curr_node, curr_node._children)
+                curr_node.visits += 1
 
-        # expansion
-        tokens = get_top_k_tokens(curr_node, top_k)
-        child_nodes = [
-            Node(token, logprob, curr_node.state + token, curr_node)
-            for (token, logprob) in tokens
-        ]
-        curr_node._children = child_nodes
+            # expansion
+            tokens = get_top_k_tokens(curr_node, top_k)
+            child_nodes = [
+                Node(token, logprob, curr_node.state + token, curr_node)
+                for (token, logprob) in tokens
+            ]
+            curr_node._children = child_nodes
 
-        # evaluation
-        reward = match_cached_programs(curr_node.state)
-        # only run generation if node state not found in cached programs
-        if reward < 0:
-            generated_program = beam_search(curr_node)
-            completion = generated_program.replace(prompt, "")
-            reward = calculate_reward(prompt_idx, completion)
-            program_dict[generated_program] = reward
+            # evaluation
+            reward = match_cached_programs(curr_node.state, program_dict)
+            # only run generation if node state not found in cached programs
+            if reward < 0:
+                generated_program = beam_search(curr_node)
+                completion = generated_program.replace(prompt, "")
+                reward = calculate_reward(task_id, completion)
+                program_dict[generated_program] = reward
 
-        # backprop
-        curr_node.backprop(reward)
+            # backprop
+            curr_node.backprop(reward)
 
-        # TODO: early termination if fully accurate program has been generated
-        if reward == 1:
-            print(completion)
-            break
+            if reward == 1:
+                num_rollouts = i
+                break
+        best_completion = get_best_program(program_dict).replace(prompt, "")
+        end = time.perf_counter()
+        item = dict(
+            task_id=task_id,
+            completion=best_completion,
+            stats=dict(
+                num_rollouts=num_rollouts,
+                num_generations=len(program_dict.keys()),
+                eval_time=f"{(end - prompt_start):.4f}s",
+            ),
+        )
+        write_jsonl("few_shot_mcts_hard.jsonl", [item], append=True)
+        print(
+            f"---- COMPLETED MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)-2}) ----"
+        )
+        print(f"Eval time: {(end - prompt_start):.4f}s")
+        num_iter += 1
 
-    render_graphviz_tree(root)
+    end = time.perf_counter()
+    print(f"Total elapsed time: {(end - start):.4f}s\n")
+    # render_graphviz_tree(root)
 
 
 # necessary to prevent multiple executions of main() within stats_execute threads
