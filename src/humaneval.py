@@ -6,6 +6,7 @@ from human_eval.data import HUMAN_EVAL, stream_jsonl
 problems = list(stream_jsonl(HUMAN_EVAL))
 executor = ThreadPoolExecutor(max_workers=10)
 
+SKIP_PROBLEM_IDS = [32, 38, 44, 50, 53, 87, 113, 151]
 STOP_SEQUENCES = ["```"]
 num_few_shot_examples = 2
 examples = problems[:num_few_shot_examples]
