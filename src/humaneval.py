@@ -19,7 +19,7 @@ def stats_execute(prompt_idx, completion, timeout=10):
     base_str = "def check(candidate):\n"
     split_tests = []
     for i in tests.split("\n"):
-        if (i.lstrip() == "") or (i.lstrip().startswith("#")):
+        if (i.lstrip() == "") or (i.lstrip().startswith("#")) or (i.lstrip().startswith("print")):
             continue
         split_tests.append(pre_base_str + base_str + i)
 
