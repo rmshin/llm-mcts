@@ -1,59 +1,5 @@
-import outlines
-from concurrent.futures import ThreadPoolExecutor
-from human_eval.execution import check_correctness
-from human_eval.data import HUMAN_EVAL, stream_jsonl, write_jsonl
-
-problems = list(stream_jsonl(HUMAN_EVAL))
-executor = ThreadPoolExecutor(max_workers=5)
-
-
-def stats_execute(problem, completion, timeout):
-    pre_base_str, tests = problem["test"].split("def check(candidate):\n")
-    base_str = "def check(candidate):\n"
-    split_tests = [pre_base_str + base_str + i for i in tests.split("\n") if i != ""]
-
-    _problem = problem.copy()
-    results = []
-    for i in split_tests:
-        _problem["test"] = i
-        future = executor.submit(check_correctness, _problem, completion, timeout)
-        result = future.result()
-        results.append(result)
-
-    return {
-        "task_id": problem["task_id"],
-        "pass_rate": sum([i["passed"] for i in results]) / len(results),
-    }
-
-
-@outlines.prompt
-def few_shots(instructions, examples, question):
-    """{{ instructions }}
-
-    {% for example in examples %}
-
-    Question:
-    ```
-    {{ example.prompt }}
-    ```
-    Answer:
-    ```
-    {{ example.canonical_solution }}
-    ```
-    {% endfor %}
-
-    Question:
-    ```
-    {{ question }}
-    ```
-    Answer:
-    ```
-    """
-
-
-instructions = "Please answer the following question following the examples. Generate valid python code by indenting 4 spaces always."
-examples = problems[:2]
-
+from humaneval import get_prompts_with_ids, get_hard_prompts_with_ids
+from human_eval.data import write_jsonl
 from llama_cpp import Llama
 from tqdm import tqdm
 
@@ -67,16 +13,18 @@ model = Llama(
 
 N_SAMPLES = 5
 samples = []
-for problem in tqdm(problems[2:]):
-    prompt = few_shots(instructions, examples, problem["prompt"])
+# prompts_ids = get_prompts_with_ids()
+prompts_ids = get_hard_prompts_with_ids()
+for prompt, task_id in tqdm(prompts_ids):
     # TODO: update to generate in parallel once https://github.com/abetlen/llama-cpp-python/pull/951 lands.
     for _ in tqdm(range(N_SAMPLES)):
-        output = model(prompt=prompt, max_tokens=80, temperature=0.2, stop=["```"])
+        output = model(prompt=prompt, max_tokens=256, temperature=0.2, stop=["```"])
         res = output["choices"][0]["text"]
-        item = dict(task_id=problem["task_id"], completion=res)
+        item = dict(task_id=task_id, completion=res)
         samples.append(item)
 
-write_jsonl("few_shot_baselines.jsonl", samples)
+# write_jsonl("few_shot_baselines.jsonl", samples)
+write_jsonl("few_shot_baselines_hard.jsonl", samples, append=True)
 
 # run this to get the pass@k metrics
 # evaluate_functional_correctness samples.jsonl
