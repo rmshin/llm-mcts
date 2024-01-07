@@ -70,9 +70,10 @@ def main():
         output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
         return output_probs.items()
 
-    # TODO: this will have to be updated using low-level llama-cpp-python APIs for
-    # beam width > 1. May consider switching to HF transformers library if overly
-    # complex, though this precludes the use of any quantised models
+    # TODO: update once https://github.com/abetlen/llama-cpp-python/pull/631 lands.
+    # Right now we perform a simple greedy search as long as beam_width = 1. If we want to
+    # support beam_width > 1 before the linked PR is complete we will have to be implement
+    # the function using the low-level llama-cpp-python APIs.
     def beam_search(curr_node):
         """
         Returns the full generation with both prompt + completion concatenated.
@@ -91,6 +92,13 @@ def main():
     def calculate_reward(prompt_idx, completion):
         stats = stats_execute(prompt_idx, completion)
         return stats["pass_rate"]
+
+    # check if a generated program exists for a given node state and return reward if found
+    def match_cached_programs(prefix):
+        for program, reward in program_dict.items():
+            if program.startswith(prefix):
+                return reward
+        return -1
 
     prompts = get_prompts()
     prompt_idx = 7  # select arbitrary problem from human_eval dataset
@@ -113,9 +121,13 @@ def main():
         curr_node._children = child_nodes
 
         # evaluation
-        generated_program = beam_search(curr_node)
-        completion = generated_program.replace(prompt, "")
-        reward = calculate_reward(prompt_idx, completion)
+        reward = match_cached_programs(curr_node.state)
+        # only run generation if node state not found in cached programs
+        if reward < 0:
+            generated_program = beam_search(curr_node)
+            completion = generated_program.replace(prompt, "")
+            reward = calculate_reward(prompt_idx, completion)
+            program_dict[generated_program] = reward
 
         # backprop
         curr_node.backprop(reward)

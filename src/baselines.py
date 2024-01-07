@@ -69,6 +69,7 @@ N_SAMPLES = 5
 samples = []
 for problem in tqdm(problems[2:]):
     prompt = few_shots(instructions, examples, problem["prompt"])
+    # TODO: update to generate in parallel once https://github.com/abetlen/llama-cpp-python/pull/951 lands.
     for _ in tqdm(range(N_SAMPLES)):
         output = model(prompt=prompt, max_tokens=80, temperature=0.2, stop=["```"])
         res = output["choices"][0]["text"]
