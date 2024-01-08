@@ -36,7 +36,8 @@ def main():
             self.p_ucb = 0  # last calculated p_ucb value
 
         def backprop(self, value):
-            if value > self.value:  # TODO: confirm whether this is correct
+            # only propagate if new reward is greater than current max
+            if value > self.value:
                 self.value = value
                 if self._parent is not None:
                     self._parent.backprop(value)
@@ -112,7 +113,7 @@ def main():
     prompts_ids = get_hard_prompts_with_ids()
     start = time.perf_counter()
     num_iter = 1
-    for prompt, task_id in prompts_ids[2:3]:
+    for prompt, task_id in prompts_ids:
         prompt_start = time.perf_counter()
         print(f"---- STARTING MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)}) ----")
         # cache of generated programs => rewards
@@ -166,12 +167,10 @@ def main():
                 mean_test_time=f"{(sum(test_times)/len(test_times)):.4f}s",
             ),
         )
-        write_jsonl("few_shot_mcts_hard.jsonl", [item], append=True)
-        print(
-            f"---- COMPLETED MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)-2}) ----"
-        )
+        write_jsonl("few_shot_mcts.jsonl", [item], append=True)
+        print(f"---- COMPLETED MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)}) ----")
         print(f"Eval time: {(end - prompt_start):.4f}s")
-        print(f"Mean test time: {sum(test_times)/len(test_times)}")
+        print(f"Mean test time: {(sum(test_times)/len(test_times)):.4f}s")
         num_iter += 1
 
     end = time.perf_counter()

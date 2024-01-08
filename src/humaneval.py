@@ -4,7 +4,6 @@ from human_eval.execution import check_correctness
 from human_eval.data import HUMAN_EVAL, stream_jsonl
 
 problems = list(stream_jsonl(HUMAN_EVAL))
-executor = ThreadPoolExecutor(max_workers=10)
 
 # fmt: off
 # list of task_ids that the baseline generated samples failed to solve even once
@@ -42,14 +41,15 @@ def stats_execute(task_id, completion, timeout=10):
     split_tests = task_id_split_tests_map[task_id]
     thread_problems = [{**problem, "test": test} for test in split_tests]
     results = []
-    for result in executor.map(
-        lambda tp: check_correctness(tp, completion, timeout), thread_problems
-    ):
-        results.append(result)
+    with ThreadPoolExecutor() as executor:
+        for result in executor.map(
+            lambda tp: check_correctness(tp, completion, timeout), thread_problems
+        ):
+            results.append(result["passed"])
 
     return {
         "task_id": task_id,
-        "pass_rate": sum([i["passed"] for i in results]) / len(results),
+        "pass_rate": sum(results) / len(results),
     }
 
 
