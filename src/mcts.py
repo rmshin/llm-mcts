@@ -112,13 +112,14 @@ def main():
     prompts_ids = get_hard_prompts_with_ids()
     start = time.perf_counter()
     num_iter = 1
-    for prompt, task_id in prompts_ids[2:]:
+    for prompt, task_id in prompts_ids[2:3]:
         prompt_start = time.perf_counter()
         print(f"---- STARTING MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)}) ----")
         # cache of generated programs => rewards
         program_dict = {}
         num_rollouts = max_rollouts
         root = Node("<PD>", log(1), prompt, None)
+        test_times = []
         for i in range(max_rollouts):
             curr_node = root
             curr_node.visits += 1
@@ -141,7 +142,10 @@ def main():
             if reward < 0:
                 generated_program = beam_search(curr_node)
                 completion = generated_program.replace(prompt, "")
+                test_start = time.perf_counter()
                 reward = calculate_reward(task_id, completion)
+                test_end = time.perf_counter()
+                test_times.append(test_end - test_start)
                 program_dict[generated_program] = reward
 
             # backprop
@@ -159,6 +163,7 @@ def main():
                 num_rollouts=num_rollouts,
                 num_generations=len(program_dict.keys()),
                 eval_time=f"{(end - prompt_start):.4f}s",
+                mean_test_time=f"{(sum(test_times)/len(test_times)):.4f}s",
             ),
         )
         write_jsonl("few_shot_mcts_hard.jsonl", [item], append=True)
@@ -166,6 +171,7 @@ def main():
             f"---- COMPLETED MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)-2}) ----"
         )
         print(f"Eval time: {(end - prompt_start):.4f}s")
+        print(f"Mean test time: {sum(test_times)/len(test_times)}")
         num_iter += 1
 
     end = time.perf_counter()

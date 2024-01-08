@@ -40,12 +40,11 @@ task_id_split_tests_map = {
 def stats_execute(task_id, completion, timeout=10):
     problem = task_id_problem_map[task_id]
     split_tests = task_id_split_tests_map[task_id]
-    _problem = problem.copy()
+    thread_problems = [{**problem, "test": test} for test in split_tests]
     results = []
-    for i in split_tests:
-        _problem["test"] = i
-        future = executor.submit(check_correctness, _problem, completion, timeout)
-        result = future.result()
+    for result in executor.map(
+        lambda tp: check_correctness(tp, completion, timeout), thread_problems
+    ):
         results.append(result)
 
     return {
