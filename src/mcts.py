@@ -1,10 +1,5 @@
 from visualise import render_graphviz_tree
-from humaneval import (
-    stats_execute,
-    get_hard_prompts_with_ids,
-    get_skip_prompts_with_ids,
-    STOP_SEQUENCES,
-)
+from humaneval import stats_execute, get_prompts_with_ids, STOP_SEQUENCES
 from human_eval.data import write_jsonl
 from llama_cpp import Llama
 from math import exp, log, inf, sqrt
@@ -115,7 +110,7 @@ def main():
                 reward = max_reward
         return best_program
 
-    prompts_ids = get_skip_prompts_with_ids()
+    prompts_ids = get_prompts_with_ids()
     start = time.perf_counter()
     num_iter = 1
     for prompt, task_id in prompts_ids:
@@ -172,7 +167,7 @@ def main():
                 mean_test_time=f"{(sum(test_times)/len(test_times)):.4f}s",
             ),
         )
-        write_jsonl("few_shot_mcts_skip.jsonl", [item], append=True)
+        write_jsonl("few_shot_mcts.jsonl", [item], append=True)
         print(f"---- COMPLETED MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)}) ----")
         print(f"Eval time: {(end - prompt_start):.4f}s")
         print(f"Mean test time: {(sum(test_times)/len(test_times)):.4f}s")

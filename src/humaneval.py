@@ -5,13 +5,6 @@ from human_eval.data import HUMAN_EVAL, stream_jsonl
 
 problems = list(stream_jsonl(HUMAN_EVAL))
 
-# fmt: off
-# list of task_ids that the baseline generated samples failed to solve even once
-HARD_PROBLEMS = ['HumanEval/33', 'HumanEval/26', 'HumanEval/103', 'HumanEval/108', 'HumanEval/115', 'HumanEval/119', 'HumanEval/125', 'HumanEval/126', 'HumanEval/127', 'HumanEval/128', 'HumanEval/129', 'HumanEval/130', 'HumanEval/132', 'HumanEval/134', 'HumanEval/137', 'HumanEval/138', 'HumanEval/140', 'HumanEval/141', 'HumanEval/142', 'HumanEval/144', 'HumanEval/145', 'HumanEval/147', 'HumanEval/151', 'HumanEval/160', 'HumanEval/163', 'HumanEval/46', 'HumanEval/54', 'HumanEval/67', 'HumanEval/68', 'HumanEval/83', 'HumanEval/85', 'HumanEval/91', 'HumanEval/93', 'HumanEval/95', 'HumanEval/97']
-# TEMP: list of task_ids that are to be skipped due to added complexity in measuring pass-rate
-# might re-visit these again at a later point if necessary
-SKIP_PROBLEM_IDS = ['HumanEval/32', 'HumanEval/38', 'HumanEval/44', 'HumanEval/50', 'HumanEval/53', 'HumanEval/87', 'HumanEval/113', 'HumanEval/151']
-# fmt: on
 STOP_SEQUENCES = ["```"]
 
 
@@ -117,24 +110,5 @@ def get_prompts_with_ids():
     prompts_with_ids = [
         (few_shot_prompt(instructions, examples, problem["prompt"]), problem["task_id"])
         for problem in problems[2:]
-    ]
-    return prompts_with_ids
-
-
-def get_skip_prompts_with_ids():
-    prompts_with_ids = [
-        (few_shot_prompt(instructions, examples, problem["prompt"]), problem["task_id"])
-        for problem in problems[2:]
-        if problem["task_id"] in SKIP_PROBLEM_IDS
-    ]
-    return prompts_with_ids
-
-
-def get_hard_prompts_with_ids():
-    prompts_with_ids = [
-        (few_shot_prompt(instructions, examples, problem["prompt"]), problem["task_id"])
-        for problem in problems[2:]
-        if problem["task_id"] in HARD_PROBLEMS
-        and problem["task_id"] not in SKIP_PROBLEM_IDS
     ]
     return prompts_with_ids
