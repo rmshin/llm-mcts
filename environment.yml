@@ -9,8 +9,11 @@ dependencies:
   # ml libs
   - numpy
   - pytorch
-  - transformers
   - llama-cpp-python
   - outlines
+  - einops
+  # HF libs
+  - transformers
+  - accelerate
   # graph libs
   - python-graphviz
