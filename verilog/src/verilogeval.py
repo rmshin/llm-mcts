@@ -1,6 +1,6 @@
 import outlines
 from concurrent.futures import ThreadPoolExecutor
-# from human_eval.execution import check_correctness
+from interpreter import evaluate_code
 from verilog_eval.data import read_problems
 from verilog_eval.data import VERILOG_EVAL_HUMAN, HUMAN_DESCRIPTIONS
 
@@ -9,26 +9,31 @@ descriptions = read_problems(HUMAN_DESCRIPTIONS)
 for task_id, item in descriptions.items():
     problems[task_id]['description'] = item['detail_description']
 
+task_id_problem_map = problems.copy()
+
 problems = list(problems.values())
 
 STOP_SEQUENCES = ["```"]
 
 
-# def stats_execute(task_id, completion, timeout=10):
-#     problem = task_id_problem_map[task_id]
-#     split_tests = task_id_split_tests_map[task_id]
-#     thread_problems = [{**problem, "test": test} for test in split_tests]
-#     results = []
-#     with ThreadPoolExecutor() as executor:
-#         for result in executor.map(
-#             lambda tp: check_correctness(tp, completion, timeout), thread_problems
-#         ):
-#             results.append(result["passed"])
+def stats_execute(task_id, completion, timeout=10):
+    problem = task_id_problem_map[task_id]
+    res = evaluate_code(task_id, completion, problem)
+    return {
+        "task_id": task_id,
+        "pass_rate": res['pass_rate']
+    }
+    # results = []
+    # with ThreadPoolExecutor() as executor:
+    #     for result in executor.map(
+    #         lambda tp: check_correctness(tp, completion, timeout), thread_problems
+    #     ):
+    #         results.append(result["passed"])
 
-#     return {
-#         "task_id": task_id,
-#         "pass_rate": sum(results) / len(results),
-#     }
+    # return {
+    #     "task_id": task_id,
+    #     "pass_rate": sum(results) / len(results),
+    # }
 
 
 @outlines.prompt
