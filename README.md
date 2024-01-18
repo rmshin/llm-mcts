@@ -17,7 +17,7 @@ We use a modified human-eval dataset/enviroment from https://github.com/arunpatr
 
 ```sh
 git clone https://github.com/arunpatro/human-eval
-pip install -e human-eval
+cd human-eval && pip install -e .
 ```
 
 Checkout the `nbs/humaneval.ipynb` for a demo.
@@ -28,13 +28,13 @@ Checkout the `nbs/humaneval.ipynb` for a demo.
 PYTHONPATH="./human-eval" python src/mcts.py
 ```
 
-
 ### Setup Verilog-Eval
 
 We use a modified verilog-eval dataset/enviroment from https://github.com/arunpatro/verilog-eval. This fork contains updated code for python-3.10 and also extends the error feedback to include the traceback, vcdcat for further waveform analysis.
 
 ```sh
 git clone https://github.com/arunpatro/verilog-eval
-cd verilog-eval; pip install -e .
+cd verilog-eval && pip install -e .
+git clone https://github.com/cirosantilli/vcdvcd
+cd vcdvcd && pip install -e .
 ```
-
