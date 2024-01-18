@@ -171,9 +171,11 @@ def main():
         print(f"---- COMPLETED MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)}) ----")
         print(f"Eval time: {(end - prompt_start):.4f}s")
         print(f"Mean test time: {(sum(test_times)/len(test_times)):.4f}s")
+        print(f"Stats: {item['stats']}")
         num_iter += 1
-        # render_graphviz_tree(root)
-        # break
+        render_graphviz_tree(
+            root, filename=f"svgviz/tree_{task_id.replace('/', '_')}", view=False
+        )
 
     end = time.perf_counter()
     print(f"Total elapsed time: {(end - start):.4f}s\n")

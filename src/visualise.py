@@ -44,6 +44,6 @@ def draw_graphviz_dot(root):
     return dot
 
 
-def render_graphviz_tree(root, filename="tree"):
+def render_graphviz_tree(root, filename="tree", view=True):
     dot = draw_graphviz_dot(root)
-    dot.render(filename=filename, view=True)
+    dot.render(filename=filename, view=view)
