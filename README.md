@@ -38,3 +38,12 @@ cd verilog-eval && pip install -e .
 git clone https://github.com/cirosantilli/vcdvcd
 cd vcdvcd && pip install -e .
 ```
+
+### Setup Icarus Verilog
+
+Executing tests from the verilog-eval dataset requires a local installation of [iverilog](https://github.com/steveicarus/iverilog). You'll need to follow the relevant [installation steps](https://github.com/steveicarus/iverilog#buildinginstalling-icarus-verilog-from-source) to get it setup. Once this is done, run the following to verify everything is working correctly:
+
+```sh
+iverilog -V
+vvp -V
+```
