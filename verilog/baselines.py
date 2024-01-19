@@ -4,7 +4,7 @@ from llama_cpp import Llama
 from tqdm import tqdm
 
 model = Llama(
-    model_path="../deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
+    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
     n_gpu_layers=-1,
     n_ctx=2048,
     n_batch=256,
