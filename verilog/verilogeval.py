@@ -21,7 +21,7 @@ def stats_execute(task_id, completion, timeout=10):
     res = evaluate_code(task_id, completion, problem)
     return {
         "task_id": task_id,
-        "pass_rate": res['pass_rate']
+        "pass_rate": res.pass_rate
     }
     # results = []
     # with ThreadPoolExecutor() as executor:
