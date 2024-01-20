@@ -1,12 +1,24 @@
 from visualise import render_graphviz_tree
-from humaneval import stats_execute, get_prompts_with_ids, STOP_SEQUENCES
-from human_eval.data import write_jsonl
 from llama_cpp import Llama
 from math import exp, log, inf, sqrt
-import time
+import time, sys
 
 
 def main():
+    outfile_prefix = ""
+    if (len(sys.argv) == 2) and sys.argv[1] == "verilog":
+        from verilogeval import (
+            stats_execute,
+            get_prompts_with_ids,
+            STOP_SEQUENCES,
+        )
+        from verilog_eval.data import write_jsonl
+
+        outfile_prefix = "verilog_"
+    else:
+        from humaneval import stats_execute, get_prompts_with_ids, STOP_SEQUENCES
+        from human_eval.data import write_jsonl
+
     model = Llama(
         model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
         n_gpu_layers=-1,
@@ -167,7 +179,7 @@ def main():
                 mean_test_time=f"{(sum(test_times)/len(test_times)):.4f}s",
             ),
         )
-        write_jsonl("few_shot_mcts.jsonl", [item], append=True)
+        write_jsonl(f"{outfile_prefix}few_shot_mcts.jsonl", [item], append=True)
         print(f"---- COMPLETED MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)}) ----")
         print(f"Eval time: {(end - prompt_start):.4f}s")
         print(f"Mean test time: {(sum(test_times)/len(test_times)):.4f}s")

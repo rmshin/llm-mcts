@@ -2,6 +2,17 @@ from humaneval import get_prompts_with_ids
 from human_eval.data import write_jsonl
 from llama_cpp import Llama
 from tqdm import tqdm
+import sys
+
+outfile_prefix = ""
+if (len(sys.argv) == 2) and sys.argv[1] == "verilog":
+    from verilogeval import get_prompts_with_ids
+    from verilog_eval.data import write_jsonl
+
+    outfile_prefix = "verilog_"
+else:
+    from humaneval import get_prompts_with_ids
+    from human_eval.data import write_jsonl
 
 model = Llama(
     model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
@@ -23,7 +34,9 @@ for prompt, task_id in tqdm(prompts_ids):
         res = output["choices"][0]["text"]
         item = dict(task_id=task_id, completion=res)
         samples.append(item)
-    write_jsonl("few_shot_baselines_256_top_3.jsonl", samples, append=True)
+    write_jsonl(
+        f"{outfile_prefix}few_shot_baselines_256_top_3.jsonl", samples, append=True
+    )
 
 # run this to get the pass@k metrics
 # evaluate_functional_correctness samples.jsonl

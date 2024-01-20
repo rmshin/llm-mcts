@@ -25,7 +25,7 @@ Checkout the `nbs/humaneval.ipynb` for a demo.
 ### Running MCTS code generation
 
 ```sh
-PYTHONPATH="./human-eval" python src/mcts.py
+python src/mcts.py
 ```
 
 ### Setup Verilog-Eval
@@ -46,4 +46,16 @@ Executing tests from the verilog-eval dataset requires a local installation of [
 ```sh
 iverilog -V
 vvp -V
+```
+
+### Running baselines for Verilog
+
+```sh
+PYTHONPATH="./verilog" python src/baselines.py verilog
+```
+
+### Running MCTS for Verilog
+
+```sh
+PYTHONPATH="./verilog" python src/mcts.py verilog
 ```

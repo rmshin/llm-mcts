@@ -89,7 +89,7 @@ def evaluate_code(task_id, completion, problem) -> VerilogExecution:
             df_err = process_vcd(f"{directory}/wave.vcd")
         else:
             df_err = None
-            
+
         if status == VerilogStatus.SUCCESS:
             pass_rate = 1.0
         elif status == VerilogStatus.RUNTIME_ERROR:
