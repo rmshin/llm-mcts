@@ -1,5 +1,5 @@
 from datetime import datetime
-import os
+import os, shutil
 from typing import Optional, Dict, Any
 import subprocess
 import re
@@ -107,6 +107,10 @@ def evaluate_code(task_id, completion, problem) -> VerilogExecution:
             df_err=df_err,
             code=completion,
         )
+
+        # Cleanup /tmp directory
+        shutil.rmtree(directory)
+
         return out
     except Exception as e:
         # Handle exceptions
