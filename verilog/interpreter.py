@@ -58,14 +58,21 @@ def evaluate_code(task_id, completion, problem) -> VerilogExecution:
     # Prepare the compilation and simulation commands
     compile_cmd = f"iverilog -Wall -Winfloop -Wno-timescale -g2012 -s tb -o {task_id}.vvp {task_id}.sv"
     simulation_cmd = f"vvp -n {task_id}.vvp"
-    full_cmd = f"cd {directory} && {compile_cmd} && {simulation_cmd}"
+    # HACK: use trap to terminate hanging vvp process upon python subprocess timeout,
+    # otherwise simply killing the subprocess won't cleanup the child and overload cpu
+    full_cmd = f"trap 'kill -TERM $child_pid' SIGINT; cd {directory} && {compile_cmd}; {simulation_cmd} & child_pid=$!; wait $child_pid"
 
     try:
         # Execute the commands and capture the output
         process = subprocess.Popen(
             full_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
-        stdout, stderr = process.communicate()
+        try:
+            stdout, stderr = process.communicate(timeout=10)
+        except subprocess.TimeoutExpired:
+            process.send_signal(2)
+            stdout, stderr = process.communicate()
+            status = VerilogStatus.TIMEOUT
 
         # Decode the outputs from byte to string
         stdout = stdout.decode("utf-8")
@@ -77,12 +84,12 @@ def evaluate_code(task_id, completion, problem) -> VerilogExecution:
         elif len(stderr.strip()) > 0:
             status = VerilogStatus.COMPILE_ERROR
         elif match:
-            cor, tot = [int(i) for i in match.groups()]
-            if cor == 0:
+            incor, tot = [int(i) for i in match.groups()]
+            if incor == 0:
                 status = VerilogStatus.SUCCESS
             else:
                 status = VerilogStatus.RUNTIME_ERROR
-        else:
+        elif status != VerilogStatus.TIMEOUT:
             raise ValueError("Unexpected error")
 
         if os.path.exists(f"{directory}/wave.vcd"):
@@ -93,7 +100,7 @@ def evaluate_code(task_id, completion, problem) -> VerilogExecution:
         if status == VerilogStatus.SUCCESS:
             pass_rate = 1.0
         elif status == VerilogStatus.RUNTIME_ERROR:
-            pass_rate = 1.0 - cor / tot
+            pass_rate = 1.0 - incor / tot
         elif status == VerilogStatus.COMPILE_ERROR:
             pass_rate = -0.2
         elif status == VerilogStatus.SYNTAX_ERROR:
@@ -112,10 +119,10 @@ def evaluate_code(task_id, completion, problem) -> VerilogExecution:
             code=completion,
         )
 
-        # Cleanup /tmp directory
-        shutil.rmtree(directory)
-
         return out
     except Exception as e:
         # Handle exceptions
         raise ValueError(f"Error while executing the code: {e}")
+    finally:
+        # Cleanup /tmp directory
+        shutil.rmtree(directory)

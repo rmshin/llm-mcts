@@ -22,8 +22,8 @@ def main():
     model = Llama(
         model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
         n_gpu_layers=-1,
-        n_ctx=2048,
-        n_batch=256,
+        n_ctx=4096,
+        n_batch=1024,
         n_threads=10,
         logits_all=True,
     )
@@ -152,7 +152,7 @@ def main():
             # evaluation
             reward = match_cached_programs(curr_node.state, program_dict)
             # only run generation if node state not found in cached programs
-            if reward < 0:
+            if reward == -1:
                 generated_program = beam_search(curr_node)
                 completion = generated_program.replace(prompt, "")
                 test_start = time.perf_counter()
@@ -165,7 +165,7 @@ def main():
             curr_node.backprop(reward)
 
             if reward == 1:
-                num_rollouts = i
+                num_rollouts = i + 1
                 break
         best_completion = get_best_program(program_dict).replace(prompt, "")
         end = time.perf_counter()
