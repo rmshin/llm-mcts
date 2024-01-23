@@ -1,0 +1,10 @@
+digraph {
+	graph [rankdir=TB]
+	17543736592 [label="{ 3 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0031 }" shape=record]
+	6086211664 [label="{ 0 | '\<PD\>' | value 1.0000 | p_ucb 0.0000 | visits 1 | prob 1.0000 }" shape=record]
+	17543739088 [label="{ 2 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0045 }" shape=record]
+	6294436560 [label="{ 1 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9914 }" shape=record]
+	6086211664 -> 6294436560
+	6086211664 -> 17543736592
+	6086211664 -> 17543739088
+}

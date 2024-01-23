@@ -1,0 +1,772 @@
+digraph {
+	graph [rankdir=TB]
+	6097464592 [label="{ 127 | ');' | value 0.0000 | p_ucb 0.0094 | visits 0 | prob 0.0015 }" shape=record]
+	6097148944 [label="{ 302 | ' ' | value 0.0000 | p_ucb 0.0860 | visits 0 | prob 0.0189 }" shape=record]
+	6108125968 [label="{ 329 | ' (' | value 0.0000 | p_ucb 0.0118 | visits 0 | prob 0.0014 }" shape=record]
+	6107032592 [label="{ 349 | '2' | value 0.7931 | p_ucb 2.8052 | visits 2 | prob 0.8854 }" shape=record]
+	6107989648 [label="{ 79 | '|' | value 0.0000 | p_ucb 0.0014 | visits 0 | prob 0.0002 }" shape=record]
+	5950465424 [label="{ 371 | 'wire' | value 0.0000 | p_ucb 0.0236 | visits 0 | prob 0.0016 }" shape=record]
+	5982856720 [label="{ 94 | ' &' | value 0.9310 | p_ucb 1.2917 | visits 21 | prob 0.8577 }" shape=record]
+	6107813200 [label="{ 159 | ' |' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9741 }" shape=record]
+	6143509136 [label="{ 263 | ' (' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0011 }" shape=record]
+	6098499152 [label="{ 145 | '1' | value 0.0000 | p_ucb 0.1163 | visits 0 | prob 0.0143 }" shape=record]
+	6097460688 [label="{ 116 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0041 }" shape=record]
+	6107441936 [label="{ 30 | ' |' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0014 }" shape=record]
+	6108114128 [label="{ 20 | '2' | value 0.9310 | p_ucb 1.3968 | visits 12 | prob 0.6491 }" shape=record]
+	6064907664 [label="{ 345 | ' ((' | value 0.0000 | p_ucb 0.0983 | visits 0 | prob 0.0105 }" shape=record]
+	6097132752 [label="{ 19 | 'x' | value 0.9310 | p_ucb 1.3727 | visits 18 | prob 0.9086 }" shape=record]
+	6097899344 [label="{ 330 | '?' | value 0.0000 | p_ucb 0.0145 | visits 0 | prob 0.0017 }" shape=record]
+	6107788752 [label="{ 284 | \"'\" | value 0.8621 | p_ucb 1.4395 | visits 13 | prob 0.9398 }" shape=record]
+	5990590992 [label="{ 342 | ' x' | value 0.0000 | p_ucb 0.1868 | visits 0 | prob 0.0202 }" shape=record]
+	6096991376 [label="{ 5 | ' =' | value 0.9310 | p_ucb 1.0462 | visits 120 | prob 0.9587 }" shape=record]
+	17467492112 [label="{ 169 | ' ~' | value 0.8621 | p_ucb 1.6411 | visits 8 | prob 0.8959 }" shape=record]
+	6108131408 [label="{ 328 | ' x' | value 0.0000 | p_ucb 0.0622 | visits 0 | prob 0.0075 }" shape=record]
+	6090547536 [label="{ 294 | ' :' | value 0.8621 | p_ucb 2.5901 | visits 3 | prob 0.9994 }" shape=record]
+	5982853584 [label="{ 16 | '))' | value 0.9310 | p_ucb 1.3477 | visits 21 | prob 0.9583 }" shape=record]
+	5968109264 [label="{ 9 | ' &' | value 0.9310 | p_ucb 1.0796 | visits 64 | prob 0.7575 }" shape=record]
+	5982847952 [label="{ 202 | '&' | value 0.8621 | p_ucb 1.0477 | visits 5 | prob 0.0887 }" shape=record]
+	17467602768 [label="{ 378 | 'wire' | value 0.0000 | p_ucb 0.0079 | visits 0 | prob 0.0022 }" shape=record]
+	6097155472 [label="{ 72 | ' ^' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6107288016 [label="{ 150 | ' ' | value 0.0000 | p_ucb 0.0908 | visits 0 | prob 0.0105 }" shape=record]
+	6108048016 [label="{ 300 | ' x' | value 0.0000 | p_ucb 0.0014 | visits 0 | prob 0.0004 }" shape=record]
+	6107747408 [label="{ 170 | 'x' | value 0.8621 | p_ucb 1.8182 | visits 7 | prob 0.9999 }" shape=record]
+	6107556112 [label="{ 363 | '1' | value 0.0000 | p_ucb 0.9639 | visits 0 | prob 0.0957 }" shape=record]
+	6173122640 [label="{ 278 | ' (' | value 0.8621 | p_ucb 1.2960 | visits 19 | prob 0.9283 }" shape=record]
+	6098494032 [label="{ 144 | '2' | value 0.0000 | p_ucb 0.3874 | visits 0 | prob 0.0475 }" shape=record]
+	6097460816 [label="{ 246 | ' (' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0004 }" shape=record]
+	6098162512 [label="{ 190 | '2' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	17467311056 [label="{ 178 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0066 }" shape=record]
+	6108602448 [label="{ 81 | '));' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0001 }" shape=record]
+	6097089232 [label="{ 147 | ' x' | value 0.0000 | p_ucb 0.0032 | visits 0 | prob 0.0004 }" shape=record]
+	6073385360 [label="{ 114 | 'x' | value 0.8621 | p_ucb 3.5486 | visits 1 | prob 1.0000 }" shape=record]
+	6143511312 [label="{ 262 | ' x' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0079 }" shape=record]
+	6097901328 [label="{ 338 | ' &' | value 0.0000 | p_ucb 0.0039 | visits 0 | prob 0.0004 }" shape=record]
+	6107749584 [label="{ 193 | '(' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6146491024 [label="{ 377 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
+	6064909904 [label="{ 104 | 'x' | value 0.8621 | p_ucb 1.5544 | visits 11 | prob 0.9997 }" shape=record]
+	6097465424 [label="{ 128 | '2' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6096993936 [label="{ 204 | 'x' | value 0.8621 | p_ucb 2.5902 | visits 3 | prob 0.9995 }" shape=record]
+	6097504080 [label="{ 257 | '~' | value 0.0690 | p_ucb 0.8579 | visits 4 | prob 0.2963 }" shape=record]
+	6108744656 [label="{ 164 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6107506320 [label="{ 88 | '1' | value 0.0000 | p_ucb 0.3986 | visits 0 | prob 0.0416 }" shape=record]
+	6172976848 [label="{ 40 | ' &' | value 0.8621 | p_ucb 1.5679 | visits 3 | prob 0.3044 }" shape=record]
+	6107678800 [label="{ 234 | ' ^' | value 0.0000 | p_ucb 0.1074 | visits 0 | prob 0.0207 }" shape=record]
+	17467317904 [label="{ 76 | ' ((' | value 0.0000 | p_ucb 0.8262 | visits 0 | prob 0.0930 }" shape=record]
+	6108502736 [label="{ 306 | ' )' | value 0.0000 | p_ucb 0.0090 | visits 0 | prob 0.0016 }" shape=record]
+	17466988176 [label="{ 141 | ' (' | value 0.0000 | p_ucb 0.1697 | visits 0 | prob 0.0217 }" shape=record]
+	6097387792 [label="{ 369 | ' ' | value 0.0000 | p_ucb 0.0019 | visits 0 | prob 0.0001 }" shape=record]
+	6097734544 [label="{ 254 | ' &&' | value 0.0000 | p_ucb 0.9627 | visits 0 | prob 0.1264 }" shape=record]
+	17467103568 [label="{ 156 | ' ~' | value 0.0000 | p_ucb 0.7297 | visits 0 | prob 0.0810 }" shape=record]
+	6098166096 [label="{ 153 | ' &' | value 0.0000 | p_ucb 0.0083 | visits 0 | prob 0.0010 }" shape=record]
+	6097900240 [label="{ 90 | '~' | value 0.0000 | p_ucb 0.4355 | visits 0 | prob 0.0450 }" shape=record]
+	6107445072 [label="{ 29 | ' &' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9979 }" shape=record]
+	6098163536 [label="{ 191 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6173130256 [label="{ 336 | ' x' | value 0.0000 | p_ucb 0.3940 | visits 0 | prob 0.0444 }" shape=record]
+	6107784272 [label="{ 67 | ' x' | value 0.0000 | p_ucb 0.0009 | visits 0 | prob 0.0002 }" shape=record]
+	6146501008 [label="{ 375 | ' f' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9997 }" shape=record]
+	6108403792 [label="{ 154 | '2' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0001 }" shape=record]
+	6107287376 [label="{ 151 | '\\n' | value 0.0000 | p_ucb 0.0328 | visits 0 | prob 0.0038 }" shape=record]
+	6064846288 [label="{ 240 | ' ~' | value 0.8966 | p_ucb 1.4775 | visits 4 | prob 0.3134 }" shape=record]
+	6173262224 [label="{ 230 | '~' | value 0.0000 | p_ucb 0.3275 | visits 0 | prob 0.0923 }" shape=record]
+	6097455824 [label="{ 117 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0005 }" shape=record]
+	6107022480 [label="{ 188 | ' &' | value 0.0000 | p_ucb 0.0257 | visits 0 | prob 0.0042 }" shape=record]
+	6097130576 [label="{ 75 | ' x' | value 0.0000 | p_ucb 0.0025 | visits 0 | prob 0.0003 }" shape=record]
+	6097387856 [label="{ 105 | '2' | value 0.8621 | p_ucb 1.6031 | visits 10 | prob 0.9994 }" shape=record]
+	6107866832 [label="{ 53 | ' ~' | value 0.0000 | p_ucb 0.1835 | visits 0 | prob 0.0247 }" shape=record]
+	6108104400 [label="{ 238 | '3' | value 0.0000 | p_ucb 0.0924 | visits 0 | prob 0.0152 }" shape=record]
+	6088897744 [label="{ 343 | '~' | value 0.0000 | p_ucb 0.0163 | visits 0 | prob 0.0018 }" shape=record]
+	6107026448 [label="{ 289 | '1' | value 0.8621 | p_ucb 1.7316 | visits 8 | prob 0.9999 }" shape=record]
+	17467002640 [label="{ 319 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6097136848 [label="{ 208 | 'x' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0200 }" shape=record]
+	6108997648 [label="{ 199 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5982855376 [label="{ 286 | '1' | value 0.8621 | p_ucb 1.5467 | visits 11 | prob 0.9886 }" shape=record]
+	6108111248 [label="{ 239 | '0' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6108751376 [label="{ 187 | ' | ' | value 0.0000 | p_ucb 0.0089 | visits 0 | prob 0.0016 }" shape=record]
+	6097970064 [label="{ 253 | ' (' | value 0.0000 | p_ucb 1.3478 | visits 0 | prob 0.1818 }" shape=record]
+	6107220368 [label="{ 334 | ' x' | value 0.0000 | p_ucb 0.0431 | visits 0 | prob 0.0049 }" shape=record]
+	6107818896 [label="{ 241 | 'x' | value 0.8966 | p_ucb 2.6232 | visits 3 | prob 0.9986 }" shape=record]
+	6141357648 [label="{ 131 | '(' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6140583056 [label="{ 180 | ' x' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	17467176656 [label="{ 365 | ' ((' | value 0.0000 | p_ucb 0.6042 | visits 0 | prob 0.0420 }" shape=record]
+	6107500944 [label="{ 12 | '2' | value 0.9310 | p_ucb 1.2984 | visits 25 | prob 0.9584 }" shape=record]
+	6107232976 [label="{ 120 | 'x' | value 0.0000 | p_ucb 0.0720 | visits 0 | prob 0.0158 }" shape=record]
+	6107756560 [label="{ 290 | \"'\" | value 0.8621 | p_ucb 1.8183 | visits 7 | prob 1.0000 }" shape=record]
+	6096927696 [label="{ 259 | '3' | value 0.0690 | p_ucb 2.2688 | visits 2 | prob 0.9680 }" shape=record]
+	6107683344 [label="{ 360 | ' x' | value 0.0000 | p_ucb 1.1598 | visits 0 | prob 0.2045 }" shape=record]
+	6098492944 [label="{ 101 | '3' | value 0.8621 | p_ucb 1.4086 | visits 14 | prob 0.9382 }" shape=record]
+	17467326352 [label="{ 77 | ' (!' | value 0.0000 | p_ucb 0.3396 | visits 0 | prob 0.0382 }" shape=record]
+	6107286416 [label="{ 249 | '3' | value 0.0000 | p_ucb 0.0551 | visits 0 | prob 0.0121 }" shape=record]
+	6108097936 [label="{ 14 | ' x' | value 0.9310 | p_ucb 1.3165 | visits 23 | prob 0.9468 }" shape=record]
+	6097906128 [label="{ 165 | ' ~' | value 0.8621 | p_ucb 1.0894 | visits 12 | prob 0.2409 }" shape=record]
+	5982856464 [label="{ 168 | ' &' | value 0.8621 | p_ucb 1.6612 | visits 9 | prob 0.9995 }" shape=record]
+	6107496656 [label="{ 89 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6098173200 [label="{ 152 | ' )' | value 0.0000 | p_ucb 0.0084 | visits 0 | prob 0.0010 }" shape=record]
+	6097454096 [label="{ 245 | ' x' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1526 }" shape=record]
+	6107555536 [label="{ 272 | '3' | value 0.8621 | p_ucb 1.1585 | visits 30 | prob 0.8829 }" shape=record]
+	6097463568 [label="{ 129 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6097965520 [label="{ 327 | '2' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	17467418320 [label="{ 62 | ' &' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.6569 }" shape=record]
+	6108805840 [label="{ 39 | ' ;' | value 0.0000 | p_ucb 0.0039 | visits 0 | prob 0.0007 }" shape=record]
+	17467722256 [label="{ 248 | ' |' | value 0.0000 | p_ucb 0.0005 | visits 0 | prob 0.0001 }" shape=record]
+	6091248848 [label="{ 224 | ' |' | value 0.8621 | p_ucb 2.5512 | visits 3 | prob 0.9770 }" shape=record]
+	6107861008 [label="{ 22 | ' x' | value 0.9310 | p_ucb 1.6520 | visits 10 | prob 0.9723 }" shape=record]
+	6096994256 [label="{ 0 | '\<PD\>' | value 0.9310 | p_ucb 0.0000 | visits 128 | prob 1.0000 }" shape=record]
+	6064908240 [label="{ 368 | '\\tf' | value 0.0000 | p_ucb 0.0048 | visits 0 | prob 0.0003 }" shape=record]
+	6097463824 [label="{ 115 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9954 }" shape=record]
+	6172972624 [label="{ 50 | ');' | value 0.0000 | p_ucb 1.5410 | visits 0 | prob 0.2215 }" shape=record]
+	17467492176 [label="{ 194 | ' x' | value 0.0000 | p_ucb 0.7235 | visits 0 | prob 0.1040 }" shape=record]
+	6097510800 [label="{ 270 | '((' | value 0.0000 | p_ucb 0.2468 | visits 0 | prob 0.0185 }" shape=record]
+	6107767376 [label="{ 311 | 'd' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6090082192 [label="{ 271 | ' x' | value 0.8621 | p_ucb 1.0226 | visits 31 | prob 0.3573 }" shape=record]
+	6097914128 [label="{ 217 | 'x' | value 0.0000 | p_ucb 0.9875 | visits 0 | prob 0.1741 }" shape=record]
+	6107291152 [label="{ 242 | '2' | value 0.8966 | p_ucb 3.1415 | visits 2 | prob 0.9878 }" shape=record]
+	6097976720 [label="{ 32 | '3' | value 0.0000 | p_ucb 0.9301 | visits 0 | prob 0.2621 }" shape=record]
+	6107032016 [label="{ 189 | ' )' | value 0.0000 | p_ucb 0.0077 | visits 0 | prob 0.0013 }" shape=record]
+	5982827152 [label="{ 277 | ' ?' | value 0.8621 | p_ucb 1.3121 | visits 20 | prob 0.9990 }" shape=record]
+	5982858064 [label="{ 97 | ')' | value 0.8621 | p_ucb 1.3469 | visits 18 | prob 0.9975 }" shape=record]
+	6108103184 [label="{ 57 | '1' | value 0.8276 | p_ucb 1.3291 | visits 5 | prob 0.3495 }" shape=record]
+	6107549520 [label="{ 83 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6097908240 [label="{ 91 | ' x' | value 0.0000 | p_ucb 0.0175 | visits 0 | prob 0.0018 }" shape=record]
+	17467693008 [label="{ 162 | \"'\" | value 0.0000 | p_ucb 0.0026 | visits 0 | prob 0.0003 }" shape=record]
+	5992000144 [label="{ 93 | '2' | value 0.9310 | p_ucb 1.2827 | visits 23 | prob 0.8636 }" shape=record]
+	17467437072 [label="{ 125 | '|' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0001 }" shape=record]
+	6107433616 [label="{ 31 | ');' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0004 }" shape=record]
+	6097900752 [label="{ 331 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	17467370128 [label="{ 36 | ' x' | value 0.0000 | p_ucb 1.1958 | visits 0 | prob 0.2305 }" shape=record]
+	6108755728 [label="{ 186 | ' ' | value 0.0000 | p_ucb 0.0112 | visits 0 | prob 0.0020 }" shape=record]
+	6107684176 [label="{ 235 | '|' | value 0.0000 | p_ucb 0.0042 | visits 0 | prob 0.0008 }" shape=record]
+	6108929296 [label="{ 49 | ' (' | value 0.0000 | p_ucb 0.1575 | visits 0 | prob 0.0347 }" shape=record]
+	6098294288 [label="{ 183 | ' ~' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0001 }" shape=record]
+	5982852752 [label="{ 275 | 'x' | value 0.8621 | p_ucb 1.2728 | visits 22 | prob 0.9768 }" shape=record]
+	6080699216 [label="{ 384 | '\\t' | value 0.0000 | p_ucb 0.0251 | visits 0 | prob 0.0017 }" shape=record]
+	6107024208 [label="{ 357 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6108045648 [label="{ 232 | ' (!' | value 0.0000 | p_ucb 0.2497 | visits 0 | prob 0.0549 }" shape=record]
+	6097141456 [label="{ 70 | ' (' | value 0.0000 | p_ucb 0.0900 | visits 0 | prob 0.0173 }" shape=record]
+	6088896016 [label="{ 372 | '\\n' | value 0.0690 | p_ucb 0.9969 | visits 3 | prob 0.2546 }" shape=record]
+	6143519248 [label="{ 261 | ' ~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9908 }" shape=record]
+	6141401104 [label="{ 237 | ' |' | value 0.0000 | p_ucb 0.0122 | visits 0 | prob 0.0021 }" shape=record]
+	6097939280 [label="{ 265 | ')&' | value 0.0000 | p_ucb 0.0023 | visits 0 | prob 0.0006 }" shape=record]
+	5982858704 [label="{ 295 | ' (' | value 0.8621 | p_ucb 3.0862 | visits 2 | prob 0.9787 }" shape=record]
+	6097453328 [label="{ 47 | '2' | value 0.0000 | p_ucb 0.0018 | visits 0 | prob 0.0005 }" shape=record]
+	6107030224 [label="{ 356 | '1' | value 0.0000 | p_ucb 0.5210 | visits 0 | prob 0.1146 }" shape=record]
+	17467337168 [label="{ 299 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6097934032 [label="{ 264 | '&' | value 0.0000 | p_ucb 0.1413 | visits 0 | prob 0.0398 }" shape=record]
+	6108277520 [label="{ 350 | ' &' | value 0.7931 | p_ucb 2.1958 | visits 1 | prob 0.6188 }" shape=record]
+	6097455056 [label="{ 110 | ')' | value 0.8621 | p_ucb 2.0669 | visits 5 | prob 0.9934 }" shape=record]
+	6088896400 [label="{ 59 | ' ~' | value 0.8276 | p_ucb 2.4034 | visits 3 | prob 0.9114 }" shape=record]
+	6108903760 [label="{ 196 | ')' | value 0.0000 | p_ucb 0.0032 | visits 0 | prob 0.0005 }" shape=record]
+	6097389968 [label="{ 214 | '(' | value 0.0000 | p_ucb 0.0026 | visits 0 | prob 0.0005 }" shape=record]
+	6097813968 [label="{ 280 | '1' | value 0.8621 | p_ucb 1.3686 | visits 17 | prob 1.0000 }" shape=record]
+	6108119760 [label="{ 102 | ' &' | value 0.8621 | p_ucb 1.4573 | visits 13 | prob 0.9689 }" shape=record]
+	6108678544 [label="{ 23 | '1' | value 0.9310 | p_ucb 1.7284 | visits 9 | prob 0.9974 }" shape=record]
+	17466991440 [label="{ 148 | ' (!' | value 0.0000 | p_ucb 0.6301 | visits 0 | prob 0.0744 }" shape=record]
+	6107692560 [label="{ 347 | ' (' | value 0.8621 | p_ucb 1.9295 | visits 4 | prob 0.7529 }" shape=record]
+	17467341776 [label="{ 298 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6064196368 [label="{ 18 | ' (' | value 0.9310 | p_ucb 1.3370 | visits 19 | prob 0.8685 }" shape=record]
+	17467110352 [label="{ 157 | ' (' | value 0.0000 | p_ucb 0.3683 | visits 0 | prob 0.0409 }" shape=record]
+	17467011792 [label="{ 56 | '&' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0001 }" shape=record]
+	6108398224 [label="{ 155 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6097453904 [label="{ 126 | ' &' | value 0.0000 | p_ucb 0.0261 | visits 0 | prob 0.0043 }" shape=record]
+	6108796944 [label="{ 25 | ' |' | value 0.9310 | p_ucb 2.3424 | visits 4 | prob 0.9955 }" shape=record]
+	6108011472 [label="{ 123 | ' ~' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0001 }" shape=record]
+	17467440336 [label="{ 124 | ' | ' | value 0.0000 | p_ucb 0.0015 | visits 0 | prob 0.0003 }" shape=record]
+	6108210704 [label="{ 322 | 'h' | value 0.0000 | p_ucb 0.0029 | visits 0 | prob 0.0004 }" shape=record]
+	6098232592 [label="{ 267 | '2' | value 0.0000 | p_ucb 0.0325 | visits 0 | prob 0.0071 }" shape=record]
+	6108010320 [label="{ 112 | ' (' | value 0.8621 | p_ucb 2.5902 | visits 3 | prob 0.9995 }" shape=record]
+	6108747792 [label="{ 219 | '1' | value 0.8966 | p_ucb 1.0720 | visits 12 | prob 0.1738 }" shape=record]
+	6108043728 [label="{ 296 | 'x' | value 0.8621 | p_ucb 3.5472 | visits 1 | prob 0.9996 }" shape=record]
+	4868148304 [label="{ 6 | ' (' | value 0.9310 | p_ucb 1.0245 | visits 88 | prob 0.5720 }" shape=record]
+	6107231504 [label="{ 335 | '~' | value 0.0000 | p_ucb 0.0024 | visits 0 | prob 0.0003 }" shape=record]
+	6097143504 [label="{ 358 | ' x' | value 0.0000 | p_ucb 0.0125 | visits 0 | prob 0.0024 }" shape=record]
+	17467323472 [label="{ 179 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
+	5982856272 [label="{ 7 | 'x' | value 0.9310 | p_ucb 1.0401 | visits 83 | prob 0.6802 }" shape=record]
+	6097141840 [label="{ 138 | '(' | value 0.0000 | p_ucb 0.0013 | visits 0 | prob 0.0002 }" shape=record]
+	17467108688 [label="{ 305 | '\\n' | value 0.0000 | p_ucb 0.0012 | visits 0 | prob 0.0002 }" shape=record]
+	6098234704 [label="{ 134 | ')' | value 0.0000 | p_ucb 0.0009 | visits 0 | prob 0.0001 }" shape=record]
+	6096927760 [label="{ 163 | '1' | value 0.0000 | p_ucb 1.2769 | visits 0 | prob 0.1364 }" shape=record]
+	6064908880 [label="{ 96 | '1' | value 0.8621 | p_ucb 1.3295 | visits 19 | prob 0.9999 }" shape=record]
+	6108006352 [label="{ 122 | '(' | value 0.0000 | p_ucb 0.0013 | visits 0 | prob 0.0002 }" shape=record]
+	6107922640 [label="{ 269 | ' x' | value 0.0000 | p_ucb 0.0027 | visits 0 | prob 0.0005 }" shape=record]
+	6108691280 [label="{ 213 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6173270288 [label="{ 231 | '&' | value 0.0000 | p_ucb 0.0023 | visits 0 | prob 0.0007 }" shape=record]
+	6107772816 [label="{ 310 | 'bx' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0002 }" shape=record]
+	6097387664 [label="{ 10 | ' (' | value 0.9310 | p_ucb 1.1019 | visits 27 | prob 0.3900 }" shape=record]
+	6097825360 [label="{ 332 | '3' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6108746448 [label="{ 256 | '2' | value 0.0000 | p_ucb 0.5574 | visits 0 | prob 0.0425 }" shape=record]
+	17467006928 [label="{ 287 | ' :' | value 0.8621 | p_ucb 1.5904 | visits 10 | prob 0.9823 }" shape=record]
+	6064845008 [label="{ 320 | '0' | value 0.0000 | p_ucb 0.0869 | visits 0 | prob 0.0114 }" shape=record]
+	6108091664 [label="{ 201 | ' x' | value 0.0000 | p_ucb 0.0018 | visits 0 | prob 0.0002 }" shape=record]
+	5992498832 [label="{ 288 | ' ' | value 0.8621 | p_ucb 1.6613 | visits 9 | prob 0.9997 }" shape=record]
+	6097157136 [label="{ 71 | '&' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0001 }" shape=record]
+	6097821712 [label="{ 333 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	17466985168 [label="{ 140 | ' x' | value 0.0000 | p_ucb 0.3469 | visits 0 | prob 0.0444 }" shape=record]
+	5546251856 [label="{ 348 | 'x' | value 0.7931 | p_ucb 2.5139 | visits 3 | prob 0.9952 }" shape=record]
+	17467000656 [label="{ 55 | ' ^' | value 0.0000 | p_ucb 0.0009 | visits 0 | prob 0.0001 }" shape=record]
+	6140586128 [label="{ 181 | '(' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6107444752 [label="{ 119 | '&' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6097460944 [label="{ 109 | '1' | value 0.8621 | p_ucb 1.9287 | visits 6 | prob 1.0000 }" shape=record]
+	5992000592 [label="{ 243 | ' &' | value 0.8621 | p_ucb 3.2084 | visits 1 | prob 0.9041 }" shape=record]
+	6107820752 [label="{ 111 | ' |' | value 0.8621 | p_ucb 2.2789 | visits 4 | prob 0.9994 }" shape=record]
+	6098223952 [label="{ 266 | '1' | value 0.0000 | p_ucb 0.1132 | visits 0 | prob 0.0249 }" shape=record]
+	6108038032 [label="{ 233 | ' x' | value 0.0000 | p_ucb 0.2407 | visits 0 | prob 0.0529 }" shape=record]
+	5991413136 [label="{ 374 | 'assign' | value 0.0690 | p_ucb 3.5392 | visits 1 | prob 0.9973 }" shape=record]
+	6097460368 [label="{ 42 | '3' | value 0.8276 | p_ucb 3.5446 | visits 1 | prob 0.9989 }" shape=record]
+	6108508048 [label="{ 293 | ')' | value 0.8621 | p_ucb 2.2755 | visits 4 | prob 0.9970 }" shape=record]
+	17467171024 [label="{ 13 | ' |' | value 0.9310 | p_ucb 1.3216 | visits 24 | prob 0.9894 }" shape=record]
+	6107816784 [label="{ 167 | '2' | value 0.8621 | p_ucb 1.5918 | visits 10 | prob 0.9842 }" shape=record]
+	6097135824 [label="{ 209 | '(' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6107776464 [label="{ 325 | ':' | value 0.0000 | p_ucb 0.0186 | visits 0 | prob 0.0023 }" shape=record]
+	17467594064 [label="{ 379 | '\\n' | value 0.0000 | p_ucb 0.0014 | visits 0 | prob 0.0004 }" shape=record]
+	6107288336 [label="{ 98 | ' |' | value 0.8621 | p_ucb 1.3565 | visits 17 | prob 0.9761 }" shape=record]
+	6097151888 [label="{ 303 | ' x' | value 0.0000 | p_ucb 0.0092 | visits 0 | prob 0.0020 }" shape=record]
+	6089272720 [label="{ 382 | '\\t//' | value 0.0000 | p_ucb 0.1334 | visits 0 | prob 0.0092 }" shape=record]
+	6107547856 [label="{ 364 | '2' | value 0.0000 | p_ucb 0.2150 | visits 0 | prob 0.0214 }" shape=record]
+	6108830608 [label="{ 27 | 'x' | value 0.8276 | p_ucb 3.0025 | visits 2 | prob 0.9570 }" shape=record]
+	6097915920 [label="{ 216 | '(' | value 0.0000 | p_ucb 1.4365 | visits 0 | prob 0.2533 }" shape=record]
+	6173277264 [label="{ 226 | 'x' | value 0.8621 | p_ucb 3.2161 | visits 1 | prob 0.9063 }" shape=record]
+	5982858512 [label="{ 381 | 'assign' | value 0.0000 | p_ucb 0.0426 | visits 0 | prob 0.0094 }" shape=record]
+	6108204304 [label="{ 323 | 'bx' | value 0.0000 | p_ucb 0.0016 | visits 0 | prob 0.0002 }" shape=record]
+	6108047184 [label="{ 301 | '~' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6107757264 [label="{ 252 | ' x' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0002 }" shape=record]
+	6108103696 [label="{ 222 | '2' | value 0.8621 | p_ucb 2.0565 | visits 5 | prob 0.9847 }" shape=record]
+	6108743056 [label="{ 210 | ' &' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6107221392 [label="{ 121 | ' ~' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	17466994960 [label="{ 99 | ' (' | value 0.8621 | p_ucb 1.3480 | visits 16 | prob 0.9184 }" shape=record]
+	17467167376 [label="{ 86 | ' ^' | value 0.0000 | p_ucb 0.0773 | visits 0 | prob 0.0082 }" shape=record]
+	6108209488 [label="{ 285 | 'b' | value 0.8621 | p_ucb 1.5123 | visits 12 | prob 0.9992 }" shape=record]
+	6089392976 [label="{ 362 | ' |' | value 0.0000 | p_ucb 0.4050 | visits 0 | prob 0.0406 }" shape=record]
+	6108750480 [label="{ 206 | '&' | value 0.8621 | p_ucb 3.5484 | visits 1 | prob 0.9999 }" shape=record]
+	6089394000 [label="{ 383 | ' ' | value 0.0000 | p_ucb 0.0295 | visits 0 | prob 0.0020 }" shape=record]
+	6108001104 [label="{ 17 | ' |' | value 0.9310 | p_ucb 1.3808 | visits 20 | prob 0.9986 }" shape=record]
+	6107749776 [label="{ 313 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6108510416 [label="{ 307 | '):' | value 0.0000 | p_ucb 0.0082 | visits 0 | prob 0.0014 }" shape=record]
+	6097974864 [label="{ 28 | '1' | value 0.8276 | p_ucb 2.4189 | visits 1 | prob 0.6816 }" shape=record]
+	6108686928 [label="{ 205 | '2' | value 0.8621 | p_ucb 3.1223 | visits 2 | prob 0.9945 }" shape=record]
+	5982921872 [label="{ 366 | ' = ' | value 0.0000 | p_ucb 0.5858 | visits 0 | prob 0.0406 }" shape=record]
+	6064262928 [label="{ 251 | '(' | value 0.0000 | p_ucb 0.0061 | visits 0 | prob 0.0012 }" shape=record]
+	6098298512 [label="{ 175 | '~' | value 0.8621 | p_ucb 2.3256 | visits 2 | prob 0.6440 }" shape=record]
+	6098134416 [label="{ 309 | '7' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6107778192 [label="{ 68 | '(' | value 0.0000 | p_ucb 0.0005 | visits 0 | prob 0.0001 }" shape=record]
+	6143514192 [label="{ 316 | '1' | value 0.0000 | p_ucb 0.0017 | visits 0 | prob 0.0002 }" shape=record]
+	6107757712 [label="{ 192 | ' x' | value 0.0000 | p_ucb 0.0006 | visits 0 | prob 0.0001 }" shape=record]
+	17467102224 [label="{ 304 | ' ' | value 0.0000 | p_ucb 0.0017 | visits 0 | prob 0.0003 }" shape=record]
+	6107934608 [label="{ 367 | '=' | value 0.0000 | p_ucb 0.0050 | visits 0 | prob 0.0003 }" shape=record]
+	6023177488 [label="{ 166 | 'x' | value 0.8621 | p_ucb 1.5535 | visits 11 | prob 0.9983 }" shape=record]
+	6141346960 [label="{ 228 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1308 }" shape=record]
+	17467361808 [label="{ 37 | ' (!' | value 0.0000 | p_ucb 1.1749 | visits 0 | prob 0.2265 }" shape=record]
+	6089393552 [label="{ 136 | '1' | value 0.0000 | p_ucb 0.0044 | visits 0 | prob 0.0006 }" shape=record]
+	6088895504 [label="{ 344 | ' (!' | value 0.0000 | p_ucb 1.1562 | visits 0 | prob 0.1235 }" shape=record]
+	5982849488 [label="{ 158 | ')' | value 0.8276 | p_ucb 1.3090 | visits 1 | prob 0.1415 }" shape=record]
+	6097906320 [label="{ 174 | ' (' | value 0.8621 | p_ucb 2.5897 | visits 3 | prob 0.9992 }" shape=record]
+	6107934160 [label="{ 268 | '(' | value 0.0000 | p_ucb 0.0337 | visits 0 | prob 0.0065 }" shape=record]
+	6141399184 [label="{ 352 | ' (' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0421 }" shape=record]
+	6107786704 [label="{ 324 | ' :' | value 0.0000 | p_ucb 0.4612 | visits 0 | prob 0.0577 }" shape=record]
+	6107294864 [label="{ 250 | '0' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6097744272 [label="{ 255 | ' ^' | value 0.0000 | p_ucb 0.7166 | visits 0 | prob 0.0941 }" shape=record]
+	17467341392 [label="{ 297 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	6107767632 [label="{ 291 | 'b' | value 0.8621 | p_ucb 1.9285 | visits 6 | prob 0.9998 }" shape=record]
+	5982856208 [label="{ 218 | ' &&' | value 0.0000 | p_ucb 0.7090 | visits 0 | prob 0.0565 }" shape=record]
+	6098129744 [label="{ 308 | '1' | value 0.0000 | p_ucb 0.0165 | visits 0 | prob 0.0027 }" shape=record]
+	6172977808 [label="{ 24 | ')' | value 0.9310 | p_ucb 1.4804 | visits 5 | prob 0.4739 }" shape=record]
+	5982853456 [label="{ 380 | '\\t//' | value 0.0000 | p_ucb 0.0509 | visits 0 | prob 0.0112 }" shape=record]
+	6097146896 [label="{ 58 | ' &' | value 0.8276 | p_ucb 2.2451 | visits 4 | prob 0.9999 }" shape=record]
+	6097157264 [label="{ 359 | '~' | value 0.0000 | p_ucb 0.0115 | visits 0 | prob 0.0022 }" shape=record]
+	6108806288 [label="{ 38 | ' &' | value 0.0000 | p_ucb 0.0141 | visits 0 | prob 0.0025 }" shape=record]
+	5982716176 [label="{ 274 | ' (' | value 0.8621 | p_ucb 1.2130 | visits 23 | prob 0.8619 }" shape=record]
+	17467539024 [label="{ 45 | ' &' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	6141407440 [label="{ 236 | ' &' | value 0.0000 | p_ucb 1.4397 | visits 0 | prob 0.2539 }" shape=record]
+	6108095952 [label="{ 85 | ' ~' | value 0.0000 | p_ucb 0.0117 | visits 0 | prob 0.0013 }" shape=record]
+	6064376592 [label="{ 281 | ' ?' | value 0.8621 | p_ucb 1.3903 | visits 16 | prob 0.9983 }" shape=record]
+	6108601936 [label="{ 80 | ')' | value 0.0000 | p_ucb 0.3793 | visits 0 | prob 0.0415 }" shape=record]
+	6107996752 [label="{ 78 | ' ^' | value 0.0000 | p_ucb 0.0100 | visits 0 | prob 0.0011 }" shape=record]
+	6098226000 [label="{ 135 | ' ' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	5982826704 [label="{ 3 | 'assign' | value 0.9310 | p_ucb 1.0423 | visits 122 | prob 0.9382 }" shape=record]
+	6097896912 [label="{ 184 | '\\n' | value 0.0000 | p_ucb 0.0016 | visits 0 | prob 0.0003 }" shape=record]
+	17466999120 [label="{ 318 | ':' | value 0.0000 | p_ucb 0.1314 | visits 0 | prob 0.0177 }" shape=record]
+	6064713104 [label="{ 61 | '2' | value 0.8276 | p_ucb 3.5448 | visits 1 | prob 0.9989 }" shape=record]
+	6096984144 [label="{ 172 | ')' | value 0.8621 | p_ucb 2.0682 | visits 5 | prob 0.9944 }" shape=record]
+	6108930896 [label="{ 41 | ' x' | value 0.8276 | p_ucb 2.8657 | visits 2 | prob 0.8968 }" shape=record]
+	6098167120 [label="{ 171 | '1' | value 0.8621 | p_ucb 1.9287 | visits 6 | prob 1.0000 }" shape=record]
+	6107857360 [label="{ 54 | ' (' | value 0.0000 | p_ucb 0.0189 | visits 0 | prob 0.0026 }" shape=record]
+	6097134416 [label="{ 207 | '~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9800 }" shape=record]
+	6173130384 [label="{ 337 | ' (!' | value 0.0000 | p_ucb 0.2160 | visits 0 | prob 0.0243 }" shape=record]
+	6097462928 [label="{ 244 | ' ~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.8469 }" shape=record]
+	6141407504 [label="{ 351 | ' x' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9564 }" shape=record]
+	6097080528 [label="{ 146 | '~' | value 0.0000 | p_ucb 1.2971 | visits 0 | prob 0.1560 }" shape=record]
+	17467013520 [label="{ 21 | ' &' | value 0.9310 | p_ucb 1.6234 | visits 11 | prob 0.9997 }" shape=record]
+	6097920656 [label="{ 203 | '~' | value 0.8621 | p_ucb 1.6269 | visits 4 | prob 0.5395 }" shape=record]
+	6108751632 [label="{ 8 | '3' | value 0.9310 | p_ucb 1.0779 | visits 70 | prob 0.7837 }" shape=record]
+	6097901456 [label="{ 185 | ' ~' | value 0.0000 | p_ucb 0.0015 | visits 0 | prob 0.0003 }" shape=record]
+	17467372176 [label="{ 341 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6107746576 [label="{ 312 | '’' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6141351696 [label="{ 108 | 'x' | value 0.8621 | p_ucb 1.8183 | visits 7 | prob 1.0000 }" shape=record]
+	6141402832 [label="{ 223 | ')' | value 0.8621 | p_ucb 1.9127 | visits 4 | prob 0.7411 }" shape=record]
+	6108744016 [label="{ 173 | ' |' | value 0.8621 | p_ucb 2.2720 | visits 4 | prob 0.9945 }" shape=record]
+	6096992912 [label="{ 282 | ' ' | value 0.8621 | p_ucb 1.4103 | visits 15 | prob 0.9891 }" shape=record]
+	6098299408 [label="{ 182 | 'x' | value 0.0000 | p_ucb 1.6178 | visits 0 | prob 0.3559 }" shape=record]
+	17467417040 [label="{ 63 | ');' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.3353 }" shape=record]
+	6097975312 [label="{ 326 | '0' | value 0.0000 | p_ucb 0.0871 | visits 0 | prob 0.0107 }" shape=record]
+	6107924560 [label="{ 258 | 'x' | value 0.0690 | p_ucb 1.7855 | visits 3 | prob 0.9928 }" shape=record]
+	6108437136 [label="{ 161 | ' ||' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0010 }" shape=record]
+	6108742544 [label="{ 211 | ')&' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6064846416 [label="{ 321 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6097146960 [label="{ 139 | ' x' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0001 }" shape=record]
+	17467535120 [label="{ 43 | ');' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.6616 }" shape=record]
+	6097903248 [label="{ 339 | '?' | value 0.0000 | p_ucb 0.0020 | visits 0 | prob 0.0002 }" shape=record]
+	6064911632 [label="{ 95 | ' x' | value 0.8621 | p_ucb 1.2565 | visits 20 | prob 0.8756 }" shape=record]
+	6023962576 [label="{ 118 | ' x' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6107677136 [label="{ 361 | ' ((' | value 0.0000 | p_ucb 0.2261 | visits 0 | prob 0.0399 }" shape=record]
+	6097927184 [label="{ 132 | ' x' | value 0.0000 | p_ucb 0.0361 | visits 0 | prob 0.0052 }" shape=record]
+	6064910352 [label="{ 4 | ' f' | value 0.9310 | p_ucb 1.0503 | visits 121 | prob 0.9995 }" shape=record]
+	6097974352 [label="{ 33 | '2' | value 0.0000 | p_ucb 0.1996 | visits 0 | prob 0.0563 }" shape=record]
+	6097933136 [label="{ 260 | ' &' | value 0.0690 | p_ucb 3.4038 | visits 1 | prob 0.9592 }" shape=record]
+	6097550352 [label="{ 65 | '3' | value 0.0000 | p_ucb 0.0039 | visits 0 | prob 0.0011 }" shape=record]
+	6108121808 [label="{ 143 | '^' | value 0.0000 | p_ucb 0.0122 | visits 0 | prob 0.0015 }" shape=record]
+	6108682960 [label="{ 51 | '3' | value 0.0000 | p_ucb 0.0189 | visits 0 | prob 0.0026 }" shape=record]
+	6146501520 [label="{ 376 | '\\tf' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	6107553296 [label="{ 82 | '2' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6096927312 [label="{ 276 | '2' | value 0.8621 | p_ucb 1.2900 | visits 21 | prob 0.9840 }" shape=record]
+	6108267792 [label="{ 354 | ' |' | value 0.0000 | p_ucb 1.3501 | visits 0 | prob 0.3805 }" shape=record]
+	6108444240 [label="{ 160 | ' ^' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0229 }" shape=record]
+	6097125712 [label="{ 74 | '~' | value 0.0000 | p_ucb 0.7953 | visits 0 | prob 0.0909 }" shape=record]
+	6064263184 [label="{ 273 | ' ?' | value 0.8621 | p_ucb 1.1501 | visits 24 | prob 0.7215 }" shape=record]
+	6024081424 [label="{ 107 | ' ~' | value 0.8621 | p_ucb 1.7271 | visits 8 | prob 0.9947 }" shape=record]
+	6107024528 [label="{ 314 | '0' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
+	6108823888 [label="{ 34 | '~' | value 0.0000 | p_ucb 0.1937 | visits 0 | prob 0.0426 }" shape=record]
+	6143523600 [label="{ 317 | ' ~' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
+	5952103568 [label="{ 1 | '\\n' | value 0.9310 | p_ucb 1.0456 | visits 127 | prob 0.9956 }" shape=record]
+	17467322640 [label="{ 177 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9933 }" shape=record]
+	5968370832 [label="{ 373 | '\\t' | value 0.0690 | p_ucb 2.2644 | visits 2 | prob 0.9661 }" shape=record]
+	6097907600 [label="{ 11 | 'x' | value 0.9310 | p_ucb 1.2859 | visits 26 | prob 0.9527 }" shape=record]
+	17467729296 [label="{ 247 | ')' | value 0.0000 | p_ucb 0.3390 | visits 0 | prob 0.0955 }" shape=record]
+	17467419152 [label="{ 64 | ')' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0078 }" shape=record]
+	17467365392 [label="{ 26 | ' (' | value 0.9310 | p_ucb 1.8300 | visits 3 | prob 0.5199 }" shape=record]
+	6064206928 [label="{ 346 | ' ^' | value 0.8621 | p_ucb 1.1614 | visits 5 | prob 0.1500 }" shape=record]
+	6141408592 [label="{ 353 | ' ~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0014 }" shape=record]
+	17467369552 [label="{ 340 | '1' | value 0.0000 | p_ucb 0.1460 | visits 0 | prob 0.0160 }" shape=record]
+	6107022096 [label="{ 315 | '2' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6097547792 [label="{ 66 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6097129296 [label="{ 69 | ' x' | value 0.0000 | p_ucb 0.3655 | visits 0 | prob 0.0705 }" shape=record]
+	6097091536 [label="{ 100 | 'x' | value 0.8621 | p_ucb 1.3296 | visits 15 | prob 0.8434 }" shape=record]
+	6108924560 [label="{ 48 | ' ~' | value 0.0000 | p_ucb 0.2336 | visits 0 | prob 0.0514 }" shape=record]
+	6108271440 [label="{ 355 | '&' | value 0.0000 | p_ucb 0.0019 | visits 0 | prob 0.0005 }" shape=record]
+	17467496016 [label="{ 195 | ' (' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0001 }" shape=record]
+	6097389520 [label="{ 113 | '~' | value 0.8621 | p_ucb 3.0987 | visits 2 | prob 0.9841 }" shape=record]
+	6109000720 [label="{ 198 | '1' | value 0.0000 | p_ucb 0.1173 | visits 0 | prob 0.0158 }" shape=record]
+	6108690064 [label="{ 212 | '1' | value 0.0000 | p_ucb 0.0249 | visits 0 | prob 0.0055 }" shape=record]
+	17467631568 [label="{ 215 | ' x' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6098126672 [label="{ 292 | '0' | value 0.8621 | p_ucb 2.0717 | visits 5 | prob 0.9973 }" shape=record]
+	5982847184 [label="{ 92 | ' x' | value 0.9310 | p_ucb 1.1038 | visits 24 | prob 0.3381 }" shape=record]
+	6108833808 [label="{ 35 | ' x' | value 0.0000 | p_ucb 0.0014 | visits 0 | prob 0.0003 }" shape=record]
+	17466990608 [label="{ 103 | ' ~' | value 0.8621 | p_ucb 1.4606 | visits 12 | prob 0.9198 }" shape=record]
+	6108901264 [label="{ 197 | ' ' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0001 }" shape=record]
+	6108103568 [label="{ 137 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6141353616 [label="{ 229 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1064 }" shape=record]
+	6108102928 [label="{ 73 | '3' | value 0.0000 | p_ucb 0.0126 | visits 0 | prob 0.0015 }" shape=record]
+	6097464080 [label="{ 46 | '1' | value 0.0000 | p_ucb 0.0022 | visits 0 | prob 0.0006 }" shape=record]
+	6097734352 [label="{ 220 | ' &' | value 0.8966 | p_ucb 1.3325 | visits 11 | prob 0.6295 }" shape=record]
+	6097390928 [label="{ 221 | ' x' | value 0.8621 | p_ucb 1.3920 | visits 6 | prob 0.5003 }" shape=record]
+	6096988304 [label="{ 200 | '(' | value 0.0000 | p_ucb 0.0109 | visits 0 | prob 0.0014 }" shape=record]
+	17467174992 [label="{ 87 | ' &' | value 0.0000 | p_ucb 0.0112 | visits 0 | prob 0.0012 }" shape=record]
+	17467523792 [label="{ 44 | ')' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.3379 }" shape=record]
+	6141350288 [label="{ 227 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.7627 }" shape=record]
+	6108098960 [label="{ 84 | ' (' | value 0.0000 | p_ucb 0.4757 | visits 0 | prob 0.0508 }" shape=record]
+	5992430928 [label="{ 2 | '\\t' | value 0.9310 | p_ucb 1.0157 | visits 123 | prob 0.7144 }" shape=record]
+	6107820688 [label="{ 279 | 'x' | value 0.8621 | p_ucb 1.3456 | visits 18 | prob 0.9948 }" shape=record]
+	6108038416 [label="{ 225 | ' (' | value 0.8621 | p_ucb 2.8624 | visits 2 | prob 0.8802 }" shape=record]
+	6141359504 [label="{ 130 | ' x' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6097971280 [label="{ 283 | '1' | value 0.8621 | p_ucb 1.4383 | visits 14 | prob 0.9893 }" shape=record]
+	6108686736 [label="{ 52 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6080554896 [label="{ 370 | '\\n' | value 0.0000 | p_ucb 0.8669 | visits 0 | prob 0.0599 }" shape=record]
+	6107783632 [label="{ 60 | 'x' | value 0.8276 | p_ucb 3.0996 | visits 2 | prob 0.9997 }" shape=record]
+	6108132368 [label="{ 142 | ' ^' | value 0.0000 | p_ucb 0.2206 | visits 0 | prob 0.0276 }" shape=record]
+	5992000400 [label="{ 15 | '1' | value 0.9310 | p_ucb 1.3515 | visits 22 | prob 1.0000 }" shape=record]
+	17466993744 [label="{ 149 | ' x' | value 0.0000 | p_ucb 0.0346 | visits 0 | prob 0.0041 }" shape=record]
+	6097918032 [label="{ 133 | '  ~' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0001 }" shape=record]
+	6097391248 [label="{ 176 | 'x' | value 0.8621 | p_ucb 3.5486 | visits 1 | prob 1.0000 }" shape=record]
+	6098229008 [label="{ 106 | ' &' | value 0.8621 | p_ucb 1.6614 | visits 9 | prob 0.9998 }" shape=record]
+	6108103696 -> 6141407440
+	5992000400 -> 6108602448
+	6108796944 -> 17467361808
+	6107783632 -> 6097547792
+	6141402832 -> 6107684176
+	6098167120 -> 6107022480
+	6108209488 -> 5982855376
+	6023177488 -> 6108997648
+	6098229008 -> 6024081424
+	5982849488 -> 6108437136
+	6107026448 -> 6107749776
+	6107788752 -> 6108204304
+	5982847952 -> 6097915920
+	5982858064 -> 6107288336
+	6097933136 -> 6143511312
+	6107816784 -> 6108901264
+	6096927696 -> 6097933136
+	6064910352 -> 6096991376
+	6090547536 -> 6097148944
+	6064196368 -> 6097130576
+	6108010320 -> 6097389520
+	6108508048 -> 17467102224
+	17466994960 -> 6097091536
+	6097455056 -> 6107820752
+	6097460944 -> 6097464592
+	6096993936 -> 6108691280
+	6097387856 -> 6098229008
+	6096992912 -> 6097965520
+	6107032592 -> 6108277520
+	6108043728 -> 17467337168
+	5991413136 -> 6146491024
+	6108038416 -> 6173262224
+	6108796944 -> 17467365392
+	6097460944 -> 6097453904
+	5992000144 -> 5982856720
+	6096993936 -> 6108690064
+	6107818896 -> 6107286416
+	6108751632 -> 5968109264
+	6108830608 -> 6097974352
+	6107756560 -> 6107767376
+	5968370832 -> 5991413136
+	5982716176 -> 6088897744
+	6107816784 -> 6108903760
+	6173277264 -> 6141346960
+	6108747792 -> 6097744272
+	6097906320 -> 6098298512
+	6097391248 -> 17467311056
+	5952103568 -> 6089272720
+	6064713104 -> 17467418320
+	6107288336 -> 17466994960
+	6097387664 -> 6097907600
+	17467006928 -> 5992498832
+	6096984144 -> 6108744016
+	6108209488 -> 6064845008
+	5982853584 -> 6107996752
+	6097906128 -> 6108091664
+	5982826704 -> 6097387792
+	5982858704 -> 6108047184
+	6096994256 -> 6080699216
+	6096992912 -> 6097971280
+	5982847952 -> 6097914128
+	5982856720 -> 17467103568
+	5992000144 -> 5982849488
+	5968370832 -> 17467594064
+	6107692560 -> 6097157264
+	17467492112 -> 6107747408
+	6097389520 -> 6107444752
+	6097906128 -> 6096988304
+	6141351696 -> 6097463568
+	6096991376 -> 4868148304
+	6108209488 -> 6064846416
+	6108747792 -> 6097734544
+	5982826704 -> 6064908240
+	6088896400 -> 6107783632
+	6107861008 -> 6108678544
+	5982855376 -> 17467002640
+	6073385360 -> 6097455824
+	6107288336 -> 17466993744
+	5982856464 -> 17467492112
+	6097933136 -> 6143519248
+	6107816784 -> 5982856464
+	6098298512 -> 6140586128
+	6108103184 -> 6097155472
+	6108686928 -> 6108743056
+	5982858704 -> 6108048016
+	6108001104 -> 6064196368
+	5992000400 -> 6108601936
+	6097734352 -> 6097390928
+	5992498832 -> 6107024528
+	6098492944 -> 6108132368
+	6096927312 -> 6097901328
+	5982858064 -> 6107287376
+	6108097936 -> 5992000400
+	6108119760 -> 17466988176
+	6064206928 -> 6107677136
+	6064846288 -> 6064262928
+	17467365392 -> 6108833808
+	6108103184 -> 6097157136
+	6108508048 -> 17467108688
+	17467013520 -> 6107861008
+	6107820688 -> 6097821712
+	6108001104 -> 17467317904
+	6097920656 -> 6096993936
+	6108744016 -> 6097906320
+	6064911632 -> 6108403792
+	17466990608 -> 6097141840
+	6096993936 -> 6108686928
+	6097146896 -> 6088896400
+	6108686928 -> 6108750480
+	6064846288 -> 6107757264
+	6064376592 -> 6096992912
+	6107820752 -> 6108011472
+	6172976848 -> 6108930896
+	6172976848 -> 6108924560
+	6097387856 -> 6098234704
+	6097460368 -> 17467535120
+	6173277264 -> 6141350288
+	6023177488 -> 6109000720
+	6107555536 -> 6064263184
+	6098298512 -> 6097391248
+	6107291152 -> 17467729296
+	6107767632 -> 6098126672
+	6064376592 -> 6108131408
+	5952103568 -> 5992430928
+	6107500944 -> 17467167376
+	6096927312 -> 6097903248
+	6096984144 -> 6108755728
+	6023177488 -> 6107816784
+	6107291152 -> 5992000592
+	17467006928 -> 6143514192
+	6097933136 -> 6143509136
+	6098167120 -> 6096984144
+	5992498832 -> 6107022096
+	6098492944 -> 6108119760
+	6108930896 -> 6097453328
+	6108750480 -> 6097136848
+	6097390928 -> 6108103696
+	6107861008 -> 6108682960
+	6098126672 -> 6108508048
+	6107747408 -> 6098162512
+	17467171024 -> 6108095952
+	6108508048 -> 6090547536
+	5991413136 -> 6146501520
+	5992498832 -> 6107026448
+	6090547536 -> 6097151888
+	5982826704 -> 6064910352
+	6097389520 -> 6023962576
+	6097971280 -> 6107788752
+	6064910352 -> 5982921872
+	17467492112 -> 6107757712
+	6108097936 -> 6107553296
+	6097504080 -> 6107922640
+	17466994960 -> 6097089232
+	6097146896 -> 6097141456
+	6097907600 -> 6107496656
+	6107555536 -> 6064206928
+	6108103696 -> 6141402832
+	6064263184 -> 6064907664
+	6097906320 -> 6098294288
+	6088896016 -> 5968370832
+	6108751632 -> 5982847952
+	6064909904 -> 6108103568
+	6064846288 -> 6107818896
+	6107032592 -> 6108267792
+	5982855376 -> 17467006928
+	6088896400 -> 6107778192
+	6173277264 -> 6141353616
+	6098492944 -> 6108121808
+	6108930896 -> 6097460368
+	5992000592 -> 6097454096
+	6097390928 -> 6108104400
+	6096992912 -> 6097975312
+	5546251856 -> 6107030224
+	6173122640 -> 6107820688
+	6098229008 -> 6097927184
+	5982856720 -> 17467110352
+	6064910352 -> 6107934608
+	5982853584 -> 6107989648
+	6108686928 -> 6108742544
+	5952103568 -> 6088896016
+	6107692560 -> 5546251856
+	5968109264 -> 6097906128
+	6097504080 -> 6107934160
+	6108830608 -> 6097976720
+	6108277520 -> 6141408592
+	6108119760 -> 17466985168
+	6098167120 -> 6107032016
+	6098298512 -> 6140583056
+	17467171024 -> 6108098960
+	6024081424 -> 6141359504
+	5546251856 -> 6107024208
+	6097920656 -> 17467631568
+	6097460944 -> 6097455056
+	5992430928 -> 5982826704
+	5982716176 -> 5982852752
+	6097504080 -> 6107924560
+	6097734352 -> 6097970064
+	6097734352 -> 6064846288
+	5982827152 -> 6173122640
+	6107288336 -> 17466991440
+	6096994256 -> 5952103568
+	6097907600 -> 6107506320
+	5982847952 -> 6097920656
+	6097813968 -> 6097899344
+	6096927312 -> 5982827152
+	5968109264 -> 6097387664
+	6107756560 -> 6107772816
+	6097391248 -> 17467323472
+	6096927696 -> 6097934032
+	6108751632 -> 5982856208
+	6108277520 -> 6141407504
+	5968370832 -> 17467602768
+	6090547536 -> 5982858704
+	6097455056 -> 17467440336
+	5546251856 -> 6107032592
+	4868148304 -> 5982856272
+	6172977808 -> 6108805840
+	6097390928 -> 6108111248
+	6107818896 -> 6107294864
+	6064911632 -> 6108398224
+	6108796944 -> 17467370128
+	6064206928 -> 6107683344
+	6097813968 -> 6064376592
+	6097132752 -> 6108114128
+	6088896400 -> 6107784272
+	6064196368 -> 6097125712
+	6107026448 -> 6107756560
+	6098126672 -> 6108502736
+	5982852752 -> 17467369552
+	6097387664 -> 6097900240
+	6096984144 -> 6108751376
+	5982856720 -> 6064911632
+	6107818896 -> 6107291152
+	17467006928 -> 6143523600
+	6097091536 -> 6098492944
+	6141351696 -> 6097465424
+	6064908880 -> 5982858064
+	6097920656 -> 6097389968
+	6096991376 -> 17467176656
+	5982855376 -> 17466999120
+	6064908880 -> 6098166096
+	6096994256 -> 6089394000
+	6090082192 -> 6107547856
+	6097091536 -> 6098494032
+	6091248848 -> 6108045648
+	6097132752 -> 6108103184
+	6097974864 -> 6107445072
+	6108010320 -> 6107221392
+	6107555536 -> 6089392976
+	6097971280 -> 6107786704
+	5982856464 -> 17467492176
+	6064908880 -> 6098173200
+	5991413136 -> 6146501008
+	6107924560 -> 6098232592
+	6064376592 -> 6108125968
+	6097907600 -> 6107500944
+	5982849488 -> 6108444240
+	6107924560 -> 6098223952
+	5992000592 -> 6097460816
+	6064909904 -> 6097387856
+	5992430928 -> 6080554896
+	6097906128 -> 6023177488
+	17467365392 -> 6108830608
+	6097460368 -> 17467539024
+	6172977808 -> 6108796944
+	6064713104 -> 17467417040
+	6107756560 -> 6107767632
+	6108043728 -> 17467341776
+	17466990608 -> 6097146960
+	6108678544 -> 6172976848
+	6024081424 -> 6141351696
+	6108114128 -> 17467013520
+	6108744016 -> 6097896912
+	6096991376 -> 6090082192
+	5982858064 -> 6107288016
+	6097389520 -> 6073385360
+	6091248848 -> 6108038416
+	6141402832 -> 6107678800
+	6064196368 -> 6097132752
+	5968109264 -> 5982847184
+	6108103696 -> 6141401104
+	6090082192 -> 6107556112
+	6098229008 -> 6097918032
+	17466990608 -> 6064909904
+	6088896016 -> 5982858512
+	6107500944 -> 17467174992
+	6108678544 -> 6172977808
+	17467013520 -> 6107857360
+	6108038416 -> 6173270288
+	6097906320 -> 6098299408
+	6108001104 -> 17467326352
+	6107026448 -> 6107746576
+	5982849488 -> 6107813200
+	6088896016 -> 5982853456
+	6108747792 -> 6097734352
+	6064909904 -> 6089393552
+	5992000144 -> 17467693008
+	6097132752 -> 6108102928
+	6141402832 -> 6091248848
+	6098126672 -> 6108510416
+	6107788752 -> 6108210704
+	6107783632 -> 6064713104
+	6108750480 -> 6097135824
+	17467365392 -> 6108823888
+	6097391248 -> 17467322640
+	5982852752 -> 6096927312
+	5992430928 -> 5950465424
+	6064206928 -> 6107692560
+	4868148304 -> 6097504080
+	6107291152 -> 17467722256
+	6108750480 -> 6097134416
+	17467013520 -> 6107866832
+	6108103184 -> 6097146896
+	6108038416 -> 6173277264
+	6173122640 -> 6107231504
+	5992000400 -> 5982853584
+	6073385360 -> 6097463824
+	6064263184 -> 5982716176
+	6090082192 -> 6107555536
+	6173122640 -> 6107220368
+	6108930896 -> 6097464080
+	6172976848 -> 6108929296
+	6107820752 -> 6108010320
+	6108744016 -> 6097901456
+	6107692560 -> 6097143504
+	6107783632 -> 6097550352
+	6107500944 -> 17467171024
+	6097387664 -> 6097908240
+	5982853584 -> 6108001104
+	6097460368 -> 17467523792
+	6107747408 -> 6098163536
+	6107820688 -> 6097825360
+	5982716176 -> 5990590992
+	5982856272 -> 6108751632
+	6108119760 -> 17466990608
+	6097146896 -> 6097129296
+	5982856272 -> 6108747792
+	5992000592 -> 6097462928
+	6107924560 -> 6096927696
+	6108830608 -> 6097974864
+	5982847184 -> 5992000144
+	6108043728 -> 17467341392
+	6064713104 -> 17467419152
+	6097455056 -> 17467437072
+	5982852752 -> 17467372176
+	5982847184 -> 6096927760
+	6024081424 -> 6141357648
+	6107820688 -> 6097813968
+	6108010320 -> 6107232976
+	6107788752 -> 6108209488
+	6097974864 -> 6107441936
+	6108277520 -> 6141399184
+	6091248848 -> 6108038032
+	6107861008 -> 6108686736
+	6107032592 -> 6108271440
+	6172977808 -> 6108806288
+	5982827152 -> 6173130384
+	6107767632 -> 6098129744
+	4868148304 -> 6097510800
+	5982847184 -> 6108744656
+	17467492112 -> 6107749584
+	6097813968 -> 6097900752
+	6107747408 -> 6098167120
+	6097971280 -> 6107776464
+	6096927696 -> 6097939280
+	6064911632 -> 6064908880
+	6108678544 -> 6172972624
+	6073385360 -> 6097460688
+	6097387856 -> 6098226000
+	6107820752 -> 6108006352
+	6141351696 -> 6097460944
+	5982858704 -> 6108043728
+	6107767632 -> 6098134416
+	5982856464 -> 17467496016
+	6064263184 -> 6088895504
+	6097974864 -> 6107433616
+	17466994960 -> 6097080528
+	17467171024 -> 6108097936
+	5982827152 -> 6173130256
+	6108114128 -> 17467011792
+	6108097936 -> 6107549520
+	6097091536 -> 6098499152
+	5982856272 -> 6108746448
+	6108114128 -> 17467000656
+}

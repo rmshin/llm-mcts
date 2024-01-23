@@ -1,0 +1,52 @@
+digraph {
+	graph [rankdir=TB]
+	6058220432 [label="{ 7 | ' :' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6011545552 [label="{ 6 | ':' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	6098623632 [label="{ 19 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9742 }" shape=record]
+	6252121168 [label="{ 9 | '8' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6098623120 [label="{ 11 | '[' | value 0.0000 | p_ucb 0.0239 | visits 0 | prob 0.0052 }" shape=record]
+	6236723728 [label="{ 1 | '\\n' | value 1.0000 | p_ucb 1.0343 | visits 7 | prob 0.9849 }" shape=record]
+	6262115344 [label="{ 23 | '\\t' | value 0.0000 | p_ucb 0.0686 | visits 0 | prob 0.0102 }" shape=record]
+	6098698832 [label="{ 20 | '   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0071 }" shape=record]
+	6099565200 [label="{ 13 | '\\n' | value 1.0000 | p_ucb 1.2999 | visits 1 | prob 0.2292 }" shape=record]
+	6098623248 [label="{ 12 | ' ' | value 0.0000 | p_ucb 0.0034 | visits 0 | prob 0.0008 }" shape=record]
+	6012226960 [label="{ 17 | 'always' | value 0.0000 | p_ucb 0.0221 | visits 0 | prob 0.0039 }" shape=record]
+	6058532752 [label="{ 21 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0065 }" shape=record]
+	6255108496 [label="{ 15 | '\\t//' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0044 }" shape=record]
+	6261276048 [label="{ 18 | '\\n' | value 0.0925 | p_ucb 0.6522 | visits 1 | prob 0.1749 }" shape=record]
+	6058610192 [label="{ 8 | '-' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6025006928 [label="{ 2 | '\\t' | value 1.0000 | p_ucb 1.1140 | visits 5 | prob 0.7981 }" shape=record]
+	6255071632 [label="{ 14 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9874 }" shape=record]
+	6252125968 [label="{ 3 | 'reg' | value 0.0925 | p_ucb 1.1786 | visits 3 | prob 0.7661 }" shape=record]
+	6255104144 [label="{ 16 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0036 }" shape=record]
+	6262112464 [label="{ 24 | ' ' | value 0.0000 | p_ucb 0.0186 | visits 0 | prob 0.0028 }" shape=record]
+	6105614224 [label="{ 5 | '7' | value 0.0925 | p_ucb 3.5485 | visits 1 | prob 1.0000 }" shape=record]
+	4347606736 [label="{ 4 | ' [' | value 0.0925 | p_ucb 2.3503 | visits 2 | prob 0.9935 }" shape=record]
+	6255072272 [label="{ 22 | '   ' | value 0.0000 | p_ucb 0.0430 | visits 0 | prob 0.0067 }" shape=record]
+	6099565392 [label="{ 10 | '6' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6261273488 [label="{ 0 | '\<PD\>' | value 1.0000 | p_ucb 0.0000 | visits 8 | prob 1.0000 }" shape=record]
+	6261273488 -> 6262112464
+	6099565200 -> 6255104144
+	6025006928 -> 6099565200
+	6025006928 -> 6252125968
+	6252125968 -> 4347606736
+	6236723728 -> 6025006928
+	6252125968 -> 6098623248
+	6261273488 -> 6262115344
+	6261276048 -> 6098623632
+	6261276048 -> 6058532752
+	4347606736 -> 6105614224
+	6099565200 -> 6255071632
+	6236723728 -> 6261276048
+	6025006928 -> 6012226960
+	6099565200 -> 6255108496
+	6105614224 -> 6011545552
+	6105614224 -> 6058610192
+	6252125968 -> 6098623120
+	6261276048 -> 6098698832
+	6105614224 -> 6058220432
+	4347606736 -> 6252121168
+	6261273488 -> 6236723728
+	4347606736 -> 6099565392
+	6236723728 -> 6255072272
+}
