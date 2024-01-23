@@ -17,8 +17,8 @@ else:
 model = Llama(
     model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
     n_gpu_layers=-1,
-    n_ctx=2048,
-    n_batch=256,
+    n_ctx=4096,
+    n_batch=1024,
     n_threads=8,
 )
 
@@ -29,13 +29,13 @@ for prompt, task_id in tqdm(prompts_ids):
     # TODO: update to generate in parallel once https://github.com/abetlen/llama-cpp-python/pull/951 lands.
     for _ in tqdm(range(N_SAMPLES)):
         output = model(
-            prompt=prompt, max_tokens=256, temperature=1, top_k=3, stop=["```"]
+            prompt=prompt, max_tokens=1024, temperature=1, top_k=50, stop=["```"]
         )
         res = output["choices"][0]["text"]
         item = dict(task_id=task_id, completion=res)
         samples.append(item)
     write_jsonl(
-        f"{outfile_prefix}few_shot_baselines_256_top_3.jsonl", samples, append=True
+        f"{outfile_prefix}few_shot_baselines_1024_top_50.jsonl", samples, append=True
     )
 
 # run this to get the pass@k metrics
