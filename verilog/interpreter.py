@@ -94,6 +94,10 @@ def evaluate_code(task_id, completion, problem) -> VerilogExecution:
             pass_rate = 1.0
         elif status == VerilogStatus.RUNTIME_ERROR:
             pass_rate = 1.0 - cor / tot
+        elif status == VerilogStatus.COMPILE_ERROR:
+            pass_rate = -0.2
+        elif status == VerilogStatus.SYNTAX_ERROR:
+            pass_rate = -0.4
         else:
             pass_rate = 0.0
 
