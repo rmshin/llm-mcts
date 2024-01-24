@@ -1,772 +1,1292 @@
 digraph {
 	graph [rankdir=TB]
-	5888467600 [label="{ 274 | ' ' | value 0.0001 | p_ucb 0.4889 | visits 2 | prob 0.1925 }" shape=record]
-	17736843728 [label="{ 27 | '\\t' | value 0.0001 | p_ucb 1.2051 | visits 1 | prob 0.5302 }" shape=record]
-	17648601040 [label="{ 330 | 'neg' | value 0.0000 | p_ucb 0.0050 | visits 0 | prob 0.0008 }" shape=record]
-	6085581904 [label="{ 22 | 'reset' | value 0.0001 | p_ucb 0.9563 | visits 7 | prob 0.9999 }" shape=record]
-	6105076752 [label="{ 360 | '[' | value 0.0000 | p_ucb 1.3904 | visits 4 | prob 0.9808 }" shape=record]
-	5850024976 [label="{ 256 | ' q' | value 0.0000 | p_ucb 0.2260 | visits 0 | prob 0.0497 }" shape=record]
-	17576487440 [label="{ 342 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0743 }" shape=record]
-	6085583312 [label="{ 89 | ' pos' | value 0.0001 | p_ucb 1.7184 | visits 3 | prob 0.9938 }" shape=record]
-	5898429776 [label="{ 86 | ' neg' | value 0.0000 | p_ucb 0.0398 | visits 0 | prob 0.0042 }" shape=record]
-	6102579088 [label="{ 71 | ' (!' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5898876944 [label="{ 188 | '\\n' | value 0.0001 | p_ucb 0.4950 | visits 8 | prob 0.4762 }" shape=record]
-	6102351696 [label="{ 383 | '\\t' | value 0.0000 | p_ucb 0.0846 | visits 0 | prob 0.0058 }" shape=record]
-	6088112080 [label="{ 321 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
-	6294898384 [label="{ 352 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0007 }" shape=record]
-	6105134672 [label="{ 375 | ' t' | value 0.0000 | p_ucb 0.0346 | visits 0 | prob 0.0057 }" shape=record]
-	6085582032 [label="{ 272 | ' ' | value 0.0000 | p_ucb 0.1500 | visits 0 | prob 0.0330 }" shape=record]
-	6294049232 [label="{ 292 | ' tap' | value 0.0000 | p_ucb 0.8795 | visits 0 | prob 0.2478 }" shape=record]
-	6105190032 [label="{ 57 | ' \<= ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9873 }" shape=record]
-	5844623376 [label="{ 175 | ' pos' | value 0.0000 | p_ucb 0.0005 | visits 0 | prob 0.0001 }" shape=record]
-	5898371856 [label="{ 340 | '\\t' | value 0.0001 | p_ucb 1.8987 | visits 1 | prob 0.5351 }" shape=record]
-	17587109776 [label="{ 29 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1721 }" shape=record]
-	17647154704 [label="{ 83 | 'reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5844416144 [label="{ 171 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
-	5888795600 [label="{ 210 | '  ' | value 0.0000 | p_ucb 0.0124 | visits 0 | prob 0.0019 }" shape=record]
-	6105639760 [label="{ 322 | ',' | value 0.0000 | p_ucb 0.6246 | visits 0 | prob 0.1374 }" shape=record]
-	6106773264 [label="{ 299 | ']' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17574446864 [label="{ 70 | '~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	6104811536 [label="{ 26 | '\\t' | value 0.0001 | p_ucb 1.7244 | visits 3 | prob 0.9972 }" shape=record]
-	5844413712 [label="{ 158 | ' pos' | value 0.0001 | p_ucb 3.5254 | visits 1 | prob 0.9934 }" shape=record]
-	17644739216 [label="{ 204 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
-	17737112400 [label="{ 68 | '==' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0002 }" shape=record]
-	17642470416 [label="{ 346 | '  ' | value 0.0000 | p_ucb 0.0073 | visits 0 | prob 0.0016 }" shape=record]
-	5802162064 [label="{ 108 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
-	17616475920 [label="{ 55 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0569 }" shape=record]
-	6105194576 [label="{ 58 | '\<' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0119 }" shape=record]
-	6082046672 [label="{ 209 | 'begin' | value 0.0000 | p_ucb 0.0160 | visits 0 | prob 0.0025 }" shape=record]
-	17572262480 [label="{ 139 | '(' | value 0.0000 | p_ucb 1.5089 | visits 0 | prob 0.4252 }" shape=record]
-	4349605584 [label="{ 354 | ' begin' | value 0.0001 | p_ucb 0.6649 | visits 1 | prob 0.2078 }" shape=record]
-	6294012624 [label="{ 77 | '\\t' | value 0.0000 | p_ucb 0.0054 | visits 0 | prob 0.0006 }" shape=record]
-	6105839504 [label="{ 257 | ' ' | value 0.0000 | p_ucb 0.1268 | visits 0 | prob 0.0279 }" shape=record]
-	6104822096 [label="{ 36 | '   ' | value 0.0000 | p_ucb 0.0081 | visits 0 | prob 0.0016 }" shape=record]
-	6104941840 [label="{ 370 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0051 }" shape=record]
-	5820347856 [label="{ 18 | '\\n' | value 0.0001 | p_ucb 0.4647 | visits 19 | prob 0.9937 }" shape=record]
-	6088904272 [label="{ 44 | ' reset' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0001 }" shape=record]
-	6085689552 [label="{ 7 | '(' | value 0.0001 | p_ucb 0.2979 | visits 35 | prob 0.9925 }" shape=record]
-	17647141392 [label="{ 82 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17648631632 [label="{ 278 | '   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0063 }" shape=record]
-	6070584784 [label="{ 136 | 'reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9999 }" shape=record]
-	5803950416 [label="{ 208 | ' ' | value 0.0000 | p_ucb 0.6884 | visits 0 | prob 0.1135 }" shape=record]
-	6105044624 [label="{ 229 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9882 }" shape=record]
-	6294360272 [label="{ 382 | ' always' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0843 }" shape=record]
-	17641707152 [label="{ 72 | '  ' | value 0.0000 | p_ucb 0.0206 | visits 0 | prob 0.0024 }" shape=record]
-	5844413648 [label="{ 123 | 'ge' | value 0.0001 | p_ucb 0.5292 | visits 16 | prob 1.0000 }" shape=record]
-	6106772496 [label="{ 361 | '0' | value 0.0000 | p_ucb 1.2975 | visits 2 | prob 0.5003 }" shape=record]
-	6089439888 [label="{ 226 | ' ' | value 0.0001 | p_ucb 0.3952 | visits 3 | prob 0.1901 }" shape=record]
-	6104950224 [label="{ 371 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0010 }" shape=record]
-	5898863312 [label="{ 5 | 'always' | value 0.0001 | p_ucb 0.1445 | visits 37 | prob 0.4151 }" shape=record]
-	5887827856 [label="{ 16 | ')' | value 0.0001 | p_ucb 0.4348 | visits 21 | prob 0.9996 }" shape=record]
-	6088229904 [label="{ 296 | '1' | value 0.0000 | p_ucb 0.0042 | visits 0 | prob 0.0008 }" shape=record]
-	5898425872 [label="{ 87 | 'posed' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0000 }" shape=record]
-	17736821328 [label="{ 34 | '  \<' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0004 }" shape=record]
-	5888754576 [label="{ 176 | ' (' | value 0.0000 | p_ucb 0.0273 | visits 0 | prob 0.0031 }" shape=record]
-	6070583504 [label="{ 282 | ' [' | value 0.0001 | p_ucb 0.9518 | visits 7 | prob 0.9952 }" shape=record]
-	5840555920 [label="{ 184 | '\\n' | value 0.0000 | p_ucb 0.1034 | visits 0 | prob 0.0113 }" shape=record]
-	5802821904 [label="{ 186 | '   ' | value 0.0000 | p_ucb 0.0128 | visits 0 | prob 0.0014 }" shape=record]
-	5888755024 [label="{ 350 | ' ' | value 0.0001 | p_ucb 0.6654 | visits 1 | prob 0.2079 }" shape=record]
-	5820243664 [label="{ 206 | ' = ' | value 0.0000 | p_ucb 0.3143 | visits 0 | prob 0.0886 }" shape=record]
-	17572713616 [label="{ 134 | '\\tif' | value 0.0001 | p_ucb 2.2613 | visits 2 | prob 0.9950 }" shape=record]
-	5843962064 [label="{ 19 | '\\t' | value 0.0001 | p_ucb 0.4791 | visits 18 | prob 0.9854 }" shape=record]
-	6102571216 [label="{ 46 | '(' | value 0.0001 | p_ucb 0.4994 | visits 8 | prob 0.4718 }" shape=record]
-	6106765776 [label="{ 273 | ' q' | value 0.0000 | p_ucb 0.0103 | visits 0 | prob 0.0023 }" shape=record]
-	5856100880 [label="{ 117 | '\\n' | value 0.0001 | p_ucb 0.1422 | visits 23 | prob 0.2650 }" shape=record]
-	6070584912 [label="{ 363 | ' =' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9206 }" shape=record]
-	6089354768 [label="{ 111 | 'neg' | value 0.0000 | p_ucb 0.0075 | visits 0 | prob 0.0007 }" shape=record]
-	6106409936 [label="{ 290 | '_' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0016 }" shape=record]
-	5853502992 [label="{ 109 | 'eg' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
-	6106771472 [label="{ 303 | '1' | value 0.0000 | p_ucb 0.0089 | visits 0 | prob 0.0014 }" shape=record]
-	5852803472 [label="{ 220 | '  ' | value 0.0000 | p_ucb 0.0212 | visits 0 | prob 0.0060 }" shape=record]
-	17648605648 [label="{ 75 | '    ' | value 0.0000 | p_ucb 0.0270 | visits 0 | prob 0.0031 }" shape=record]
-	5820244368 [label="{ 42 | ' == ' | value 0.0000 | p_ucb 0.0350 | visits 0 | prob 0.0055 }" shape=record]
-	17737117072 [label="{ 67 | ' == ' | value 0.0000 | p_ucb 0.0249 | visits 0 | prob 0.0039 }" shape=record]
-	6088235792 [label="{ 179 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
-	5888460688 [label="{ 294 | ' ]' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17576490512 [label="{ 343 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0357 }" shape=record]
-	5888795024 [label="{ 376 | ' tap' | value 0.0000 | p_ucb 0.0185 | visits 0 | prob 0.0031 }" shape=record]
-	17576500240 [label="{ 253 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0378 }" shape=record]
-	6089439952 [label="{ 88 | ',' | value 0.0001 | p_ucb 0.2949 | visits 4 | prob 0.1463 }" shape=record]
-	17635508560 [label="{ 90 | 'edge' | value 0.0001 | p_ucb 2.2727 | visits 2 | prob 1.0000 }" shape=record]
-	6105671056 [label="{ 200 | ' ' | value 0.0000 | p_ucb 0.1755 | visits 0 | prob 0.0386 }" shape=record]
-	5825553808 [label="{ 2 | '\\t' | value 0.0001 | p_ucb 0.1097 | visits 101 | prob 0.7662 }" shape=record]
-	6105373136 [label="{ 130 | ')' | value 0.0001 | p_ucb 1.0664 | visits 6 | prob 0.9996 }" shape=record]
-	17576483408 [label="{ 60 | ' ' | value 0.0000 | p_ucb 0.1034 | visits 0 | prob 0.0228 }" shape=record]
-	6106768592 [label="{ 84 | ' edge' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
-	5888592144 [label="{ 101 | ')' | value 0.0001 | p_ucb 0.3038 | visits 1 | prob 0.0603 }" shape=record]
-	6106197328 [label="{ 326 | ' reset' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0001 }" shape=record]
-	5887827664 [label="{ 116 | ' ' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
-	6088235856 [label="{ 297 | '2' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0002 }" shape=record]
-	17641713552 [label="{ 238 | 'ois' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9998 }" shape=record]
-	17576494416 [label="{ 61 | '   ' | value 0.0000 | p_ucb 0.0128 | visits 0 | prob 0.0025 }" shape=record]
-	5898373328 [label="{ 110 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5843732752 [label="{ 378 | '\\n' | value 0.0000 | p_ucb 0.0934 | visits 0 | prob 0.0100 }" shape=record]
-	17736819920 [label="{ 32 | ' \<= ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9918 }" shape=record]
-	6106379472 [label="{ 159 | 'edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
-	17635521488 [label="{ 97 | 'ed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	6294356880 [label="{ 300 | ':' | value 0.0000 | p_ucb 0.5332 | visits 0 | prob 0.0879 }" shape=record]
-	17576818192 [label="{ 217 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4865 }" shape=record]
-	6070583760 [label="{ 95 | ' ~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17635724176 [label="{ 63 | '\\t' | value 0.0000 | p_ucb 0.0071 | visits 0 | prob 0.0013 }" shape=record]
-	17737274064 [label="{ 94 | '_' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17639278224 [label="{ 295 | '4' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	10943219472 [label="{ 143 | '\\t\\t' | value 0.0000 | p_ucb 0.0097 | visits 0 | prob 0.0019 }" shape=record]
-	6089354832 [label="{ 112 | ' pos' | value 0.0000 | p_ucb 0.0013 | visits 0 | prob 0.0001 }" shape=record]
-	5898373712 [label="{ 309 | ' @' | value 0.0001 | p_ucb 0.8677 | visits 8 | prob 0.9976 }" shape=record]
-	17648620496 [label="{ 276 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9528 }" shape=record]
-	6102875792 [label="{ 24 | '\\n' | value 0.0001 | p_ucb 1.1218 | visits 5 | prob 0.9248 }" shape=record]
-	17648605072 [label="{ 331 | ' pos' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0001 }" shape=record]
-	17736822864 [label="{ 131 | ' begin' | value 0.0001 | p_ucb 1.2038 | visits 5 | prob 0.9924 }" shape=record]
-	17587174480 [label="{ 193 | '\\t' | value 0.0001 | p_ucb 2.7515 | visits 1 | prob 0.7754 }" shape=record]
-	6106773456 [label="{ 333 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
-	17644999760 [label="{ 155 | ' neg' | value 0.0000 | p_ucb 0.0295 | visits 0 | prob 0.0041 }" shape=record]
-	6294851728 [label="{ 25 | '\\t\\t' | value 0.0001 | p_ucb 1.4142 | visits 4 | prob 0.9974 }" shape=record]
-	6079178256 [label="{ 202 | ' \<= ' | value 0.0001 | p_ucb 3.1749 | visits 1 | prob 0.8947 }" shape=record]
-	17642462672 [label="{ 347 | 'begin' | value 0.0000 | p_ucb 0.0071 | visits 0 | prob 0.0016 }" shape=record]
-	6106770896 [label="{ 316 | ' pos' | value 0.0001 | p_ucb 3.5345 | visits 1 | prob 0.9960 }" shape=record]
-	6102578768 [label="{ 241 | ' Initial' | value 0.0000 | p_ucb 0.3212 | visits 0 | prob 0.0905 }" shape=record]
-	6070584976 [label="{ 215 | '\\t' | value 0.0001 | p_ucb 2.1854 | visits 2 | prob 0.9615 }" shape=record]
-	6076332688 [label="{ 372 | '1' | value 0.0000 | p_ucb 0.0051 | visits 0 | prob 0.0010 }" shape=record]
-	6089459280 [label="{ 189 | '\\t' | value 0.0001 | p_ucb 0.8988 | visits 7 | prob 0.9398 }" shape=record]
-	6106499856 [label="{ 384 | ' ' | value 0.0000 | p_ucb 0.0462 | visits 0 | prob 0.0032 }" shape=record]
-	17737128848 [label="{ 43 | '==' | value 0.0000 | p_ucb 0.0012 | visits 0 | prob 0.0002 }" shape=record]
-	5888669328 [label="{ 177 | 'posed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17736769872 [label="{ 167 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0035 }" shape=record]
-	17648617488 [label="{ 277 | '       ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0118 }" shape=record]
-	5850200784 [label="{ 336 | 'initial' | value 0.0001 | p_ucb 0.3142 | visits 7 | prob 0.2716 }" shape=record]
-	17736847440 [label="{ 31 | ' q' | value 0.0001 | p_ucb 1.9743 | visits 1 | prob 0.4344 }" shape=record]
-	6102565648 [label="{ 79 | ' ' | value 0.0000 | p_ucb 0.0168 | visits 0 | prob 0.0019 }" shape=record]
-	6105047568 [label="{ 230 | 'begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0050 }" shape=record]
-	17641647568 [label="{ 279 | ' q' | value 0.0000 | p_ucb 0.0035 | visits 0 | prob 0.0010 }" shape=record]
-	17736815824 [label="{ 33 | '\<' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0074 }" shape=record]
-	6106765136 [label="{ 260 | 'begin' | value 0.0000 | p_ucb 0.0162 | visits 0 | prob 0.0029 }" shape=record]
-	5853045648 [label="{ 213 | ' begin' | value 0.0001 | p_ucb 0.4375 | visits 4 | prob 0.2630 }" shape=record]
-	6089354064 [label="{ 165 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9833 }" shape=record]
-	6105075152 [label="{ 146 | '\\t' | value 0.0000 | p_ucb 0.0029 | visits 0 | prob 0.0005 }" shape=record]
-	5841309584 [label="{ 243 | '   ' | value 0.0000 | p_ucb 0.0687 | visits 0 | prob 0.0053 }" shape=record]
-	6088235280 [label="{ 13 | ' pos' | value 0.0001 | p_ucb 0.3932 | visits 24 | prob 0.9957 }" shape=record]
-	5888766736 [label="{ 337 | '\\n' | value 0.0001 | p_ucb 0.7884 | visits 4 | prob 0.4927 }" shape=record]
-	5888662096 [label="{ 262 | '       ' | value 0.0000 | p_ucb 0.0817 | visits 0 | prob 0.0135 }" shape=record]
-	5898874384 [label="{ 180 | 'initial' | value 0.0001 | p_ucb 0.3289 | visits 1 | prob 0.0720 }" shape=record]
-	6102570192 [label="{ 242 | ' The' | value 0.0000 | p_ucb 0.1676 | visits 0 | prob 0.0472 }" shape=record]
-	6105309456 [label="{ 357 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0014 }" shape=record]
-	6088110352 [label="{ 194 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.8172 }" shape=record]
-	5887827536 [label="{ 115 | '@' | value 0.0000 | p_ucb 0.0162 | visits 0 | prob 0.0015 }" shape=record]
-	17587838480 [label="{ 366 | ' ]' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	6071043856 [label="{ 4 | '\\t' | value 0.0001 | p_ucb 0.1619 | visits 77 | prob 0.9582 }" shape=record]
-	5898378768 [label="{ 121 | '(' | value 0.0001 | p_ucb 0.4847 | visits 18 | prob 0.9969 }" shape=record]
-	17737336784 [label="{ 364 | ' = ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0782 }" shape=record]
-	5898435088 [label="{ 315 | ' or' | value 0.0001 | p_ucb 1.8321 | visits 2 | prob 0.8061 }" shape=record]
-	5855899728 [label="{ 285 | ':' | value 0.0001 | p_ucb 1.4178 | visits 4 | prob 1.0000 }" shape=record]
-	5898379728 [label="{ 10 | ' cl' | value 0.0001 | p_ucb 0.3204 | visits 32 | prob 0.9999 }" shape=record]
-	17587095568 [label="{ 28 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.7293 }" shape=record]
-	17616481168 [label="{ 54 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1784 }" shape=record]
-	6106773328 [label="{ 332 | ' (' | value 0.0000 | p_ucb 0.0578 | visits 0 | prob 0.0086 }" shape=record]
-	5820346128 [label="{ 358 | 'assign' | value 0.0000 | p_ucb 0.2818 | visits 6 | prob 0.2133 }" shape=record]
-	6294233616 [label="{ 100 | 'posed' | value 0.0000 | p_ucb 0.0102 | visits 0 | prob 0.0020 }" shape=record]
-	5853045584 [label="{ 201 | ' q' | value 0.0001 | p_ucb 0.7374 | visits 2 | prob 0.3647 }" shape=record]
-	5888669520 [label="{ 212 | '       ' | value 0.0000 | p_ucb 0.0597 | visits 0 | prob 0.0089 }" shape=record]
-	17619921296 [label="{ 103 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0298 }" shape=record]
-	5820418640 [label="{ 263 | '    ' | value 0.0000 | p_ucb 0.0546 | visits 0 | prob 0.0090 }" shape=record]
-	17619924688 [label="{ 102 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9628 }" shape=record]
-	5802677776 [label="{ 120 | ' @' | value 0.0001 | p_ucb 0.4673 | visits 19 | prob 0.9994 }" shape=record]
-	6106073552 [label="{ 138 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	6082048144 [label="{ 135 | ' (' | value 0.0001 | p_ucb 2.0397 | visits 1 | prob 0.5748 }" shape=record]
-	17623825488 [label="{ 228 | '\\t' | value 0.0001 | p_ucb 3.3678 | visits 1 | prob 0.9490 }" shape=record]
-	17641638992 [label="{ 280 | ' begin' | value 0.0000 | p_ucb 0.0011 | visits 0 | prob 0.0003 }" shape=record]
-	17587370768 [label="{ 49 | '\\n' | value 0.0001 | p_ucb 1.1253 | visits 5 | prob 0.9277 }" shape=record]
-	17587831248 [label="{ 362 | ']' | value 0.0000 | p_ucb 3.5486 | visits 1 | prob 1.0000 }" shape=record]
-	6106349200 [label="{ 126 | ' or' | value 0.0001 | p_ucb 0.5716 | visits 10 | prob 0.7155 }" shape=record]
-	6106368144 [label="{ 160 | 'ed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5802685648 [label="{ 178 | '@' | value 0.0000 | p_ucb 0.0051 | visits 0 | prob 0.0006 }" shape=record]
-	5898434896 [label="{ 345 | ' ' | value 0.0000 | p_ucb 0.3756 | visits 0 | prob 0.1058 }" shape=record]
-	6089459472 [label="{ 377 | '   ' | value 0.0000 | p_ucb 0.1834 | visits 0 | prob 0.0196 }" shape=record]
-	5803409040 [label="{ 244 | 'initial' | value 0.0001 | p_ucb 0.1195 | visits 12 | prob 0.1126 }" shape=record]
-	10968601488 [label="{ 195 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0557 }" shape=record]
-	6294016208 [label="{ 76 | ' ' | value 0.0000 | p_ucb 0.0381 | visits 0 | prob 0.0043 }" shape=record]
-	5840553680 [label="{ 106 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17572256528 [label="{ 140 | ' (!' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	6294849936 [label="{ 38 | '\\t\\t\\t' | value 0.0000 | p_ucb 0.0058 | visits 0 | prob 0.0010 }" shape=record]
-	5844413008 [label="{ 338 | '\\t' | value 0.0001 | p_ucb 1.6390 | visits 3 | prob 0.9478 }" shape=record]
-	17635727248 [label="{ 64 | '\\t\\t\\t' | value 0.0000 | p_ucb 0.0062 | visits 0 | prob 0.0011 }" shape=record]
-	6106413200 [label="{ 291 | ',' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0013 }" shape=record]
-	5898435664 [label="{ 17 | ' begin' | value 0.0001 | p_ucb 0.4432 | visits 20 | prob 0.9836 }" shape=record]
-	17635518544 [label="{ 98 | ' edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5844414864 [label="{ 261 | 'q' | value 0.0000 | p_ucb 0.0127 | visits 0 | prob 0.0022 }" shape=record]
-	5844616272 [label="{ 174 | 'neg' | value 0.0000 | p_ucb 0.0035 | visits 0 | prob 0.0004 }" shape=record]
-	6105645392 [label="{ 255 | ' q' | value 0.0000 | p_ucb 0.1900 | visits 0 | prob 0.0536 }" shape=record]
-	6085689616 [label="{ 286 | '0' | value 0.0001 | p_ucb 1.7267 | visits 3 | prob 0.9986 }" shape=record]
-	5844415952 [label="{ 172 | 'eg' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
-	6105649104 [label="{ 250 | '\\t' | value 0.0001 | p_ucb 2.9649 | visits 1 | prob 0.8355 }" shape=record]
-	6106381648 [label="{ 161 | ' edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17587099856 [label="{ 30 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0480 }" shape=record]
-	6105677648 [label="{ 199 | ' q' | value 0.0000 | p_ucb 0.3625 | visits 0 | prob 0.0797 }" shape=record]
-	5898429392 [label="{ 275 | '\\n' | value 0.0001 | p_ucb 3.5410 | visits 1 | prob 0.9979 }" shape=record]
-	5898727696 [label="{ 162 | ' neg' | value 0.0000 | p_ucb 0.0166 | visits 0 | prob 0.0047 }" shape=record]
-	17737340432 [label="{ 365 | '=' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0010 }" shape=record]
-	6105079824 [label="{ 145 | ' ' | value 0.0000 | p_ucb 0.0162 | visits 0 | prob 0.0029 }" shape=record]
-	5888597520 [label="{ 132 | '\\n' | value 0.0001 | p_ucb 1.4115 | visits 4 | prob 0.9955 }" shape=record]
-	6085585552 [label="{ 227 | '\\n' | value 0.0001 | p_ucb 2.2684 | visits 2 | prob 0.9981 }" shape=record]
-	6104817552 [label="{ 37 | ' ' | value 0.0000 | p_ucb 0.0035 | visits 0 | prob 0.0007 }" shape=record]
-	17645007952 [label="{ 156 | 'posed' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
-	17576807696 [label="{ 218 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.3907 }" shape=record]
-	6070631120 [label="{ 267 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9837 }" shape=record]
-	5844412880 [label="{ 235 | '\\t' | value 0.0000 | p_ucb 0.0015 | visits 0 | prob 0.0003 }" shape=record]
-	5844414032 [label="{ 349 | '\\t   ' | value 0.0000 | p_ucb 0.0421 | visits 0 | prob 0.0081 }" shape=record]
-	5898729744 [label="{ 50 | '\\t\\t' | value 0.0001 | p_ucb 1.4126 | visits 4 | prob 0.9963 }" shape=record]
-	17645006224 [label="{ 168 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5801901456 [label="{ 306 | '\\n' | value 0.0001 | p_ucb 0.1103 | visits 24 | prob 0.1814 }" shape=record]
-	5820153232 [label="{ 359 | ' q' | value 0.0000 | p_ucb 1.1948 | visits 5 | prob 0.9851 }" shape=record]
-	5898435600 [label="{ 266 | '\\t' | value 0.0001 | p_ucb 3.3641 | visits 1 | prob 0.9480 }" shape=record]
-	5844214032 [label="{ 96 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17639289808 [label="{ 152 | 'reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17576506768 [label="{ 51 | '\\t' | value 0.0001 | p_ucb 1.7206 | visits 3 | prob 0.9951 }" shape=record]
-	6088230288 [label="{ 122 | 'posed' | value 0.0001 | p_ucb 0.5064 | visits 17 | prob 0.9995 }" shape=record]
-	17572716048 [label="{ 141 | '\\n' | value 0.0000 | p_ucb 0.0110 | visits 0 | prob 0.0024 }" shape=record]
-	6294054032 [label="{ 293 | ' l' | value 0.0000 | p_ucb 0.4588 | visits 0 | prob 0.1293 }" shape=record]
-	6105891536 [label="{ 127 | ' pos' | value 0.0001 | p_ucb 0.7963 | visits 9 | prob 0.9958 }" shape=record]
-	17642281680 [label="{ 153 | ' edge' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
-	5844417040 [label="{ 41 | ' begin' | value 0.0000 | p_ucb 0.0219 | visits 0 | prob 0.0036 }" shape=record]
-	6106772816 [label="{ 81 | '_' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5898725968 [label="{ 318 | ' edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17737116432 [label="{ 48 | ')' | value 0.0001 | p_ucb 1.0624 | visits 6 | prob 0.9959 }" shape=record]
-	5557942736 [label="{ 334 | '@' | value 0.0000 | p_ucb 0.0161 | visits 0 | prob 0.0023 }" shape=record]
-	5844416656 [label="{ 348 | '       ' | value 0.0000 | p_ucb 0.0442 | visits 0 | prob 0.0085 }" shape=record]
-	5850024592 [label="{ 304 | '[' | value 0.0000 | p_ucb 0.0121 | visits 0 | prob 0.0018 }" shape=record]
-	17736859152 [label="{ 35 | ' ' | value 0.0000 | p_ucb 0.0764 | visits 0 | prob 0.0168 }" shape=record]
-	5888601488 [label="{ 53 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.7199 }" shape=record]
-	6105072400 [label="{ 373 | ' =' | value 0.0000 | p_ucb 0.0962 | visits 0 | prob 0.0170 }" shape=record]
-	6105075984 [label="{ 374 | ' = ' | value 0.0000 | p_ucb 0.0079 | visits 0 | prob 0.0014 }" shape=record]
-	5888795088 [label="{ 246 | '\\t' | value 0.0001 | p_ucb 1.1377 | visits 5 | prob 0.9379 }" shape=record]
-	17641713296 [label="{ 73 | '\\n' | value 0.0000 | p_ucb 0.0180 | visits 0 | prob 0.0021 }" shape=record]
-	5888662416 [label="{ 12 | ' or' | value 0.0001 | p_ucb 0.3197 | visits 25 | prob 0.7931 }" shape=record]
-	5801002320 [label="{ 187 | 'initial' | value 0.0001 | p_ucb 0.1410 | visits 16 | prob 0.1860 }" shape=record]
-	17587367696 [label="{ 65 | ' ' | value 0.0000 | p_ucb 0.3887 | visits 0 | prob 0.0641 }" shape=record]
-	17576503952 [label="{ 252 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0419 }" shape=record]
-	17576499280 [label="{ 62 | ' ' | value 0.0000 | p_ucb 0.0072 | visits 0 | prob 0.0014 }" shape=record]
-	6076332880 [label="{ 270 | '       ' | value 0.0000 | p_ucb 0.0442 | visits 0 | prob 0.0125 }" shape=record]
-	17638499472 [label="{ 183 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1698 }" shape=record]
-	17619912464 [label="{ 104 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0061 }" shape=record]
-	17623810448 [label="{ 233 | '       ' | value 0.0000 | p_ucb 0.0348 | visits 0 | prob 0.0098 }" shape=record]
-	5855899664 [label="{ 105 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	6102574608 [label="{ 237 | ' Gal' | value 0.0001 | p_ucb 1.6754 | visits 1 | prob 0.4721 }" shape=record]
-	6105375376 [label="{ 149 | ' )' | value 0.0000 | p_ucb 0.0025 | visits 0 | prob 0.0004 }" shape=record]
-	5844416784 [label="{ 288 | ' feedback' | value 0.0001 | p_ucb 1.2263 | visits 1 | prob 0.3456 }" shape=record]
-	5888754960 [label="{ 355 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9629 }" shape=record]
-	5578386704 [label="{ 369 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9936 }" shape=record]
-	17648611536 [label="{ 311 | 'posed' | value 0.0001 | p_ucb 1.0658 | visits 6 | prob 0.9991 }" shape=record]
-	5844417936 [label="{ 173 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5844618576 [label="{ 0 | '\<PD\>' | value 0.0001 | p_ucb 0.0000 | visits 128 | prob 1.0000 }" shape=record]
-	5840204560 [label="{ 20 | '\\tif' | value 0.0001 | p_ucb 0.5040 | visits 17 | prob 0.9949 }" shape=record]
-	5888374288 [label="{ 236 | '\\t//' | value 0.0001 | p_ucb 0.1150 | visits 2 | prob 0.0265 }" shape=record]
-	6105652112 [label="{ 254 | '\\n' | value 0.0000 | p_ucb 0.1928 | visits 0 | prob 0.0543 }" shape=record]
-	5888427920 [label="{ 190 | '\\t' | value 0.0001 | p_ucb 1.0605 | visits 6 | prob 0.9942 }" shape=record]
-	5820243920 [label="{ 207 | '\<' | value 0.0000 | p_ucb 0.0512 | visits 0 | prob 0.0144 }" shape=record]
-	17736857680 [label="{ 324 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	6106772560 [label="{ 310 | '(' | value 0.0001 | p_ucb 0.9481 | visits 7 | prob 0.9913 }" shape=record]
-	6106773072 [label="{ 15 | ' reset' | value 0.0001 | p_ucb 0.4206 | visits 22 | prob 1.0000 }" shape=record]
-	6106411216 [label="{ 289 | ';' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9960 }" shape=record]
-	5844418384 [label="{ 91 | ' reset' | value 0.0001 | p_ucb 3.5486 | visits 1 | prob 1.0000 }" shape=record]
-	6102565328 [label="{ 21 | ' (' | value 0.0001 | p_ucb 0.4970 | visits 8 | prob 0.5282 }" shape=record]
-	5898435728 [label="{ 317 | 'edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
-	17639278416 [label="{ 151 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	10943230480 [label="{ 133 | '\\t' | value 0.0001 | p_ucb 1.7165 | visits 3 | prob 0.9927 }" shape=record]
-	5898536144 [label="{ 247 | '\\t' | value 0.0001 | p_ucb 1.4075 | visits 4 | prob 0.9927 }" shape=record]
-	6106771664 [label="{ 23 | ')' | value 0.0001 | p_ucb 1.0607 | visits 6 | prob 0.9943 }" shape=record]
-	5888767824 [label="{ 14 | 'edge' | value 0.0001 | p_ucb 0.4073 | visits 23 | prob 1.0000 }" shape=record]
-	17642464912 [label="{ 222 | '       ' | value 0.0000 | p_ucb 0.0378 | visits 0 | prob 0.0083 }" shape=record]
-	17638497936 [label="{ 182 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.2757 }" shape=record]
-	5888669456 [label="{ 283 | '3' | value 0.0001 | p_ucb 1.0410 | visits 6 | prob 0.9759 }" shape=record]
-	5844619856 [label="{ 351 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9983 }" shape=record]
-	6294365200 [label="{ 301 | '2' | value 0.0000 | p_ucb 0.1033 | visits 0 | prob 0.0170 }" shape=record]
-	17543366416 [label="{ 269 | '  ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0048 }" shape=record]
-	5820344976 [label="{ 11 | 'k' | value 0.0001 | p_ucb 0.3279 | visits 31 | prob 1.0000 }" shape=record]
-	6105186896 [label="{ 59 | '  \<' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0003 }" shape=record]
-	5803471312 [label="{ 163 | 'posed' | value 0.0000 | p_ucb 0.0062 | visits 0 | prob 0.0018 }" shape=record]
-	5888766608 [label="{ 298 | ' :' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17543367760 [label="{ 268 | 'q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0077 }" shape=record]
-	17587366224 [label="{ 66 | ' begin' | value 0.0000 | p_ucb 0.0269 | visits 0 | prob 0.0044 }" shape=record]
-	6106772240 [label="{ 85 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17648613776 [label="{ 74 | '\\t   ' | value 0.0000 | p_ucb 0.0288 | visits 0 | prob 0.0033 }" shape=record]
-	10968598544 [label="{ 196 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0548 }" shape=record]
-	5848670608 [label="{ 259 | ' ' | value 0.0000 | p_ucb 0.4292 | visits 0 | prob 0.0827 }" shape=record]
-	5850024784 [label="{ 92 | ')' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9995 }" shape=record]
-	5898427984 [label="{ 128 | 'edge' | value 0.0001 | p_ucb 0.8697 | visits 8 | prob 1.0000 }" shape=record]
-	6105639056 [label="{ 323 | ')' | value 0.0000 | p_ucb 0.2556 | visits 0 | prob 0.0562 }" shape=record]
-	5796928656 [label="{ 3 | '\\n' | value 0.0001 | p_ucb 0.1255 | visits 80 | prob 0.7278 }" shape=record]
-	17736817744 [label="{ 147 | '\\n' | value 0.0000 | p_ucb 0.0355 | visits 0 | prob 0.0059 }" shape=record]
-	5901714704 [label="{ 379 | '   ' | value 0.0001 | p_ucb 0.1051 | visits 1 | prob 0.0144 }" shape=record]
-	5887827792 [label="{ 6 | ' @' | value 0.0001 | p_ucb 0.2936 | visits 36 | prob 0.9984 }" shape=record]
-	5803032208 [label="{ 129 | ' reset' | value 0.0001 | p_ucb 0.9564 | visits 7 | prob 1.0000 }" shape=record]
-	5779771152 [label="{ 107 | ' reset' | value 0.0000 | p_ucb 0.0006 | visits 0 | prob 0.0001 }" shape=record]
-	17644741264 [label="{ 205 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5888303120 [label="{ 9 | 'ge' | value 0.0001 | p_ucb 0.3133 | visits 33 | prob 1.0000 }" shape=record]
-	6294369104 [label="{ 284 | '1' | value 0.0001 | p_ucb 1.0853 | visits 5 | prob 0.8947 }" shape=record]
-	17587169424 [label="{ 197 | ' q' | value 0.0000 | p_ucb 0.2701 | visits 0 | prob 0.0761 }" shape=record]
-	5898726224 [label="{ 251 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.8581 }" shape=record]
-	6294027664 [label="{ 329 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17644733776 [label="{ 203 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9998 }" shape=record]
-	5850025296 [label="{ 305 | ' ' | value 0.0000 | p_ucb 0.0046 | visits 0 | prob 0.0007 }" shape=record]
-	5844418512 [label="{ 234 | ' q' | value 0.0000 | p_ucb 0.0030 | visits 0 | prob 0.0006 }" shape=record]
-	5898382928 [label="{ 368 | '3' | value 0.0000 | p_ucb 1.2925 | visits 1 | prob 0.4984 }" shape=record]
-	5898374992 [label="{ 52 | '\\t' | value 0.0001 | p_ucb 1.2213 | visits 1 | prob 0.5373 }" shape=record]
-	6106345552 [label="{ 164 | ')' | value 0.0001 | p_ucb 0.3589 | visits 1 | prob 0.0899 }" shape=record]
-	6079177552 [label="{ 185 | '\\t//' | value 0.0000 | p_ucb 0.1064 | visits 0 | prob 0.0115 }" shape=record]
-	17605388496 [label="{ 221 | 'q' | value 0.0000 | p_ucb 0.0121 | visits 0 | prob 0.0034 }" shape=record]
-	17641717520 [label="{ 239 | 'oi' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
-	6106338512 [label="{ 157 | ',' | value 0.0001 | p_ucb 0.5175 | visits 2 | prob 0.1943 }" shape=record]
-	17623812496 [label="{ 232 | '\\t   ' | value 0.0000 | p_ucb 0.0426 | visits 0 | prob 0.0120 }" shape=record]
-	6082046608 [label="{ 166 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0126 }" shape=record]
-	17576479824 [label="{ 56 | ' q' | value 0.0001 | p_ucb 1.9204 | visits 1 | prob 0.4225 }" shape=record]
-	17576815440 [label="{ 219 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0553 }" shape=record]
-	5888303248 [label="{ 8 | 'posed' | value 0.0001 | p_ucb 0.3063 | visits 34 | prob 0.9991 }" shape=record]
-	17642291088 [label="{ 154 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5898726032 [label="{ 137 | ' reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5898727824 [label="{ 216 | '\\t' | value 0.0001 | p_ucb 3.4986 | visits 1 | prob 0.9859 }" shape=record]
-	17642460048 [label="{ 223 | '\\t   ' | value 0.0000 | p_ucb 0.0309 | visits 0 | prob 0.0068 }" shape=record]
-	6089353936 [label="{ 191 | '\\t' | value 0.0001 | p_ucb 0.9268 | visits 3 | prob 0.4584 }" shape=record]
-	6106855824 [label="{ 45 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17587835024 [label="{ 367 | ':' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17576491792 [label="{ 341 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.8552 }" shape=record]
-	5853050576 [label="{ 224 | ' ' | value 0.0000 | p_ucb 0.1459 | visits 0 | prob 0.0281 }" shape=record]
-	6101849680 [label="{ 356 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0317 }" shape=record]
-	6085585360 [label="{ 339 | '\\t' | value 0.0001 | p_ucb 2.2615 | visits 2 | prob 0.9950 }" shape=record]
-	5888595600 [label="{ 265 | '\\n' | value 0.0001 | p_ucb 2.1829 | visits 2 | prob 0.9605 }" shape=record]
-	6294862672 [label="{ 39 | '\\t' | value 0.0000 | p_ucb 0.0047 | visits 0 | prob 0.0008 }" shape=record]
-	5888597264 [label="{ 313 | ' cl' | value 0.0001 | p_ucb 1.4177 | visits 4 | prob 0.9999 }" shape=record]
-	6294905808 [label="{ 353 | ' //' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0003 }" shape=record]
-	5852803856 [label="{ 258 | ' q' | value 0.0000 | p_ucb 0.9918 | visits 0 | prob 0.1912 }" shape=record]
-	17736853264 [label="{ 314 | 'k' | value 0.0001 | p_ucb 1.7291 | visits 3 | prob 1.0000 }" shape=record]
-	6105045520 [label="{ 231 | '  ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0031 }" shape=record]
-	5898504464 [label="{ 214 | '\\n' | value 0.0001 | p_ucb 1.6720 | visits 3 | prob 0.9669 }" shape=record]
-	5853943696 [label="{ 181 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4716 }" shape=record]
-	6294232400 [label="{ 99 | ' neg' | value 0.0000 | p_ucb 0.0213 | visits 0 | prob 0.0041 }" shape=record]
-	5853503184 [label="{ 47 | 'reset' | value 0.0001 | p_ucb 0.9563 | visits 7 | prob 0.9999 }" shape=record]
-	17574447248 [label="{ 69 | ' reset' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0001 }" shape=record]
-	5855899792 [label="{ 249 | '\\t' | value 0.0001 | p_ucb 2.0320 | visits 2 | prob 0.8941 }" shape=record]
-	5853047760 [label="{ 119 | 'always' | value 0.0001 | p_ucb 0.4101 | visits 20 | prob 0.8979 }" shape=record]
-	5844418320 [label="{ 78 | '\\n' | value 0.0000 | p_ucb 0.1176 | visits 0 | prob 0.0131 }" shape=record]
-	6294022864 [label="{ 328 | 'eg' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
-	5840204688 [label="{ 335 | '_' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
-	5898429584 [label="{ 312 | 'ge' | value 0.0001 | p_ucb 1.2130 | visits 5 | prob 1.0000 }" shape=record]
-	5853049104 [label="{ 225 | '\\t' | value 0.0000 | p_ucb 0.0071 | visits 0 | prob 0.0014 }" shape=record]
-	17641701648 [label="{ 240 | 'ios' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17572719952 [label="{ 142 | '  ' | value 0.0000 | p_ucb 0.0094 | visits 0 | prob 0.0021 }" shape=record]
-	17644994768 [label="{ 169 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	6076417232 [label="{ 287 | ']' | value 0.0001 | p_ucb 2.2728 | visits 2 | prob 1.0000 }" shape=record]
-	5558224336 [label="{ 245 | '\\n' | value 0.0001 | p_ucb 0.6080 | visits 6 | prob 0.4788 }" shape=record]
-	17737275408 [label="{ 93 | ' )' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0005 }" shape=record]
-	5801273296 [label="{ 40 | ' ' | value 0.0000 | p_ucb 0.4203 | visits 0 | prob 0.0693 }" shape=record]
-	5887827408 [label="{ 1 | '\\n' | value 0.0001 | p_ucb 0.1140 | visits 127 | prob 0.9895 }" shape=record]
-	5804048656 [label="{ 118 | '\\t' | value 0.0001 | p_ucb 0.4142 | visits 22 | prob 0.9847 }" shape=record]
-	5840628432 [label="{ 192 | '\\t' | value 0.0001 | p_ucb 1.9163 | visits 2 | prob 0.8432 }" shape=record]
-	4379983568 [label="{ 113 | ' (' | value 0.0000 | p_ucb 0.0782 | visits 0 | prob 0.0075 }" shape=record]
-	5899008848 [label="{ 211 | '    ' | value 0.0000 | p_ucb 0.0776 | visits 0 | prob 0.0116 }" shape=record]
-	5899006608 [label="{ 344 | ' q' | value 0.0000 | p_ucb 0.9990 | visits 0 | prob 0.2815 }" shape=record]
-	17736853200 [label="{ 325 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5843733136 [label="{ 308 | 'always' | value 0.0001 | p_ucb 0.3168 | visits 9 | prob 0.3081 }" shape=record]
-	5824973968 [label="{ 281 | 'reg' | value 0.0001 | p_ucb 0.1132 | visits 8 | prob 0.0738 }" shape=record]
-	10943219024 [label="{ 144 | '\\t   ' | value 0.0000 | p_ucb 0.0085 | visits 0 | prob 0.0016 }" shape=record]
-	5840627472 [label="{ 271 | '\\t   ' | value 0.0000 | p_ucb 0.0255 | visits 0 | prob 0.0072 }" shape=record]
-	17587172624 [label="{ 198 | '\\n' | value 0.0000 | p_ucb 0.2449 | visits 0 | prob 0.0690 }" shape=record]
-	6106769616 [label="{ 302 | '4' | value 0.0000 | p_ucb 0.1198 | visits 0 | prob 0.0187 }" shape=record]
-	6075829072 [label="{ 114 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
-	6088232592 [label="{ 170 | ' reset' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
-	5888659408 [label="{ 248 | '\\t' | value 0.0001 | p_ucb 1.1416 | visits 3 | prob 0.6602 }" shape=record]
-	6294359248 [label="{ 381 | ' reg' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.3336 }" shape=record]
-	5558224080 [label="{ 264 | ' begin' | value 0.0001 | p_ucb 0.4590 | visits 3 | prob 0.2409 }" shape=record]
-	17644999952 [label="{ 125 | 'k' | value 0.0001 | p_ucb 0.5826 | visits 14 | prob 1.0000 }" shape=record]
-	6106201552 [label="{ 327 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	17736818640 [label="{ 148 | ' ' | value 0.0000 | p_ucb 0.0056 | visits 0 | prob 0.0009 }" shape=record]
-	6105370768 [label="{ 150 | '_' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5801242832 [label="{ 80 | ' )' | value 0.0000 | p_ucb 0.0039 | visits 0 | prob 0.0004 }" shape=record]
-	5797717392 [label="{ 307 | '\\t' | value 0.0001 | p_ucb 0.3874 | visits 23 | prob 0.9512 }" shape=record]
-	5843732944 [label="{ 320 | ' neg' | value 0.0000 | p_ucb 0.0139 | visits 0 | prob 0.0039 }" shape=record]
-	6294360592 [label="{ 380 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4463 }" shape=record]
-	5898726352 [label="{ 319 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
-	5855896144 [label="{ 124 | ' cl' | value 0.0001 | p_ucb 0.5544 | visits 15 | prob 1.0000 }" shape=record]
-	5888427920 -> 5803950416
-	6106349200 -> 17644999760
-	5898373712 -> 6106773456
-	5855899792 -> 6105649104
-	5888592144 -> 17619912464
-	6106771664 -> 6102875792
-	5844416784 -> 6106409936
-	5901714704 -> 6294360592
-	5844418384 -> 17737275408
-	5801901456 -> 5797717392
-	6089459280 -> 6082046672
-	17648611536 -> 6294027664
-	5853045584 -> 5820243664
-	5820347856 -> 17648613776
-	5844413712 -> 6106381648
-	6088235280 -> 6106772240
-	5856100880 -> 6079177552
-	5843733136 -> 5557942736
-	17648611536 -> 6294022864
-	5855899792 -> 6105645392
-	5898373712 -> 6106773328
-	6102574608 -> 17641717520
-	5888662416 -> 5898425872
-	17587831248 -> 17737336784
-	5898429392 -> 17648617488
-	5797717392 -> 5843733136
-	5888374288 -> 6102574608
-	6085583312 -> 17635508560
-	6106773072 -> 5887827856
-	5898727824 -> 17576807696
-	5558224080 -> 5888595600
-	6105373136 -> 17736817744
-	5844413648 -> 6088232592
-	6085585552 -> 17623810448
-	6089439888 -> 6085585552
-	5840628432 -> 17587172624
-	6102574608 -> 17641713552
-	5802677776 -> 5888754576
-	6085689616 -> 17639278224
-	5898429584 -> 6106197328
-	17587174480 -> 6088110352
-	17572713616 -> 6082048144
-	5898382928 -> 6104941840
-	6071043856 -> 5898863312
-	6088235280 -> 6106768592
-	5888427920 -> 6089353936
-	4349605584 -> 6101849680
-	5824973968 -> 5850025296
-	5898435664 -> 5820347856
-	6106772496 -> 17587835024
-	5844413008 -> 6085585360
-	5898729744 -> 17576506768
-	6071043856 -> 5856100880
-	5853047760 -> 5802685648
-	5898374992 -> 17616481168
-	5888755024 -> 5844619856
-	17736847440 -> 17736819920
-	6106338512 -> 5844413712
-	5888767824 -> 6106773072
-	6102565328 -> 6085581904
-	5898374992 -> 17616475920
-	5888662416 -> 6088235280
-	17623825488 -> 6105045520
-	5843962064 -> 17641713296
-	17736822864 -> 5888597520
-	5888303248 -> 5853502992
-	5888766736 -> 5844416656
-	5898378768 -> 6088230288
-	5853045648 -> 5853049104
-	5888303120 -> 5779771152
-	17572713616 -> 17572256528
-	5825553808 -> 5824973968
-	5803032208 -> 6105370768
-	5898729744 -> 17576494416
-	6106349200 -> 6105891536
-	5898429392 -> 17648631632
-	6105891536 -> 17642291088
-	5888766736 -> 5844414032
-	5844413008 -> 17642462672
-	5887827856 -> 5844418320
-	6102574608 -> 17641701648
-	17736847440 -> 17736821328
-	5820344976 -> 6089439952
-	5888467600 -> 17641647568
-	5898504464 -> 17642464912
-	5898371856 -> 17576490512
-	6102571216 -> 17574447248
-	5855896144 -> 17645006224
-	5898427984 -> 17639278416
-	6070584976 -> 5898727824
-	6070584976 -> 17605388496
-	17587174480 -> 10968601488
-	6106772560 -> 17648601040
-	17635508560 -> 5844418384
-	5820153232 -> 6105076752
-	5843962064 -> 17641707152
-	17736843728 -> 17587095568
-	5844413712 -> 6106379472
-	6070583504 -> 5888669456
-	5888597520 -> 10943230480
-	6102571216 -> 5853503184
-	17644999952 -> 6106345552
-	5853047760 -> 6088235792
-	5898435600 -> 17543367760
-	5820346128 -> 6105134672
-	5803032208 -> 6105373136
-	5898378768 -> 5844616272
-	5888595600 -> 6076332880
-	5898379728 -> 5820344976
-	5802677776 -> 5898378768
-	6294369104 -> 6106773264
-	6106338512 -> 5898727696
-	5801002320 -> 5853045648
-	6085583312 -> 17635521488
-	6085689552 -> 6089354768
-	6105076752 -> 6076332688
-	5796928656 -> 5841309584
-	5888592144 -> 17619924688
-	5888303248 -> 5888303120
-	5887827408 -> 5825553808
-	5855899728 -> 6088229904
-	5888669456 -> 6294369104
-	5898504464 -> 6070584976
-	5888669456 -> 6294356880
-	5820344976 -> 5888662416
-	5844413648 -> 5855896144
-	5844618576 -> 6102351696
-	5825553808 -> 5796928656
-	17736847440 -> 17736815824
-	5898727824 -> 17576818192
-	5804048656 -> 5898874384
-	6102875792 -> 6294862672
-	10943230480 -> 17572716048
-	6089459280 -> 5888795600
-	17737116432 -> 17587367696
-	17587370768 -> 17635727248
-	6082048144 -> 6106073552
-	5888659408 -> 5850024976
-	5850200784 -> 5888755024
-	5898371856 -> 17576491792
-	5898727824 -> 17576815440
-	6106345552 -> 6089354064
-	5801901456 -> 6089459472
-	5898876944 -> 5888669520
-	5888597264 -> 17736853264
-	5901714704 -> 6294359248
-	5796928656 -> 5888374288
-	17576479824 -> 6105190032
-	6105649104 -> 17576500240
-	6105373136 -> 17736822864
-	5840628432 -> 17587174480
-	6085585360 -> 5898434896
-	5855896144 -> 17644999952
-	17587370768 -> 5898729744
-	5844416784 -> 6106411216
-	6088230288 -> 5844415952
-	5898435088 -> 5843732944
-	10943230480 -> 17572713616
-	6104811536 -> 17736843728
-	6105649104 -> 17576503952
-	6106770896 -> 5898726352
-	5844418384 -> 5850024784
-	6102571216 -> 17574446864
-	5844418384 -> 17737274064
-	5856100880 -> 5802821904
-	5853503184 -> 17737112400
-	6102875792 -> 6294851728
-	5840204560 -> 6102571216
-	5887827792 -> 4379983568
-	5840204560 -> 6102565328
-	5888795088 -> 5844414864
-	6104811536 -> 17736847440
-	5898536144 -> 5888659408
-	6105649104 -> 5898726224
-	17635508560 -> 5844214032
-	5888662416 -> 5898429776
-	6085585552 -> 17623825488
-	17648611536 -> 5898429584
-	5898427984 -> 17639289808
-	5803409040 -> 5558224336
-	5843733136 -> 5898373712
-	6294851728 -> 6104811536
-	17736843728 -> 17587099856
-	6079178256 -> 17644733776
-	5853045584 -> 6079178256
-	6294851728 -> 6104817552
-	17576479824 -> 6105194576
-	6106345552 -> 17736769872
-	5558224336 -> 5888662096
-	5820153232 -> 6105072400
-	5898435088 -> 6088112080
-	6105891536 -> 5898427984
-	5844413648 -> 5844416144
-	17737116432 -> 17587366224
-	4349605584 -> 5888754960
-	5898382928 -> 6104950224
-	5844413712 -> 6106368144
-	5853503184 -> 17737117072
-	5850200784 -> 4349605584
-	5801901456 -> 5843732752
-	6070584976 -> 5852803472
-	6070583504 -> 6106769616
-	6082048144 -> 6070584784
-	5797717392 -> 5850200784
-	5820346128 -> 5888795024
-	5898876944 -> 6089459280
-	5888595600 -> 5898435600
-	17587174480 -> 10968598544
-	17736853264 -> 6105639056
-	6105891536 -> 17642281680
-	5898863312 -> 5887827664
-	17576479824 -> 6105186896
-	6102875792 -> 6294849936
-	6294369104 -> 5888766608
-	5888597264 -> 17736857680
-	5898371856 -> 17576487440
-	5853045584 -> 5820243920
-	5888303248 -> 5898373328
-	6089353936 -> 6105671056
-	5898382928 -> 5578386704
-	5820153232 -> 6105075984
-	5843962064 -> 5840204560
-	6085689616 -> 5888460688
-	17623825488 -> 6105044624
-	5898863312 -> 5887827792
-	6085689552 -> 5888303248
-	6106772496 -> 17587838480
-	5855899728 -> 6085689616
-	6106349200 -> 17645007952
-	5898874384 -> 17638497936
-	5901714704 -> 6294360272
-	5888795088 -> 5898536144
-	5888766736 -> 5844413008
-	5825553808 -> 5803409040
-	6294851728 -> 6104822096
-	5804048656 -> 5853047760
-	5898373712 -> 6106772560
-	5898427984 -> 5803032208
-	5898874384 -> 17638499472
-	5558224336 -> 5820418640
-	5898429584 -> 5888597264
-	5803409040 -> 5558224080
-	5888597520 -> 10943219024
-	5888595600 -> 5840627472
-	6294369104 -> 5855899728
-	5853045648 -> 5898504464
-	17736853264 -> 5898435088
-	6105373136 -> 17736818640
-	5820346128 -> 5820153232
-	17737116432 -> 17587370768
-	6082048144 -> 5898726032
-	6106773072 -> 6106772816
-	5898435600 -> 17543366416
-	5898729744 -> 17576499280
-	17572713616 -> 17572262480
-	5888374288 -> 6102578768
-	6085581904 -> 5820244368
-	5801002320 -> 6089439888
-	5888467600 -> 17641638992
-	6106770896 -> 5898725968
-	6104811536 -> 17736859152
-	6089439888 -> 5844412880
-	5898863312 -> 5887827536
-	5843733136 -> 5840204688
-	6106770896 -> 5898435728
-	5898874384 -> 5853943696
-	5802677776 -> 5888669328
-	5820347856 -> 5843962064
-	6088230288 -> 5844413648
-	5888592144 -> 17619921296
-	5844416784 -> 6106413200
-	5801002320 -> 5898876944
-	6106772496 -> 17587831248
-	17736822864 -> 6105075152
-	6089353936 -> 5840628432
-	5898435600 -> 6070631120
-	17587831248 -> 6070584912
-	5898504464 -> 17642460048
-	6088235280 -> 5888767824
-	5853045648 -> 5853050576
-	5558224080 -> 6085582032
-	6102565328 -> 6106855824
-	5888467600 -> 5898429392
-	5898536144 -> 5848670608
-	5803409040 -> 5888467600
-	10943230480 -> 17572719952
-	5888659408 -> 5855899792
-	5898379728 -> 5840553680
-	5888755024 -> 6294905808
-	17644999952 -> 6106338512
-	4349605584 -> 6105309456
-	17587370768 -> 17635724176
-	5804048656 -> 5840555920
-	5824973968 -> 6070583504
-	17635508560 -> 6070583760
-	17736853264 -> 6105639760
-	5898876944 -> 5899008848
-	5898536144 -> 5852803856
-	6071043856 -> 5801002320
-	5887827856 -> 6102565648
-	6085689616 -> 6076417232
-	17644999952 -> 6106349200
-	5844618576 -> 6106499856
-	6085585360 -> 5899006608
-	5855899792 -> 6105652112
-	6105076752 -> 5898382928
-	5888427920 -> 5853045584
-	6085581904 -> 6106771664
-	17736822864 -> 6105079824
-	5898429584 -> 6106201552
-	6085585552 -> 17623812496
-	5853047760 -> 5802677776
-	6106771664 -> 5801273296
-	6085689552 -> 6089354832
-	5840204560 -> 6102579088
-	5887827792 -> 6085689552
-	5898435664 -> 6294012624
-	5803032208 -> 6105375376
-	5855899728 -> 6088235856
-	5888755024 -> 6294898384
-	5887827408 -> 5901714704
-	5898435664 -> 6294016208
-	6089439888 -> 5844418512
-	5898435088 -> 6106770896
-	5840628432 -> 17587169424
-	5888374288 -> 6102570192
-	5856100880 -> 5804048656
-	5844413008 -> 17642470416
-	5888303120 -> 5802162064
-	5898379728 -> 5855899664
-	17576506768 -> 17576479824
-	6089353936 -> 6105677648
-	6079178256 -> 17644739216
-	6106772560 -> 17648611536
-	5898378768 -> 5844623376
-	5888669456 -> 6294365200
-	5820344976 -> 5888592144
-	6089459280 -> 5888427920
-	5888767824 -> 17647154704
-	6106345552 -> 6082046608
-	5824973968 -> 5850024592
-	5853503184 -> 17737116432
-	5820347856 -> 17648605648
-	5888659408 -> 6105839504
-	6106338512 -> 5803471312
-	5888767824 -> 17647141392
-	17587831248 -> 17737340432
-	6070583504 -> 6106771472
-	17576506768 -> 5898374992
-	6076417232 -> 6294054032
-	5898429392 -> 17648620496
-	6106771664 -> 5844417040
-	5887827408 -> 5801901456
-	6089439952 -> 6294233616
-	6076417232 -> 6294049232
-	5887827792 -> 6075829072
-	6102565328 -> 6088904272
-	17736843728 -> 17587109776
-	6085581904 -> 17737128848
-	6085585360 -> 5898371856
-	5888597520 -> 10943219472
-	17576506768 -> 17576483408
-	5558224336 -> 5888795088
-	6105076752 -> 6106772496
-	5898374992 -> 5888601488
-	5855896144 -> 17644994768
-	6076417232 -> 5844416784
-	5888597264 -> 17736853200
-	6089439952 -> 6294232400
-	5844618576 -> 5887827408
-	5796928656 -> 6071043856
-	6106773072 -> 5801242832
-	5797717392 -> 5820346128
-	5888795088 -> 6106765136
-	6106772560 -> 17648605072
-	17623825488 -> 6105047568
-	6085583312 -> 17635518544
-	6088230288 -> 5844417936
-	5887827856 -> 5898435664
-	5850200784 -> 5888766736
-	5888303120 -> 5898379728
-	6089439952 -> 6085583312
-	5558224080 -> 6106765776
-	6079178256 -> 17644741264
+	5902444304 [label="{ 272 | ' q' | value 0.0001 | p_ucb 1.0342 | visits 2 | prob 0.3647 }" shape=record]
+	5902403024 [label="{ 398 | '  ' | value 0.0000 | p_ucb 0.0540 | visits 0 | prob 0.0119 }" shape=record]
+	6334699920 [label="{ 205 | ' positive' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334448528 [label="{ 202 | ' neg' | value 0.0000 | p_ucb 0.0262 | visits 0 | prob 0.0041 }" shape=record]
+	6331902224 [label="{ 45 | '==' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0002 }" shape=record]
+	5803266896 [label="{ 53 | 'reset' | value 0.0001 | p_ucb 1.4177 | visits 4 | prob 0.9999 }" shape=record]
+	6334506192 [label="{ 566 | '      ' | value 0.0000 | p_ucb 0.0273 | visits 0 | prob 0.0060 }" shape=record]
+	6332381200 [label="{ 181 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0006 }" shape=record]
+	20256618448 [label="{ 615 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9793 }" shape=record]
+	5903034704 [label="{ 312 | '\\n' | value 0.0001 | p_ucb 3.5419 | visits 1 | prob 0.9981 }" shape=record]
+	5903038800 [label="{ 9 | 'ge' | value 0.0001 | p_ucb 0.3626 | visits 27 | prob 1.0000 }" shape=record]
+	6150474320 [label="{ 641 | '\\t' | value 0.0000 | p_ucb 0.0846 | visits 0 | prob 0.0058 }" shape=record]
+	5861606288 [label="{ 291 | '       ' | value 0.0000 | p_ucb 0.0571 | visits 0 | prob 0.0089 }" shape=record]
+	6320323600 [label="{ 255 | '\\n' | value 0.0000 | p_ucb 0.0074 | visits 0 | prob 0.0008 }" shape=record]
+	5827531856 [label="{ 397 | '\\n' | value 0.0000 | p_ucb 0.1092 | visits 0 | prob 0.0240 }" shape=record]
+	20807976144 [label="{ 34 | '  ' | value 0.0000 | p_ucb 0.0012 | visits 0 | prob 0.0003 }" shape=record]
+	6435064464 [label="{ 495 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334387216 [label="{ 545 | ' (*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861614096 [label="{ 10 | ' cl' | value 0.0001 | p_ucb 0.3726 | visits 26 | prob 0.9999 }" shape=record]
+	5817901008 [label="{ 2 | '\\t' | value 0.0001 | p_ucb 0.1108 | visits 101 | prob 0.7662 }" shape=record]
+	20245104528 [label="{ 606 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0635 }" shape=record]
+	6435440848 [label="{ 445 | ']' | value 0.0001 | p_ucb 3.5486 | visits 1 | prob 1.0000 }" shape=record]
+	6334667152 [label="{ 25 | '\\t\\t' | value 0.0001 | p_ucb 2.2670 | visits 2 | prob 0.9974 }" shape=record]
+	5818200656 [label="{ 126 | 'posed' | value 0.0000 | p_ucb 0.0089 | visits 0 | prob 0.0020 }" shape=record]
+	5827532048 [label="{ 245 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4716 }" shape=record]
+	5818200912 [label="{ 479 | 'ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	5818404944 [label="{ 104 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	21242203216 [label="{ 68 | ' q' | value 0.0000 | p_ucb 0.0081 | visits 0 | prob 0.0018 }" shape=record]
+	20134506000 [label="{ 217 | ')' | value 0.0000 | p_ucb 0.6465 | visits 0 | prob 0.0899 }" shape=record]
+	5903098320 [label="{ 223 | 'j' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5827532496 [label="{ 590 | '3' | value 0.0000 | p_ucb 1.7685 | visits 0 | prob 0.4984 }" shape=record]
+	5828435472 [label="{ 258 | '\\n' | value 0.0001 | p_ucb 0.5434 | visits 7 | prob 0.4762 }" shape=record]
+	6334313744 [label="{ 603 | '\\t' | value 0.0001 | p_ucb 3.4751 | visits 1 | prob 0.9793 }" shape=record]
+	6150479056 [label="{ 643 | '  ' | value 0.0000 | p_ucb 0.0085 | visits 0 | prob 0.0006 }" shape=record]
+	6331808528 [label="{ 328 | '\\t' | value 0.0000 | p_ucb 0.0060 | visits 0 | prob 0.0007 }" shape=record]
+	20239228560 [label="{ 555 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.2815 }" shape=record]
+	20140195408 [label="{ 298 | '  ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0060 }" shape=record]
+	6332634768 [label="{ 188 | 'begin' | value 0.0000 | p_ucb 0.0037 | visits 0 | prob 0.0008 }" shape=record]
+	5861754576 [label="{ 380 | 'initial' | value 0.0001 | p_ucb 0.1295 | visits 11 | prob 0.1126 }" shape=record]
+	6325478544 [label="{ 384 | '\\t' | value 0.0001 | p_ucb 1.5004 | visits 2 | prob 0.6602 }" shape=record]
+	5902450192 [label="{ 240 | '@' | value 0.0000 | p_ucb 0.0048 | visits 0 | prob 0.0006 }" shape=record]
+	6324275344 [label="{ 602 | '\\n' | value 0.0001 | p_ucb 0.2921 | visits 2 | prob 0.0959 }" shape=record]
+	6326129744 [label="{ 438 | '\\t' | value 0.0000 | p_ucb 0.0052 | visits 0 | prob 0.0007 }" shape=record]
+	6334450768 [label="{ 86 | '    ' | value 0.0000 | p_ucb 0.0247 | visits 0 | prob 0.0031 }" shape=record]
+	6434595728 [label="{ 269 | ' ' | value 0.0000 | p_ucb 0.1370 | visits 0 | prob 0.0386 }" shape=record]
+	6335407568 [label="{ 518 | 'ge' | value 0.0001 | p_ucb 1.7291 | visits 3 | prob 1.0000 }" shape=record]
+	6331306576 [label="{ 4 | '\\t' | value 0.0001 | p_ucb 0.1679 | visits 72 | prob 0.9582 }" shape=record]
+	6331901584 [label="{ 106 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331904336 [label="{ 200 | ' Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20284604944 [label="{ 499 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.5331 }" shape=record]
+	6334354960 [label="{ 335 | ':' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5828682832 [label="{ 521 | ' or' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.8061 }" shape=record]
+	5902414864 [label="{ 530 | ' reset' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0001 }" shape=record]
+	6331887696 [label="{ 314 | '\\t   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0120 }" shape=record]
+	20290197712 [label="{ 130 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9628 }" shape=record]
+	20284620560 [label="{ 503 | 'i' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5353485584 [label="{ 377 | '   ' | value 0.0000 | p_ucb 0.0676 | visits 0 | prob 0.0053 }" shape=record]
+	20290203920 [label="{ 132 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0061 }" shape=record]
+	20245116944 [label="{ 607 | 'assign' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0379 }" shape=record]
+	6139281680 [label="{ 283 | ' ' | value 0.0000 | p_ucb 0.6437 | visits 0 | prob 0.1135 }" shape=record]
+	6334448592 [label="{ 612 | '  ' | value 0.0000 | p_ucb 0.0015 | visits 0 | prob 0.0004 }" shape=record]
+	6150475536 [label="{ 644 | '    ' | value 0.0000 | p_ucb 0.0028 | visits 0 | prob 0.0002 }" shape=record]
+	6332275728 [label="{ 310 | ' //' | value 0.0000 | p_ucb 0.0047 | visits 0 | prob 0.0010 }" shape=record]
+	5817904976 [label="{ 475 | 'always' | value 0.0001 | p_ucb 0.1150 | visits 4 | prob 0.0417 }" shape=record]
+	6333116688 [label="{ 441 | '3' | value 0.0001 | p_ucb 1.1838 | visits 5 | prob 0.9759 }" shape=record]
+	5803273808 [label="{ 13 | ' pos' | value 0.0001 | p_ucb 0.4656 | visits 19 | prob 0.9957 }" shape=record]
+	6331892816 [label="{ 107 | ' Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6434715536 [label="{ 425 | '   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0063 }" shape=record]
+	6434064080 [label="{ 637 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1681 }" shape=record]
+	6139147664 [label="{ 604 | 'always' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.7802 }" shape=record]
+	5903102160 [label="{ 442 | '1' | value 0.0001 | p_ucb 1.2686 | visits 4 | prob 0.8947 }" shape=record]
+	5359516496 [label="{ 257 | 'initial' | value 0.0001 | p_ucb 0.1682 | visits 14 | prob 0.1860 }" shape=record]
+	5803584528 [label="{ 154 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6434894864 [label="{ 176 | '\\n' | value 0.0001 | p_ucb 3.5328 | visits 1 | prob 0.9955 }" shape=record]
+	6150483472 [label="{ 443 | ':' | value 0.0001 | p_ucb 1.7291 | visits 3 | prob 1.0000 }" shape=record]
+	5818195984 [label="{ 609 | '\\t//' | value 0.0000 | p_ucb 0.0430 | visits 0 | prob 0.0121 }" shape=record]
+	6334449168 [label="{ 88 | '       ' | value 0.0000 | p_ucb 0.0099 | visits 0 | prob 0.0012 }" shape=record]
+	20140185808 [label="{ 297 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9859 }" shape=record]
+	5827531728 [label="{ 256 | 'initial' | value 0.0000 | p_ucb 0.0029 | visits 0 | prob 0.0003 }" shape=record]
+	5818199184 [label="{ 127 | 'neg' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	20808988304 [label="{ 586 | ' ]' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334278032 [label="{ 633 | ' wire' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0258 }" shape=record]
+	6334313168 [label="{ 243 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20284210128 [label="{ 529 | 's' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6333986512 [label="{ 417 | ' ' | value 0.0000 | p_ucb 0.1171 | visits 0 | prob 0.0330 }" shape=record]
+	6150177040 [label="{ 512 | '\\n' | value 0.0001 | p_ucb 0.1103 | visits 23 | prob 0.1814 }" shape=record]
+	6334986960 [label="{ 338 | '3' | value 0.0000 | p_ucb 1.7292 | visits 0 | prob 0.4873 }" shape=record]
+	6150611024 [label="{ 24 | '\\n' | value 0.0001 | p_ucb 1.5991 | visits 3 | prob 0.9248 }" shape=record]
+	6434841616 [label="{ 264 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0761 }" shape=record]
+	5861613840 [label="{ 472 | ' ' | value 0.0000 | p_ucb 0.0044 | visits 0 | prob 0.0007 }" shape=record]
+	6333319760 [label="{ 486 | 'pos' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861613712 [label="{ 141 | ' reset' | value 0.0000 | p_ucb 0.0006 | visits 0 | prob 0.0001 }" shape=record]
+	21242210320 [label="{ 66 | ' ' | value 0.0000 | p_ucb 0.2913 | visits 0 | prob 0.0641 }" shape=record]
+	5828937104 [label="{ 323 | ' \<= ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.6079 }" shape=record]
+	6333418064 [label="{ 350 | 'reg' | value 0.0001 | p_ucb 0.1318 | visits 3 | prob 0.0416 }" shape=record]
+	6434716240 [label="{ 426 | '\\t   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0061 }" shape=record]
+	5828435152 [label="{ 140 | 'j' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20290204880 [label="{ 131 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0298 }" shape=record]
+	5818161232 [label="{ 439 | 'reg' | value 0.0001 | p_ucb 0.1274 | visits 7 | prob 0.0738 }" shape=record]
+	6335265744 [label="{ 216 | ' positive' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6333282192 [label="{ 598 | ' t' | value 0.0000 | p_ucb 0.0296 | visits 0 | prob 0.0057 }" shape=record]
+	5828688720 [label="{ 22 | 'reset' | value 0.0001 | p_ucb 1.2130 | visits 5 | prob 0.9999 }" shape=record]
+	6323127696 [label="{ 320 | ' begin' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0003 }" shape=record]
+	6434714000 [label="{ 568 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9983 }" shape=record]
+	20245103376 [label="{ 608 | 'reg' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0065 }" shape=record]
+	5902543824 [label="{ 605 | 'initial' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0969 }" shape=record]
+	6331900240 [label="{ 111 | ' ' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	5803589072 [label="{ 155 | '*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6435068048 [label="{ 476 | ' @' | value 0.0001 | p_ucb 1.7218 | visits 3 | prob 0.9957 }" shape=record]
+	6331903632 [label="{ 110 | 'posed' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0000 }" shape=record]
+	20256604432 [label="{ 619 | '7' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0011 }" shape=record]
+	6319596688 [label="{ 385 | '\\t' | value 0.0001 | p_ucb 3.1727 | visits 1 | prob 0.8941 }" shape=record]
+	5818400912 [label="{ 102 | 'reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20808978704 [label="{ 585 | ']' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	20134507216 [label="{ 206 | ',' | value 0.0001 | p_ucb 0.6993 | visits 2 | prob 0.1943 }" shape=record]
+	20239231952 [label="{ 274 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9998 }" shape=record]
+	20239229200 [label="{ 558 | '  ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0148 }" shape=record]
+	20239229072 [label="{ 554 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.5351 }" shape=record]
+	6334450576 [label="{ 488 | ' (' | value 0.0000 | p_ucb 0.0578 | visits 0 | prob 0.0127 }" shape=record]
+	20285925136 [label="{ 574 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9629 }" shape=record]
+	5632020880 [label="{ 260 | '\\t' | value 0.0001 | p_ucb 1.2060 | visits 5 | prob 0.9942 }" shape=record]
+	5903099984 [label="{ 539 | ' pos' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0001 }" shape=record]
+	6325482256 [label="{ 594 | ' =' | value 0.0000 | p_ucb 0.0771 | visits 0 | prob 0.0170 }" shape=record]
+	6332638864 [label="{ 117 | ' ~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334979472 [label="{ 75 | '~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6434897168 [label="{ 184 | ' //' | value 0.0000 | p_ucb 0.0012 | visits 0 | prob 0.0003 }" shape=record]
+	5860842192 [label="{ 225 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6331898256 [label="{ 44 | ' == ' | value 0.0000 | p_ucb 0.0310 | visits 0 | prob 0.0055 }" shape=record]
+	6334449232 [label="{ 85 | '\\t   ' | value 0.0000 | p_ucb 0.0263 | visits 0 | prob 0.0033 }" shape=record]
+	6334011216 [label="{ 236 | ' (' | value 0.0000 | p_ucb 0.0255 | visits 0 | prob 0.0031 }" shape=record]
+	6334664272 [label="{ 38 | '     ' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0002 }" shape=record]
+	5633094864 [label="{ 628 | '   ' | value 0.0001 | p_ucb 0.1051 | visits 1 | prob 0.0144 }" shape=record]
+	6333324304 [label="{ 487 | '*)' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331906704 [label="{ 172 | 'edge' | value 0.0001 | p_ucb 1.2130 | visits 5 | prob 1.0000 }" shape=record]
+	6334724176 [label="{ 525 | ' )' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334448016 [label="{ 620 | '[' | value 0.0000 | p_ucb 0.0061 | visits 0 | prob 0.0017 }" shape=record]
+	6434496464 [label="{ 43 | ' //' | value 0.0000 | p_ucb 0.0037 | visits 0 | prob 0.0007 }" shape=record]
+	6333878224 [label="{ 51 | 'load' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6139147600 [label="{ 233 | ' pos' | value 0.0000 | p_ucb 0.0005 | visits 0 | prob 0.0001 }" shape=record]
+	6335410960 [label="{ 535 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331897424 [label="{ 109 | ' neg' | value 0.0000 | p_ucb 0.0373 | visits 0 | prob 0.0042 }" shape=record]
+	6334383504 [label="{ 516 | '(' | value 0.0001 | p_ucb 1.2026 | visits 5 | prob 0.9913 }" shape=record]
+	6324275472 [label="{ 581 | 'assign' | value 0.0000 | p_ucb 0.3895 | visits 4 | prob 0.2133 }" shape=record]
+	6434888272 [label="{ 185 | '  ' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0003 }" shape=record]
+	6333113616 [label="{ 467 | '4' | value 0.0000 | p_ucb 0.1135 | visits 0 | prob 0.0187 }" shape=record]
+	6334021008 [label="{ 237 | 'posed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331897680 [label="{ 80 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331898064 [label="{ 47 | ' )' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	5634370192 [label="{ 57 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9951 }" shape=record]
+	6334920784 [label="{ 136 | ' )' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
+	5861801296 [label="{ 162 | '\\t' | value 0.0001 | p_ucb 0.4788 | visits 18 | prob 0.9847 }" shape=record]
+	5903100624 [label="{ 207 | ' pos' | value 0.0001 | p_ucb 3.5254 | visits 1 | prob 0.9934 }" shape=record]
+	6334987856 [label="{ 76 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861606864 [label="{ 480 | 'eg' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6145396304 [label="{ 640 | '\\t//' | value 0.0000 | p_ucb 0.0993 | visits 0 | prob 0.0068 }" shape=record]
+	6334008528 [label="{ 238 | '*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334666896 [label="{ 37 | '\\t' | value 0.0000 | p_ucb 0.0038 | visits 0 | prob 0.0008 }" shape=record]
+	6331809616 [label="{ 42 | ' q' | value 0.0000 | p_ucb 0.0054 | visits 0 | prob 0.0010 }" shape=record]
+	6434210704 [label="{ 510 | ' T' | value 0.0000 | p_ucb 0.0138 | visits 0 | prob 0.0030 }" shape=record]
+	6325478928 [label="{ 596 | '[(' | value 0.0000 | p_ucb 0.0028 | visits 0 | prob 0.0006 }" shape=record]
+	6139134864 [label="{ 11 | 'k' | value 0.0001 | p_ucb 0.3834 | visits 25 | prob 1.0000 }" shape=record]
+	6331903568 [label="{ 112 | ' positive' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331890832 [label="{ 416 | '        ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0022 }" shape=record]
+	20130947984 [label="{ 123 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20247647504 [label="{ 30 | '   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0051 }" shape=record]
+	6150474448 [label="{ 462 | '9' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20247644176 [label="{ 28 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4344 }" shape=record]
+	5861390032 [label="{ 114 | ' pos' | value 0.0001 | p_ucb 2.2587 | visits 2 | prob 0.9938 }" shape=record]
+	20163409232 [label="{ 302 | '       ' | value 0.0000 | p_ucb 0.0295 | visits 0 | prob 0.0083 }" shape=record]
+	5861613904 [label="{ 473 | ' feedback' | value 0.0000 | p_ucb 0.0024 | visits 0 | prob 0.0004 }" shape=record]
+	6434077392 [label="{ 636 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.3071 }" shape=record]
+	6434600208 [label="{ 262 | '\\t' | value 0.0001 | p_ucb 2.9921 | visits 1 | prob 0.8432 }" shape=record]
+	6323139024 [label="{ 99 | ',' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331906064 [label="{ 108 | 'ed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20163403088 [label="{ 303 | '\\t   ' | value 0.0000 | p_ucb 0.0242 | visits 0 | prob 0.0068 }" shape=record]
+	5861457168 [label="{ 228 | 'eg' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6334383312 [label="{ 249 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0007 }" shape=record]
+	5818201040 [label="{ 17 | ' begin' | value 0.0001 | p_ucb 0.5453 | visits 15 | prob 0.9836 }" shape=record]
+	5861389584 [label="{ 573 | ' begin' | value 0.0001 | p_ucb 0.6301 | visits 1 | prob 0.2078 }" shape=record]
+	6434778832 [label="{ 352 | '3' | value 0.0001 | p_ucb 3.4375 | visits 1 | prob 0.9687 }" shape=record]
+	6323139408 [label="{ 321 | ' //' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0003 }" shape=record]
+	6150487696 [label="{ 460 | ']' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5818300304 [label="{ 286 | 'begin' | value 0.0000 | p_ucb 0.0152 | visits 0 | prob 0.0025 }" shape=record]
+	5902532816 [label="{ 311 | ' ' | value 0.0001 | p_ucb 0.5062 | visits 2 | prob 0.1901 }" shape=record]
+	6334973328 [label="{ 340 | '2' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0003 }" shape=record]
+	5861617360 [label="{ 474 | ' next' | value 0.0000 | p_ucb 0.0014 | visits 0 | prob 0.0002 }" shape=record]
+	20290261136 [label="{ 434 | ' = ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4339 }" shape=record]
+	6325478480 [label="{ 595 | ' = ' | value 0.0000 | p_ucb 0.0063 | visits 0 | prob 0.0014 }" shape=record]
+	5353769744 [label="{ 3 | '\\n' | value 0.0001 | p_ucb 0.1339 | visits 75 | prob 0.7278 }" shape=record]
+	6334979280 [label="{ 77 | 'Reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20289362960 [label="{ 344 | '[(' | value 0.0000 | p_ucb 0.0026 | visits 0 | prob 0.0006 }" shape=record]
+	20146491920 [label="{ 506 | '[(' | value 0.0000 | p_ucb 0.0041 | visits 0 | prob 0.0012 }" shape=record]
+	5827532432 [label="{ 629 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4463 }" shape=record]
+	20140193616 [label="{ 301 | '\\t//' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0009 }" shape=record]
+	5818202448 [label="{ 125 | ' neg' | value 0.0000 | p_ucb 0.0187 | visits 0 | prob 0.0041 }" shape=record]
+	6334447824 [label="{ 622 | ' feedback' | value 0.0000 | p_ucb 0.0011 | visits 0 | prob 0.0003 }" shape=record]
+	20284604560 [label="{ 502 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0004 }" shape=record]
+	5861800784 [label="{ 294 | ' begin' | value 0.0001 | p_ucb 0.5253 | visits 3 | prob 0.2630 }" shape=record]
+	20286128080 [label="{ 372 | 'os' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861609296 [label="{ 293 | '     ' | value 0.0000 | p_ucb 0.0461 | visits 0 | prob 0.0072 }" shape=record]
+	20130940560 [label="{ 122 | ' edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334447760 [label="{ 90 | '\\t' | value 0.0000 | p_ucb 0.0050 | visits 0 | prob 0.0006 }" shape=record]
+	5902444048 [label="{ 49 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20285924624 [label="{ 575 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0317 }" shape=record]
+	6434996816 [label="{ 349 | ' feedback' | value 0.0000 | p_ucb 0.0022 | visits 0 | prob 0.0004 }" shape=record]
+	6334142544 [label="{ 289 | ' q' | value 0.0000 | p_ucb 0.0014 | visits 0 | prob 0.0002 }" shape=record]
+	6334448912 [label="{ 204 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6333984656 [label="{ 419 | '\\t' | value 0.0000 | p_ucb 0.0051 | visits 0 | prob 0.0014 }" shape=record]
+	20284614416 [label="{ 209 | 'ed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5902537744 [label="{ 422 | '\\n' | value 0.0001 | p_ucb 3.5410 | visits 1 | prob 0.9979 }" shape=record]
+	6334449296 [label="{ 561 | 'q' | value 0.0000 | p_ucb 0.0046 | visits 0 | prob 0.0013 }" shape=record]
+	6334502864 [label="{ 563 | '       ' | value 0.0000 | p_ucb 0.0388 | visits 0 | prob 0.0085 }" shape=record]
+	6150611344 [label="{ 48 | ' reset' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0001 }" shape=record]
+	6147980880 [label="{ 56 | '\\t\\t' | value 0.0001 | p_ucb 3.5355 | visits 1 | prob 0.9963 }" shape=record]
+	5902410768 [label="{ 250 | '\\n' | value 0.0000 | p_ucb 0.0975 | visits 0 | prob 0.0113 }" shape=record]
+	5861389776 [label="{ 407 | '   ' | value 0.0000 | p_ucb 0.0366 | visits 0 | prob 0.0065 }" shape=record]
+	6331809424 [label="{ 8 | 'posed' | value 0.0001 | p_ucb 0.3528 | visits 28 | prob 0.9991 }" shape=record]
+	20290263376 [label="{ 436 | '=' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0061 }" shape=record]
+	6334387792 [label="{ 248 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0817 }" shape=record]
+	6139147728 [label="{ 261 | '\\t' | value 0.0001 | p_ucb 0.8667 | visits 2 | prob 0.4584 }" shape=record]
+	6334451984 [label="{ 19 | '\\t' | value 0.0001 | p_ucb 0.6055 | visits 13 | prob 0.9854 }" shape=record]
+	6332368400 [label="{ 177 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9927 }" shape=record]
+	20140194640 [label="{ 299 | 'q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0034 }" shape=record]
+	20290263568 [label="{ 437 | ' \<=' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0003 }" shape=record]
+	5828682192 [label="{ 166 | 'posed' | value 0.0001 | p_ucb 0.6142 | visits 13 | prob 0.9995 }" shape=record]
+	6332275152 [label="{ 308 | '\\t' | value 0.0000 | p_ucb 0.0062 | visits 0 | prob 0.0014 }" shape=record]
+	6334357776 [label="{ 337 | '\}' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332631760 [label="{ 187 | ' ' | value 0.0000 | p_ucb 0.0042 | visits 0 | prob 0.0009 }" shape=record]
+	6324275728 [label="{ 613 | 'reg' | value 0.0001 | p_ucb 0.2730 | visits 2 | prob 0.0896 }" shape=record]
+	5818198992 [label="{ 96 | ' //' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6334899024 [label="{ 355 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0219 }" shape=record]
+	6334451472 [label="{ 490 | '*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20244806928 [label="{ 65 | '     ' | value 0.0000 | p_ucb 0.0009 | visits 0 | prob 0.0003 }" shape=record]
+	5860842000 [label="{ 226 | ' clock' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20239222864 [label="{ 277 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331884368 [label="{ 317 | '     ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0058 }" shape=record]
+	5822755408 [label="{ 421 | ' ' | value 0.0001 | p_ucb 0.4759 | visits 2 | prob 0.1925 }" shape=record]
+	20113160976 [label="{ 457 | '3' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0002 }" shape=record]
+	6434210320 [label="{ 497 | ' q' | value 0.0000 | p_ucb 2.2109 | visits 2 | prob 0.9728 }" shape=record]
+	5902441424 [label="{ 466 | '5' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0001 }" shape=record]
+	6334676944 [label="{ 197 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861753744 [label="{ 531 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331906192 [label="{ 79 | '(!' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20163718608 [label="{ 231 | ' ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334913104 [label="{ 135 | ' ,' | value 0.0000 | p_ucb 0.0016 | visits 0 | prob 0.0002 }" shape=record]
+	5828936784 [label="{ 428 | ' q' | value 0.0000 | p_ucb 0.0035 | visits 0 | prob 0.0010 }" shape=record]
+	6334313360 [label="{ 547 | '_' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6334282128 [label="{ 632 | ' initial' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0369 }" shape=record]
+	5818200784 [label="{ 403 | ' q' | value 0.0000 | p_ucb 0.0015 | visits 0 | prob 0.0003 }" shape=record]
+	6434847056 [label="{ 266 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0384 }" shape=record]
+	20247657168 [label="{ 31 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0042 }" shape=record]
+	5803587344 [label="{ 156 | ' (*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5818203856 [label="{ 353 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9120 }" shape=record]
+	6319595536 [label="{ 550 | 'initial' | value 0.0001 | p_ucb 0.3544 | visits 6 | prob 0.2716 }" shape=record]
+	20184706256 [label="{ 363 | ' ' | value 0.0000 | p_ucb 0.0038 | visits 0 | prob 0.0008 }" shape=record]
+	20134496912 [label="{ 218 | ' ,' | value 0.0000 | p_ucb 0.0015 | visits 0 | prob 0.0002 }" shape=record]
+	20284605648 [label="{ 483 | ' ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6324964304 [label="{ 5 | 'always' | value 0.0001 | p_ucb 0.1642 | visits 31 | prob 0.4151 }" shape=record]
+	6150487632 [label="{ 20 | '\\tif' | value 0.0001 | p_ucb 0.6475 | visits 12 | prob 0.9949 }" shape=record]
+	6334365328 [label="{ 336 | '];' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20284612880 [label="{ 482 | 'ges' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861661776 [label="{ 626 | '\\t//' | value 0.0000 | p_ucb 0.0911 | visits 0 | prob 0.0098 }" shape=record]
+	6332636048 [label="{ 118 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6435067216 [label="{ 494 | '_' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6334448848 [label="{ 489 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	5818201552 [label="{ 610 | '\\n' | value 0.0000 | p_ucb 0.0116 | visits 0 | prob 0.0033 }" shape=record]
+	20230386768 [label="{ 391 | ' q' | value 0.0000 | p_ucb 0.1764 | visits 0 | prob 0.0497 }" shape=record]
+	20278633232 [label="{ 60 | '  ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0008 }" shape=record]
+	6331902736 [label="{ 23 | ')' | value 0.0001 | p_ucb 1.4097 | visits 4 | prob 0.9943 }" shape=record]
+	6333326608 [label="{ 484 | 'neg' | value 0.0000 | p_ucb 0.0030 | visits 0 | prob 0.0009 }" shape=record]
+	20289368656 [label="{ 345 | '_' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	20278630928 [label="{ 61 | '    ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
+	20239230992 [label="{ 278 | '4' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334661520 [label="{ 36 | '\\t\\t\\t' | value 0.0000 | p_ucb 0.0047 | visits 0 | prob 0.0010 }" shape=record]
+	6331891472 [label="{ 315 | '       ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0098 }" shape=record]
+	5902543888 [label="{ 230 | 'ges' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6324138832 [label="{ 342 | ' =' | value 0.0000 | p_ucb 0.0469 | visits 0 | prob 0.0103 }" shape=record]
+	6434769744 [label="{ 360 | '0' | value 0.0000 | p_ucb 0.0065 | visits 0 | prob 0.0018 }" shape=record]
+	6434714384 [label="{ 427 | '     ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0057 }" shape=record]
+	20807986960 [label="{ 32 | '   ' | value 0.0000 | p_ucb 0.0056 | visits 0 | prob 0.0016 }" shape=record]
+	20247643600 [label="{ 27 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.5302 }" shape=record]
+	5825374480 [label="{ 329 | 'assign' | value 0.0000 | p_ucb 0.1618 | visits 4 | prob 0.0640 }" shape=record]
+	20284610256 [label="{ 500 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4654 }" shape=record]
+	6434702352 [label="{ 572 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	6334981392 [label="{ 74 | ' reset' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0001 }" shape=record]
+	6331899536 [label="{ 199 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334666128 [label="{ 39 | '           ' | value 0.0000 | p_ucb 0.0006 | visits 0 | prob 0.0001 }" shape=record]
+	6331891344 [label="{ 316 | '    ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0064 }" shape=record]
+	20244794512 [label="{ 63 | '\\t\\t\\t' | value 0.0000 | p_ucb 0.0039 | visits 0 | prob 0.0011 }" shape=record]
+	5827532624 [label="{ 444 | '0' | value 0.0001 | p_ucb 2.2695 | visits 2 | prob 0.9986 }" shape=record]
+	6331808464 [label="{ 519 | ' cl' | value 0.0001 | p_ucb 2.2726 | visits 2 | prob 0.9999 }" shape=record]
+	6333981776 [label="{ 446 | ' feedback' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.3456 }" shape=record]
+	6333980624 [label="{ 448 | ' l' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1293 }" shape=record]
+	6331888912 [label="{ 313 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9490 }" shape=record]
+	6434593488 [label="{ 271 | '  ' | value 0.0000 | p_ucb 0.0227 | visits 0 | prob 0.0064 }" shape=record]
+	20140190288 [label="{ 387 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0543 }" shape=record]
+	5903099344 [label="{ 517 | 'posed' | value 0.0001 | p_ucb 1.4165 | visits 4 | prob 0.9991 }" shape=record]
+	5827924432 [label="{ 168 | ' cl' | value 0.0001 | p_ucb 0.6927 | visits 11 | prob 1.0000 }" shape=record]
+	6333884816 [label="{ 50 | '~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334451536 [label="{ 562 | ' q' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0003 }" shape=record]
+	5902445072 [label="{ 567 | ' ' | value 0.0001 | p_ucb 0.6305 | visits 1 | prob 0.2079 }" shape=record]
+	5903101456 [label="{ 169 | 'k' | value 0.0001 | p_ucb 0.7416 | visits 10 | prob 1.0000 }" shape=record]
+	6334909392 [label="{ 129 | ')' | value 0.0001 | p_ucb 0.2858 | visits 1 | prob 0.0603 }" shape=record]
+	20284606480 [label="{ 210 | ' edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334339664 [label="{ 70 | ' == ' | value 0.0000 | p_ucb 0.0201 | visits 0 | prob 0.0039 }" shape=record]
+	5903098576 [label="{ 220 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6335261648 [label="{ 214 | 'posed' | value 0.0000 | p_ucb 0.0062 | visits 0 | prob 0.0018 }" shape=record]
+	5903101392 [label="{ 464 | '2' | value 0.0000 | p_ucb 0.0966 | visits 0 | prob 0.0170 }" shape=record]
+	6323135504 [label="{ 318 | ' q' | value 0.0000 | p_ucb 0.0023 | visits 0 | prob 0.0006 }" shape=record]
+	6332642448 [label="{ 186 | '\\n' | value 0.0000 | p_ucb 0.0266 | visits 0 | prob 0.0059 }" shape=record]
+	6434071760 [label="{ 635 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.4150 }" shape=record]
+	5902888336 [label="{ 7 | '(' | value 0.0001 | p_ucb 0.3417 | visits 29 | prob 0.9925 }" shape=record]
+	20286124048 [label="{ 369 | 'oi' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
+	6334714128 [label="{ 522 | ',' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1374 }" shape=record]
+	6334721296 [label="{ 523 | ')' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0562 }" shape=record]
+	6331899664 [label="{ 198 | ' edge' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20284614800 [label="{ 501 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0011 }" shape=record]
+	20285929232 [label="{ 577 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0013 }" shape=record]
+	6334915344 [label="{ 113 | ',' | value 0.0001 | p_ucb 0.3468 | visits 3 | prob 0.1463 }" shape=record]
+	5861613968 [label="{ 292 | '\\t   ' | value 0.0000 | p_ucb 0.0543 | visits 0 | prob 0.0085 }" shape=record]
+	20256611152 [label="{ 617 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0013 }" shape=record]
+	20289361040 [label="{ 343 | ' = ' | value 0.0000 | p_ucb 0.0027 | visits 0 | prob 0.0006 }" shape=record]
+	6333973264 [label="{ 450 | ' next' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0647 }" shape=record]
+	5902441616 [label="{ 142 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6325429264 [label="{ 115 | 'edge' | value 0.0001 | p_ucb 3.5486 | visits 1 | prob 1.0000 }" shape=record]
+	6435445840 [label="{ 454 | '];' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5902441488 [label="{ 138 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861617040 [label="{ 471 | '[' | value 0.0000 | p_ucb 0.0116 | visits 0 | prob 0.0018 }" shape=record]
+	5818199376 [label="{ 285 | '   ' | value 0.0000 | p_ucb 0.0741 | visits 0 | prob 0.0131 }" shape=record]
+	5903098064 [label="{ 538 | 'neg' | value 0.0000 | p_ucb 0.0044 | visits 0 | prob 0.0008 }" shape=record]
+	6332589008 [label="{ 327 | ' \<=' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	6334333392 [label="{ 72 | ' ==' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6150475792 [label="{ 84 | ' if' | value 0.0000 | p_ucb 0.0011 | visits 0 | prob 0.0001 }" shape=record]
+	21242202384 [label="{ 69 | ' //' | value 0.0000 | p_ucb 0.0049 | visits 0 | prob 0.0011 }" shape=record]
+	5818215312 [label="{ 375 | ' L' | value 0.0000 | p_ucb 0.1472 | visits 0 | prob 0.0415 }" shape=record]
+	20284202192 [label="{ 527 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5822753808 [label="{ 157 | '@' | value 0.0000 | p_ucb 0.0154 | visits 0 | prob 0.0015 }" shape=record]
+	5818204752 [label="{ 374 | ' The' | value 0.0000 | p_ucb 0.1674 | visits 0 | prob 0.0472 }" shape=record]
+	6331898320 [label="{ 78 | ' (!' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334696272 [label="{ 591 | '1' | value 0.0000 | p_ucb 0.0035 | visits 0 | prob 0.0010 }" shape=record]
+	6320323792 [label="{ 254 | '   ' | value 0.0000 | p_ucb 0.0121 | visits 0 | prob 0.0014 }" shape=record]
+	6334451408 [label="{ 553 | '\\t' | value 0.0001 | p_ucb 3.5310 | visits 1 | prob 0.9950 }" shape=record]
+	6435443600 [label="{ 452 | '4' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5902776464 [label="{ 395 | ' q' | value 0.0000 | p_ucb 0.8691 | visits 0 | prob 0.1912 }" shape=record]
+	20285923152 [label="{ 431 | '\\t' | value 0.0000 | p_ucb 0.0009 | visits 0 | prob 0.0002 }" shape=record]
+	5632855760 [label="{ 160 | ' begin' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	5818201168 [label="{ 611 | '   ' | value 0.0000 | p_ucb 0.0102 | visits 0 | prob 0.0029 }" shape=record]
+	6435012176 [label="{ 348 | ' T' | value 0.0000 | p_ucb 0.0046 | visits 0 | prob 0.0009 }" shape=record]
+	6323135056 [label="{ 98 | '_' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6435449232 [label="{ 192 | ',' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6335410064 [label="{ 536 | 'ges' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20230382992 [label="{ 392 | ' ' | value 0.0000 | p_ucb 0.0990 | visits 0 | prob 0.0279 }" shape=record]
+	6435063056 [label="{ 492 | '@' | value 0.0000 | p_ucb 0.0217 | visits 0 | prob 0.0042 }" shape=record]
+	6147978896 [label="{ 383 | '\\t' | value 0.0001 | p_ucb 1.7166 | visits 3 | prob 0.9927 }" shape=record]
+	6334663504 [label="{ 173 | ' reset' | value 0.0001 | p_ucb 1.4178 | visits 4 | prob 1.0000 }" shape=record]
+	6334972688 [label="{ 332 | '0' | value 0.0000 | p_ucb 1.8156 | visits 1 | prob 0.5116 }" shape=record]
+	6435063248 [label="{ 493 | ' ' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6334306192 [label="{ 242 | '_' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20256617232 [label="{ 618 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0011 }" shape=record]
+	6334697424 [label="{ 593 | '4' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332376720 [label="{ 179 | '\\t   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0016 }" shape=record]
+	6334449552 [label="{ 89 | ' ' | value 0.0000 | p_ucb 0.0350 | visits 0 | prob 0.0043 }" shape=record]
+	6333331984 [label="{ 485 | ' pos' | value 0.0000 | p_ucb 0.0006 | visits 0 | prob 0.0002 }" shape=record]
+	6334450192 [label="{ 171 | ' pos' | value 0.0001 | p_ucb 1.0623 | visits 6 | prob 0.9958 }" shape=record]
+	20140185168 [label="{ 390 | '  ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0089 }" shape=record]
+	5818201680 [label="{ 284 | '\\n' | value 0.0000 | p_ucb 0.1057 | visits 0 | prob 0.0186 }" shape=record]
+	5902441744 [label="{ 137 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332374224 [label="{ 178 | '\\t\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0019 }" shape=record]
+	6334918544 [label="{ 12 | ' or' | value 0.0001 | p_ucb 0.3759 | visits 20 | prob 0.7931 }" shape=record]
+	6325482128 [label="{ 401 | 'q' | value 0.0000 | p_ucb 0.0116 | visits 0 | prob 0.0022 }" shape=record]
+	6331899792 [label="{ 201 | 'ed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20285922896 [label="{ 576 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0014 }" shape=record]
+	5827531920 [label="{ 234 | 'pos' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332581584 [label="{ 326 | '=' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0040 }" shape=record]
+	6334390608 [label="{ 542 | ' (' | value 0.0000 | p_ucb 0.0524 | visits 0 | prob 0.0086 }" shape=record]
+	5861660368 [label="{ 246 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.2757 }" shape=record]
+	5360722064 [label="{ 551 | '\\n' | value 0.0001 | p_ucb 0.9961 | visits 3 | prob 0.4927 }" shape=record]
+	6331884304 [label="{ 411 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9480 }" shape=record]
+	6434600336 [label="{ 270 | '\\n' | value 0.0000 | p_ucb 0.0685 | visits 0 | prob 0.0193 }" shape=record]
+	6332367824 [label="{ 180 | '    ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0010 }" shape=record]
+	6333276688 [label="{ 582 | ' q' | value 0.0000 | p_ucb 1.7032 | visits 3 | prob 0.9851 }" shape=record]
+	6434063248 [label="{ 638 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1083 }" shape=record]
+	6335257424 [label="{ 215 | 'neg' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6333975440 [label="{ 449 | ' t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1075 }" shape=record]
+	20125704912 [label="{ 282 | '  \<' | value 0.0000 | p_ucb 0.0018 | visits 0 | prob 0.0005 }" shape=record]
+	5828686608 [label="{ 273 | ' \<= ' | value 0.0001 | p_ucb 3.1749 | visits 1 | prob 0.8947 }" shape=record]
+	6334893456 [label="{ 357 | '5' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
+	5861457040 [label="{ 148 | ' ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20284210640 [label="{ 520 | 'k' | value 0.0001 | p_ucb 3.5486 | visits 1 | prob 1.0000 }" shape=record]
+	20278636496 [label="{ 58 | '   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0025 }" shape=record]
+	6323133328 [label="{ 100 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332634192 [label="{ 120 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20239223696 [label="{ 276 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861390288 [label="{ 405 | '    ' | value 0.0000 | p_ucb 0.0511 | visits 0 | prob 0.0090 }" shape=record]
+	20239223312 [label="{ 556 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1058 }" shape=record]
+	20140183888 [label="{ 388 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0536 }" shape=record]
+	20278627856 [label="{ 59 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0014 }" shape=record]
+	20163404368 [label="{ 304 | '    ' | value 0.0000 | p_ucb 0.0170 | visits 0 | prob 0.0048 }" shape=record]
+	6320323536 [label="{ 515 | ' @' | value 0.0001 | p_ucb 1.0642 | visits 6 | prob 0.9976 }" shape=record]
+	6150476496 [label="{ 642 | ' ' | value 0.0000 | p_ucb 0.0462 | visits 0 | prob 0.0032 }" shape=record]
+	20125698512 [label="{ 279 | ' = ' | value 0.0000 | p_ucb 0.3143 | visits 0 | prob 0.0886 }" shape=record]
+	6139149456 [label="{ 546 | '@' | value 0.0000 | p_ucb 0.0148 | visits 0 | prob 0.0023 }" shape=record]
+	20239236688 [label="{ 275 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	6335412176 [label="{ 537 | ' ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334314000 [label="{ 144 | '(' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334358544 [label="{ 333 | ']' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	6331809104 [label="{ 0 | '\<PD\>' | value 0.0001 | p_ucb 0.0000 | visits 128 | prob 1.0000 }" shape=record]
+	5903092688 [label="{ 429 | ' begin' | value 0.0000 | p_ucb 0.0011 | visits 0 | prob 0.0003 }" shape=record]
+	20146496080 [label="{ 505 | ' = ' | value 0.0000 | p_ucb 0.0323 | visits 0 | prob 0.0091 }" shape=record]
+	6333978000 [label="{ 447 | ' tap' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.2478 }" shape=record]
+	6334449488 [label="{ 621 | ' ' | value 0.0000 | p_ucb 0.0024 | visits 0 | prob 0.0007 }" shape=record]
+	5860842512 [label="{ 224 | ' reset' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
+	5902417424 [label="{ 251 | 'assign' | value 0.0000 | p_ucb 0.0597 | visits 0 | prob 0.0069 }" shape=record]
+	6333105168 [label="{ 468 | '1' | value 0.0000 | p_ucb 0.0085 | visits 0 | prob 0.0014 }" shape=record]
+	20016488336 [label="{ 532 | ' clock' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6324274000 [label="{ 456 | '2' | value 0.0000 | p_ucb 0.0009 | visits 0 | prob 0.0002 }" shape=record]
+	5814340752 [label="{ 296 | '\\t' | value 0.0001 | p_ucb 3.4122 | visits 1 | prob 0.9615 }" shape=record]
+	6147981136 [label="{ 235 | '*)' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334670224 [label="{ 196 | ' ~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334667728 [label="{ 195 | 'reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6147980752 [label="{ 152 | '*)' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6434708880 [label="{ 570 | ' //' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0003 }" shape=record]
+	20247655248 [label="{ 29 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0168 }" shape=record]
+	6334977232 [label="{ 341 | '4' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6434706960 [label="{ 424 | '       ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0118 }" shape=record]
+	5860842320 [label="{ 227 | '(' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20807975696 [label="{ 26 | '\\t' | value 0.0001 | p_ucb 3.5389 | visits 1 | prob 0.9972 }" shape=record]
+	6150475472 [label="{ 81 | '  ' | value 0.0000 | p_ucb 0.0186 | visits 0 | prob 0.0024 }" shape=record]
+	6325478736 [label="{ 597 | '_' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0001 }" shape=record]
+	5818203216 [label="{ 93 | '\\n' | value 0.0000 | p_ucb 0.1086 | visits 0 | prob 0.0131 }" shape=record]
+	6331891280 [label="{ 414 | '   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0051 }" shape=record]
+	5902411024 [label="{ 504 | ' =' | value 0.0000 | p_ucb 0.1321 | visits 0 | prob 0.0372 }" shape=record]
+	5902441104 [label="{ 552 | '\\t' | value 0.0001 | p_ucb 2.1542 | visits 2 | prob 0.9478 }" shape=record]
+	20184709136 [label="{ 362 | '[' | value 0.0000 | p_ucb 0.0077 | visits 0 | prob 0.0017 }" shape=record]
+	6434594128 [label="{ 268 | ' q' | value 0.0000 | p_ucb 0.2830 | visits 0 | prob 0.0797 }" shape=record]
+	5902411408 [label="{ 498 | '[' | value 0.0000 | p_ucb 3.3771 | visits 1 | prob 0.9517 }" shape=record]
+	6335255056 [label="{ 213 | ' neg' | value 0.0000 | p_ucb 0.0166 | visits 0 | prob 0.0047 }" shape=record]
+	5827532112 [label="{ 40 | ' ' | value 0.0000 | p_ucb 0.3595 | visits 0 | prob 0.0693 }" shape=record]
+	6434707856 [label="{ 571 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	5818070736 [label="{ 382 | '\\t' | value 0.0001 | p_ucb 1.3298 | visits 4 | prob 0.9379 }" shape=record]
+	5803640144 [label="{ 158 | ' ' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
+	6323133776 [label="{ 319 | '\\t' | value 0.0000 | p_ucb 0.0011 | visits 0 | prob 0.0003 }" shape=record]
+	5861389840 [label="{ 579 | ' q' | value 0.0000 | p_ucb 0.5486 | visits 0 | prob 0.0905 }" shape=record]
+	6434217040 [label="{ 509 | ' tap' | value 0.0000 | p_ucb 0.0311 | visits 0 | prob 0.0069 }" shape=record]
+	6435439120 [label="{ 193 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20290261072 [label="{ 435 | '\<' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0088 }" shape=record]
+	6150484176 [label="{ 82 | '\\n' | value 0.0000 | p_ucb 0.0163 | visits 0 | prob 0.0021 }" shape=record]
+	20286114000 [label="{ 371 | 'o' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5827532176 [label="{ 55 | '\\n' | value 0.0001 | p_ucb 2.1084 | visits 2 | prob 0.9277 }" shape=record]
+	5861786960 [label="{ 368 | 'ois' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9998 }" shape=record]
+	20244804880 [label="{ 64 | '           ' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0003 }" shape=record]
+	6150474576 [label="{ 459 | ' :' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20290196112 [label="{ 134 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334701840 [label="{ 592 | '2' | value 0.0000 | p_ucb 0.0012 | visits 0 | prob 0.0003 }" shape=record]
+	6331906768 [label="{ 46 | ' ==' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6334397520 [label="{ 543 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20808980880 [label="{ 587 | ':' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5818298640 [label="{ 232 | 'neg' | value 0.0000 | p_ucb 0.0032 | visits 0 | prob 0.0004 }" shape=record]
+	5902405200 [label="{ 631 | ' always' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0843 }" shape=record]
+	6331893072 [label="{ 52 | '(' | value 0.0001 | p_ucb 0.6006 | visits 5 | prob 0.4729 }" shape=record]
+	6331889936 [label="{ 415 | '     ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0048 }" shape=record]
+	6334450320 [label="{ 87 | '\\t\\t' | value 0.0000 | p_ucb 0.0177 | visits 0 | prob 0.0022 }" shape=record]
+	5818295632 [label="{ 190 | ' )' | value 0.0000 | p_ucb 0.0020 | visits 0 | prob 0.0004 }" shape=record]
+	20113151888 [label="{ 458 | ' ' | value 0.0000 | p_ucb 0.0005 | visits 0 | prob 0.0001 }" shape=record]
+	5902402832 [label="{ 244 | 'initial' | value 0.0001 | p_ucb 0.3102 | visits 1 | prob 0.0720 }" shape=record]
+	20125709392 [label="{ 280 | '\<' | value 0.0000 | p_ucb 0.0512 | visits 0 | prob 0.0144 }" shape=record]
+	5818296464 [label="{ 627 | ' ' | value 0.0000 | p_ucb 0.0226 | visits 0 | prob 0.0024 }" shape=record]
+	5903039376 [label="{ 146 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20807988816 [label="{ 33 | ' ' | value 0.0000 | p_ucb 0.0024 | visits 0 | prob 0.0007 }" shape=record]
+	6334448656 [label="{ 560 | 'begin' | value 0.0000 | p_ucb 0.0055 | visits 0 | prob 0.0016 }" shape=record]
+	6434777552 [label="{ 358 | '4' | value 0.0000 | p_ucb 0.0836 | visits 0 | prob 0.0236 }" shape=record]
+	6334311568 [label="{ 404 | '       ' | value 0.0000 | p_ucb 0.0764 | visits 0 | prob 0.0135 }" shape=record]
+	20140192400 [label="{ 300 | '\\tif' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0023 }" shape=record]
+	5861380240 [label="{ 408 | '\\t ' | value 0.0000 | p_ucb 0.0298 | visits 0 | prob 0.0053 }" shape=record]
+	6334450448 [label="{ 203 | 'posed' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6435000912 [label="{ 346 | ' t' | value 0.0000 | p_ucb 0.0145 | visits 0 | prob 0.0028 }" shape=record]
+	5822479184 [label="{ 6 | ' @' | value 0.0001 | p_ucb 0.3353 | visits 30 | prob 0.9984 }" shape=record]
+	20130949520 [label="{ 121 | 'ed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331807632 [label="{ 149 | 'neg' | value 0.0000 | p_ucb 0.0071 | visits 0 | prob 0.0007 }" shape=record]
+	20808976272 [label="{ 588 | '];' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334893200 [label="{ 356 | '3' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	6333104976 [label="{ 470 | '7' | value 0.0000 | p_ucb 0.0070 | visits 0 | prob 0.0011 }" shape=record]
+	5808822992 [label="{ 253 | '\\t//' | value 0.0000 | p_ucb 0.1007 | visits 0 | prob 0.0115 }" shape=record]
+	6434071376 [label="{ 639 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0007 }" shape=record]
+	5903102480 [label="{ 222 | ' k' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20163396624 [label="{ 306 | '     ' | value 0.0000 | p_ucb 0.0105 | visits 0 | prob 0.0029 }" shape=record]
+	20284613200 [label="{ 208 | 'edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	6333283472 [label="{ 601 | ' feedback' | value 0.0000 | p_ucb 0.0054 | visits 0 | prob 0.0010 }" shape=record]
+	6332640528 [label="{ 189 | ' //' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20140190864 [label="{ 386 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.8355 }" shape=record]
+	20140185552 [label="{ 389 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0266 }" shape=record]
+	20230381008 [label="{ 394 | '  ' | value 0.0000 | p_ucb 0.0174 | visits 0 | prob 0.0049 }" shape=record]
+	5818197968 [label="{ 128 | ' positive' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6334313616 [label="{ 549 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6333269968 [label="{ 599 | ' tap' | value 0.0000 | p_ucb 0.0159 | visits 0 | prob 0.0031 }" shape=record]
+	20244803600 [label="{ 62 | '\\t' | value 0.0000 | p_ucb 0.0044 | visits 0 | prob 0.0013 }" shape=record]
+	6334348496 [label="{ 71 | '==' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0002 }" shape=record]
+	6435001872 [label="{ 347 | ' tap' | value 0.0000 | p_ucb 0.0049 | visits 0 | prob 0.0009 }" shape=record]
+	5902406096 [label="{ 252 | 'integer' | value 0.0000 | p_ucb 0.0347 | visits 0 | prob 0.0040 }" shape=record]
+	5818300176 [label="{ 465 | '3' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0002 }" shape=record]
+	6334385360 [label="{ 544 | '*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20284207760 [label="{ 528 | ' k' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331888656 [label="{ 413 | '\\t   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0072 }" shape=record]
+	6334014544 [label="{ 239 | '((' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5803268560 [label="{ 41 | ' begin' | value 0.0000 | p_ucb 0.0188 | visits 0 | prob 0.0036 }" shape=record]
+	5818211152 [label="{ 376 | ' X' | value 0.0000 | p_ucb 0.1326 | visits 0 | prob 0.0374 }" shape=record]
+	20184695632 [label="{ 364 | ' feedback' | value 0.0000 | p_ucb 0.0034 | visits 0 | prob 0.0007 }" shape=record]
+	6334015248 [label="{ 165 | '(' | value 0.0001 | p_ucb 0.5808 | visits 14 | prob 0.9969 }" shape=record]
+	6435441488 [label="{ 453 | '](' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6325482320 [label="{ 583 | '[' | value 0.0000 | p_ucb 2.2289 | visits 2 | prob 0.9808 }" shape=record]
+	6434702672 [label="{ 423 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9528 }" shape=record]
+	6434846352 [label="{ 267 | '  ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0133 }" shape=record]
+	5861456528 [label="{ 175 | ' begin' | value 0.0001 | p_ucb 2.2555 | visits 2 | prob 0.9924 }" shape=record]
+	6334310928 [label="{ 295 | '\\n' | value 0.0001 | p_ucb 2.1976 | visits 2 | prob 0.9669 }" shape=record]
+	20230378640 [label="{ 393 | '\\n' | value 0.0000 | p_ucb 0.0511 | visits 0 | prob 0.0144 }" shape=record]
+	5818200144 [label="{ 402 | '  ' | value 0.0000 | p_ucb 0.0082 | visits 0 | prob 0.0016 }" shape=record]
+	20016483024 [label="{ 533 | '(' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6323133904 [label="{ 16 | ')' | value 0.0001 | p_ucb 0.5290 | visits 16 | prob 0.9996 }" shape=record]
+	5828434960 [label="{ 381 | '\\n' | value 0.0001 | p_ucb 0.5918 | visits 5 | prob 0.4788 }" shape=record]
+	5628951824 [label="{ 322 | ' q' | value 0.0001 | p_ucb 0.2779 | visits 1 | prob 0.0695 }" shape=record]
+	5818405264 [label="{ 103 | ' ~' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334313872 [label="{ 143 | ' clock' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6150473936 [label="{ 461 | ',' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334452432 [label="{ 614 | ' [' | value 0.0001 | p_ucb 3.5334 | visits 1 | prob 0.9957 }" shape=record]
+	6333980112 [label="{ 420 | ' //' | value 0.0000 | p_ucb 0.0043 | visits 0 | prob 0.0012 }" shape=record]
+	6319595088 [label="{ 514 | 'always' | value 0.0001 | p_ucb 0.4021 | visits 7 | prob 0.3081 }" shape=record]
+	20284201360 [label="{ 526 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5902772496 [label="{ 379 | 'initial' | value 0.0000 | p_ucb 0.0168 | visits 0 | prob 0.0013 }" shape=record]
+	6333109776 [label="{ 469 | '0' | value 0.0000 | p_ucb 0.0074 | visits 0 | prob 0.0012 }" shape=record]
+	5818212304 [label="{ 373 | ' Initial' | value 0.0000 | p_ucb 0.3176 | visits 0 | prob 0.0895 }" shape=record]
+	5903035024 [label="{ 440 | ' [' | value 0.0001 | p_ucb 1.0617 | visits 6 | prob 0.9952 }" shape=record]
+	5813639568 [label="{ 634 | 'initial' | value 0.0001 | p_ucb 0.0557 | visits 1 | prob 0.0076 }" shape=record]
+	6331902480 [label="{ 105 | ' edge' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	21242205392 [label="{ 67 | ' begin' | value 0.0000 | p_ucb 0.0201 | visits 0 | prob 0.0044 }" shape=record]
+	6334505296 [label="{ 564 | '\\t   ' | value 0.0000 | p_ucb 0.0369 | visits 0 | prob 0.0081 }" shape=record]
+	5827532368 [label="{ 396 | ' ' | value 0.0000 | p_ucb 0.3761 | visits 0 | prob 0.0827 }" shape=record]
+	6334450064 [label="{ 92 | ' //' | value 0.0000 | p_ucb 0.0032 | visits 0 | prob 0.0004 }" shape=record]
+	5818196816 [label="{ 94 | ' ' | value 0.0000 | p_ucb 0.0155 | visits 0 | prob 0.0019 }" shape=record]
+	6150611472 [label="{ 153 | ' (' | value 0.0000 | p_ucb 0.0743 | visits 0 | prob 0.0075 }" shape=record]
+	5828937168 [label="{ 150 | ' pos' | value 0.0000 | p_ucb 0.0012 | visits 0 | prob 0.0001 }" shape=record]
+	6332643408 [label="{ 119 | 'reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6434841360 [label="{ 265 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0690 }" shape=record]
+	20146501648 [label="{ 507 | '=' | value 0.0000 | p_ucb 0.0012 | visits 0 | prob 0.0004 }" shape=record]
+	6333277136 [label="{ 600 | ' T' | value 0.0000 | p_ucb 0.0132 | visits 0 | prob 0.0026 }" shape=record]
+	5353277712 [label="{ 496 | 'assign' | value 0.0000 | p_ucb 0.1257 | visits 3 | prob 0.0365 }" shape=record]
+	20184695824 [label="{ 351 | ' [' | value 0.0001 | p_ucb 2.2586 | visits 2 | prob 0.9938 }" shape=record]
+	6434779664 [label="{ 359 | '1' | value 0.0000 | p_ucb 0.0074 | visits 0 | prob 0.0021 }" shape=record]
+	4305843984 [label="{ 18 | '\\n' | value 0.0001 | p_ucb 0.5790 | visits 14 | prob 0.9937 }" shape=record]
+	6332333648 [label="{ 159 | '_' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	5818292432 [label="{ 477 | '(' | value 0.0001 | p_ucb 2.2438 | visits 2 | prob 0.9873 }" shape=record]
+	6334508752 [label="{ 565 | '    ' | value 0.0000 | p_ucb 0.0367 | visits 0 | prob 0.0081 }" shape=record]
+	5818206224 [label="{ 367 | ' Gal' | value 0.0001 | p_ucb 1.6803 | visits 1 | prob 0.4735 }" shape=record]
+	6333987216 [label="{ 410 | '\\n' | value 0.0001 | p_ucb 3.4083 | visits 1 | prob 0.9605 }" shape=record]
+	6334385680 [label="{ 247 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1698 }" shape=record]
+	20125700368 [label="{ 281 | ' \<=' | value 0.0000 | p_ucb 0.0034 | visits 0 | prob 0.0009 }" shape=record]
+	6334452240 [label="{ 491 | ' (*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6434702608 [label="{ 569 | ' q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0007 }" shape=record]
+	6332272592 [label="{ 307 | ' ' | value 0.0000 | p_ucb 0.1279 | visits 0 | prob 0.0281 }" shape=record]
+	20184696784 [label="{ 365 | ' next' | value 0.0000 | p_ucb 0.0022 | visits 0 | prob 0.0005 }" shape=record]
+	6434834960 [label="{ 263 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.7754 }" shape=record]
+	6334146000 [label="{ 287 | '  ' | value 0.0000 | p_ucb 0.0117 | visits 0 | prob 0.0019 }" shape=record]
+	6150484560 [label="{ 1 | '\\n' | value 0.0001 | p_ucb 0.1140 | visits 127 | prob 0.9895 }" shape=record]
+	5861390544 [label="{ 580 | '\\t' | value 0.0000 | p_ucb 0.0042 | visits 0 | prob 0.0007 }" shape=record]
+	20290204176 [label="{ 133 | 'begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0013 }" shape=record]
+	6332637008 [label="{ 116 | ' reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	5902450128 [label="{ 164 | ' @' | value 0.0001 | p_ucb 0.5541 | visits 15 | prob 0.9994 }" shape=record]
+	5903099088 [label="{ 455 | '1' | value 0.0000 | p_ucb 0.0036 | visits 0 | prob 0.0008 }" shape=record]
+	5902973520 [label="{ 378 | '\\n' | value 0.0000 | p_ucb 0.0571 | visits 0 | prob 0.0045 }" shape=record]
+	5633608848 [label="{ 101 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5861456912 [label="{ 584 | '0' | value 0.0000 | p_ucb 1.7753 | visits 1 | prob 0.5003 }" shape=record]
+	6139149712 [label="{ 478 | 'posed' | value 0.0001 | p_ucb 3.5449 | visits 1 | prob 0.9990 }" shape=record]
+	6333415888 [label="{ 366 | '\\t//' | value 0.0001 | p_ucb 0.1696 | visits 2 | prob 0.0265 }" shape=record]
+	5902404688 [label="{ 399 | '   ' | value 0.0000 | p_ucb 0.0519 | visits 0 | prob 0.0114 }" shape=record]
+	6334343632 [label="{ 54 | ')' | value 0.0001 | p_ucb 1.7221 | visits 3 | prob 0.9959 }" shape=record]
+	5815739344 [label="{ 513 | '\\t' | value 0.0001 | p_ucb 0.4001 | visits 22 | prob 0.9512 }" shape=record]
+	5818196560 [label="{ 95 | 'begin' | value 0.0000 | p_ucb 0.0123 | visits 0 | prob 0.0015 }" shape=record]
+	6150474064 [label="{ 83 | '    ' | value 0.0000 | p_ucb 0.0032 | visits 0 | prob 0.0004 }" shape=record]
+	20286124432 [label="{ 370 | 'ios' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6147509008 [label="{ 330 | ' q' | value 0.0000 | p_ucb 1.7175 | visits 3 | prob 0.9934 }" shape=record]
+	20285927120 [label="{ 578 | ' //' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0012 }" shape=record]
+	6332277584 [label="{ 309 | ' q' | value 0.0000 | p_ucb 0.0057 | visits 0 | prob 0.0013 }" shape=record]
+	5903100176 [label="{ 463 | ':' | value 0.0000 | p_ucb 0.4986 | visits 0 | prob 0.0879 }" shape=record]
+	5818198352 [label="{ 174 | ')' | value 0.0001 | p_ucb 1.7285 | visits 3 | prob 0.9996 }" shape=record]
+	20256612688 [label="{ 616 | '4' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0155 }" shape=record]
+	6333977616 [label="{ 418 | ' q' | value 0.0000 | p_ucb 0.0081 | visits 0 | prob 0.0023 }" shape=record]
+	20134495632 [label="{ 219 | ' )' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6147978832 [label="{ 151 | 'pos' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5634768144 [label="{ 409 | ' begin' | value 0.0001 | p_ucb 0.5956 | visits 2 | prob 0.2409 }" shape=record]
+	20290259536 [label="{ 433 | ' \<= ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.5501 }" shape=record]
+	5903034960 [label="{ 145 | 'eg' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
+	5822480272 [label="{ 624 | '   ' | value 0.0000 | p_ucb 0.1811 | visits 0 | prob 0.0196 }" shape=record]
+	6331891920 [label="{ 21 | ' (' | value 0.0001 | p_ucb 0.6694 | visits 6 | prob 0.5271 }" shape=record]
+	6147506896 [label="{ 161 | '\\n' | value 0.0001 | p_ucb 0.1677 | visits 19 | prob 0.2650 }" shape=record]
+	6334314832 [label="{ 241 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6326131536 [label="{ 290 | '    ' | value 0.0000 | p_ucb 0.0742 | visits 0 | prob 0.0116 }" shape=record]
+	6434882960 [label="{ 183 | '\\t' | value 0.0000 | p_ucb 0.0018 | visits 0 | prob 0.0005 }" shape=record]
+	6332590352 [label="{ 324 | ' = ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.3796 }" shape=record]
+	5902403408 [label="{ 630 | ' reg' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.3336 }" shape=record]
+	6434221008 [label="{ 508 | ' t' | value 0.0000 | p_ucb 0.0417 | visits 0 | prob 0.0092 }" shape=record]
+	6331807760 [label="{ 163 | 'always' | value 0.0001 | p_ucb 0.4833 | visits 16 | prob 0.8979 }" shape=record]
+	5902442000 [label="{ 139 | ' k' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5903092560 [label="{ 331 | '[' | value 0.0000 | p_ucb 2.2462 | visits 2 | prob 0.9884 }" shape=record]
+	6334359312 [label="{ 334 | ' ]' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	5903101904 [label="{ 540 | 'pos' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334715216 [label="{ 524 | ' ,' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	5903101648 [label="{ 541 | '*)' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20807982480 [label="{ 35 | '    ' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0001 }" shape=record]
+	6435449680 [label="{ 191 | '_' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20284620176 [label="{ 211 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20239230928 [label="{ 557 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0256 }" shape=record]
+	20130947408 [label="{ 124 | ' Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334312272 [label="{ 400 | 'begin' | value 0.0000 | p_ucb 0.0148 | visits 0 | prob 0.0029 }" shape=record]
+	20285922384 [label="{ 430 | ' //' | value 0.0000 | p_ucb 0.0011 | visits 0 | prob 0.0003 }" shape=record]
+	6334452176 [label="{ 623 | ' next' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0002 }" shape=record]
+	5861660432 [label="{ 625 | '\\n' | value 0.0000 | p_ucb 0.0923 | visits 0 | prob 0.0100 }" shape=record]
+	6335408016 [label="{ 534 | 'eg' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6334449040 [label="{ 559 | '  ' | value 0.0000 | p_ucb 0.0057 | visits 0 | prob 0.0016 }" shape=record]
+	6334902224 [label="{ 354 | ':' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0656 }" shape=record]
+	5861457104 [label="{ 167 | 'ge' | value 0.0001 | p_ucb 0.6508 | visits 12 | prob 1.0000 }" shape=record]
+	6331897744 [label="{ 14 | 'edge' | value 0.0001 | p_ucb 0.4862 | visits 18 | prob 1.0000 }" shape=record]
+	6334668304 [label="{ 194 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332587920 [label="{ 325 | '\<' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0076 }" shape=record]
+	6434224656 [label="{ 511 | ' feedback' | value 0.0000 | p_ucb 0.0081 | visits 0 | prob 0.0018 }" shape=record]
+	6434771088 [label="{ 361 | '7' | value 0.0000 | p_ucb 0.0054 | visits 0 | prob 0.0015 }" shape=record]
+	6334452112 [label="{ 91 | '  ' | value 0.0000 | p_ucb 0.0033 | visits 0 | prob 0.0004 }" shape=record]
+	5861456272 [label="{ 147 | 'ges' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6331809168 [label="{ 15 | ' reset' | value 0.0001 | p_ucb 0.5066 | visits 17 | prob 1.0000 }" shape=record]
+	6334310736 [label="{ 548 | ' ' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	5861389264 [label="{ 406 | '     ' | value 0.0000 | p_ucb 0.0458 | visits 0 | prob 0.0081 }" shape=record]
+	6326129808 [label="{ 432 | ' q' | value 0.0001 | p_ucb 0.6414 | visits 1 | prob 0.0865 }" shape=record]
+	5903101136 [label="{ 221 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6324273296 [label="{ 229 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6435441168 [label="{ 451 | ' ]' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6323135376 [label="{ 97 | ' )' | value 0.0000 | p_ucb 0.0037 | visits 0 | prob 0.0004 }" shape=record]
+	20134500944 [label="{ 170 | ' or' | value 0.0001 | p_ucb 0.6437 | visits 7 | prob 0.7155 }" shape=record]
+	5822755216 [label="{ 259 | '\\t' | value 0.0001 | p_ucb 1.0026 | visits 6 | prob 0.9398 }" shape=record]
+	6331891664 [label="{ 412 | '       ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0125 }" shape=record]
+	6334146064 [label="{ 288 | 'q' | value 0.0000 | p_ucb 0.0057 | visits 0 | prob 0.0009 }" shape=record]
+	20284619792 [label="{ 212 | ' Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20808980432 [label="{ 589 | '\}' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6326129616 [label="{ 481 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20163398864 [label="{ 305 | '\\t ' | value 0.0000 | p_ucb 0.0123 | visits 0 | prob 0.0035 }" shape=record]
+	6334980240 [label="{ 339 | '1' | value 0.0000 | p_ucb 0.0027 | visits 0 | prob 0.0008 }" shape=record]
+	6434885264 [label="{ 182 | ' ' | value 0.0000 | p_ucb 0.0102 | visits 0 | prob 0.0029 }" shape=record]
+	6334344336 [label="{ 73 | ' )' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6147978896 -> 6325478544
+	5828686608 -> 20239230992
+	6333116688 -> 5902441424
+	6324275344 -> 5818201552
+	6324964304 -> 6332333648
+	6334451408 -> 20239228560
+	5827532624 -> 6435445840
+	5903100624 -> 20284613200
+	6150484560 -> 6145396304
+	6333987216 -> 6331889936
+	6319596688 -> 20140185552
+	6334972688 -> 6334357776
+	5818161232 -> 5861617360
+	5903035024 -> 6333105168
+	6334909392 -> 20290204880
+	6150487632 -> 6331898320
+	6334918544 -> 6331897424
+	5861390032 -> 20130947984
+	20807975696 -> 20247643600
+	6331809168 -> 6323135376
+	5822755408 -> 5903092688
+	6147980880 -> 5634370192
+	4305843984 -> 6334451984
+	6334972688 -> 6334359312
+	6334450192 -> 6331906704
+	6334909392 -> 20290203920
+	5861390032 -> 20130949520
+	6326129808 -> 20290261072
+	5634768144 -> 6333986512
+	6333415888 -> 5818211152
+	5861754576 -> 5828434960
+	5360722064 -> 5902441104
+	5902532816 -> 6323133776
+	6334451408 -> 20239230928
+	6150483472 -> 20113151888
+	6139134864 -> 6334915344
+	5861389584 -> 20285924624
+	5360722064 -> 6334505296
+	6324275728 -> 6334452176
+	5822479184 -> 5803589072
+	5902411408 -> 20284604944
+	6434778832 -> 6334902224
+	4305843984 -> 6334450768
+	6325482320 -> 6334696272
+	6333276688 -> 6325482256
+	5353277712 -> 6434210704
+	6331808464 -> 20284207760
+	5803266896 -> 6334343632
+	6333418064 -> 20184695632
+	5861614096 -> 6139134864
+	5818292432 -> 6333319760
+	5803273808 -> 6331902480
+	6150177040 -> 5861661776
+	6319595088 -> 6334310736
+	6334663504 -> 6435449232
+	5353769744 -> 5902973520
+	6147509008 -> 5903092560
+	5902441104 -> 6334451536
+	5825374480 -> 6435001872
+	5803273808 -> 6331906064
+	6319596688 -> 20140183888
+	5632020880 -> 6139147728
+	6147980880 -> 20278633232
+	6334310928 -> 20163398864
+	6333415888 -> 5818206224
+	6331807760 -> 5902450128
+	5903101456 -> 20134506000
+	6150177040 -> 5822480272
+	5903102160 -> 6150487696
+	5902532816 -> 6323139408
+	6319595088 -> 6334313360
+	5902888336 -> 6331809424
+	5817901008 -> 5861754576
+	5815739344 -> 6319595536
+	6333276688 -> 6325478736
+	6324275344 -> 6334313744
+	5861801296 -> 5902406096
+	6334015248 -> 5827531920
+	5825374480 -> 6434996816
+	6334383504 -> 5903099344
+	6334663504 -> 5818295632
+	5902444304 -> 20125700368
+	5818206224 -> 20286124048
+	5902441104 -> 6334451408
+	5902537744 -> 6434715536
+	5861456528 -> 6434885264
+	6139147728 -> 6434600336
+	6334313744 -> 5902543824
+	6331893072 -> 6334979280
+	6139149712 -> 20284612880
+	5861456528 -> 6434894864
+	5861456528 -> 6434882960
+	5861801296 -> 5902402832
+	5818206224 -> 20286114000
+	6324275344 -> 6334448592
+	6150484560 -> 5813639568
+	20134500944 -> 6334699920
+	6435068048 -> 6334450576
+	5360722064 -> 6334508752
+	6326129808 -> 20290263568
+	5903038800 -> 5902441616
+	6334451984 -> 6150475792
+	6335407568 -> 20016483024
+	6435440848 -> 6333980624
+	6331306576 -> 6147506896
+	5360722064 -> 6334502864
+	6324964304 -> 5822753808
+	5902411408 -> 20284604560
+	5803266896 -> 6334339664
+	5359516496 -> 5902532816
+	6434600208 -> 6434841616
+	6150177040 -> 5815739344
+	5818292432 -> 6333326608
+	5861800784 -> 6332277584
+	6320323536 -> 6334390608
+	6147980880 -> 20278630928
+	6323133904 -> 5818196816
+	5903100624 -> 20284606480
+	6147509008 -> 20289361040
+	6320323536 -> 6334385360
+	6323133904 -> 5818198992
+	5818292432 -> 6139149712
+	5902441104 -> 6334448656
+	5861801296 -> 5902410768
+	5818292432 -> 6333324304
+	5634768144 -> 6333977616
+	5822755408 -> 5902537744
+	5814340752 -> 20140194640
+	5353769744 -> 6333415888
+	5861754576 -> 5634768144
+	20184695824 -> 6434771088
+	6334451984 -> 6150484176
+	6331809168 -> 6323133328
+	5813639568 -> 6434063248
+	5861457104 -> 5860842512
+	6150177040 -> 5861660432
+	5861456912 -> 20808976272
+	5828434960 -> 5861389264
+	5822755216 -> 6334142544
+	5827532624 -> 6435441488
+	6139147728 -> 6434600208
+	6139149712 -> 20284605648
+	6334313744 -> 20245116944
+	6150611024 -> 6334666128
+	5634768144 -> 6333987216
+	6434894864 -> 6332374224
+	6331893072 -> 6334979472
+	6334667152 -> 20807988816
+	5822479184 -> 6150611472
+	5861456528 -> 6434888272
+	5813639568 -> 6434071760
+	5861800784 -> 6332275152
+	5902444304 -> 20125704912
+	20807975696 -> 20247644176
+	6434778832 -> 6334893456
+	5902444304 -> 5828686608
+	5903099344 -> 6335407568
+	5903038800 -> 5861614096
+	5353277712 -> 6434210320
+	6331809104 -> 6150479056
+	5902537744 -> 6434716240
+	6333276688 -> 6325478480
+	6334972688 -> 6334354960
+	6434600208 -> 6434841360
+	6331897744 -> 5818405264
+	6319595088 -> 6139149456
+	5903034704 -> 6331891472
+	6334452432 -> 20256612688
+	6334915344 -> 5861390032
+	6333415888 -> 5818204752
+	6324275472 -> 6333269968
+	4305843984 -> 6334449168
+	5828682192 -> 5861457168
+	5818206224 -> 5861786960
+	5822755216 -> 6334146000
+	5353277712 -> 6434221008
+	5359516496 -> 5861800784
+	5827924432 -> 5903102480
+	6150483472 -> 20113160976
+	6147978896 -> 5827532368
+	6139134864 -> 6334918544
+	6331808464 -> 20284201360
+	5861754576 -> 6326129808
+	6434894864 -> 6332376720
+	5828686608 -> 20239236688
+	6147506896 -> 6320323600
+	6333116688 -> 5818300176
+	6334451984 -> 6150487632
+	5632020880 -> 5818201680
+	6334972688 -> 6334358544
+	6139149712 -> 6326129616
+	20284210640 -> 6334715216
+	6334310928 -> 20163404368
+	6434778832 -> 6334893200
+	5902537744 -> 6434702672
+	6324275728 -> 6334447824
+	5818161232 -> 5903035024
+	5903102160 -> 6150483472
+	5359516496 -> 5828435472
+	6333415888 -> 5818215312
+	6435068048 -> 5818292432
+	6325482320 -> 6334701840
+	6435440848 -> 6333973264
+	5803266896 -> 6334333392
+	20134507216 -> 6335255056
+	5828682192 -> 6324273296
+	5903034704 -> 6331891344
+	6435440848 -> 6333981776
+	6435440848 -> 6333975440
+	6331891920 -> 6150611344
+	5813639568 -> 6434064080
+	5633094864 -> 6334282128
+	5817901008 -> 5353769744
+	5827532176 -> 20244804880
+	6147509008 -> 6324138832
+	5903099344 -> 6335410064
+	5903034704 -> 6331884368
+	6334918544 -> 6331903632
+	6333987216 -> 6331891664
+	5903092560 -> 6334973328
+	5818292432 -> 6333331984
+	6331808464 -> 20284202192
+	5822755408 -> 20285923152
+	20284210640 -> 6334714128
+	6331906704 -> 6334667728
+	6334452432 -> 20256617232
+	20134507216 -> 6335265744
+	5818161232 -> 5861613840
+	5827532176 -> 6147980880
+	6435068048 -> 6334452240
+	20807975696 -> 20247647504
+	6331893072 -> 6334981392
+	5902444304 -> 20125698512
+	6147509008 -> 20289362960
+	20134500944 -> 6334448912
+	6150484560 -> 5633094864
+	6139147728 -> 6434593488
+	6150484560 -> 6150177040
+	5353769744 -> 5902772496
+	6434894864 -> 6332367824
+	6331809104 -> 6150484560
+	5803273808 -> 6331901584
+	6331809104 -> 6150476496
+	5827924432 -> 5903101136
+	6434210320 -> 20146501648
+	6434778832 -> 5818203856
+	5827532176 -> 20244806928
+	20134500944 -> 6334450448
+	5861457104 -> 5860842000
+	20184695824 -> 6434777552
+	5813639568 -> 6434077392
+	5903101456 -> 20134495632
+	6331891920 -> 5902444048
+	5818070736 -> 6147978896
+	5902888336 -> 5828937168
+	5903102160 -> 6150474576
+	6324964304 -> 5803640144
+	5353277712 -> 6434217040
+	6334918544 -> 5803273808
+	5902450128 -> 6334011216
+	5818070736 -> 6334312272
+	5861800784 -> 6332275728
+	5818070736 -> 5818200784
+	5818070736 -> 6325482128
+	5903038800 -> 6334314000
+	5902402832 -> 6334387792
+	5803273808 -> 6331897744
+	5817904976 -> 6435063056
+	6435068048 -> 6334448848
+	6324275472 -> 6333276688
+	6150483472 -> 6324274000
+	6334451984 -> 6150474064
+	6333418064 -> 20184695824
+	6150177040 -> 5818296464
+	5813639568 -> 6434071376
+	5828434960 -> 5861380240
+	6334915344 -> 5818202448
+	5902445072 -> 6434708880
+	6150484560 -> 5817901008
+	6319595536 -> 5360722064
+	6333418064 -> 20184709136
+	5828435472 -> 5861609296
+	5861389584 -> 20285927120
+	5902411408 -> 20284610256
+	6324275344 -> 5818201168
+	6139149712 -> 5861606864
+	6434210320 -> 20146491920
+	6333415888 -> 5818212304
+	6331808464 -> 20284210128
+	6325478544 -> 20230378640
+	6331809168 -> 6323133904
+	5628951824 -> 6332590352
+	6319596688 -> 20140185168
+	6150487632 -> 6331891920
+	6333276688 -> 6325482320
+	5903035024 -> 6333113616
+	5633094864 -> 6334278032
+	20134500944 -> 6334450192
+	6334015248 -> 5828682192
+	6320323536 -> 6334387216
+	5632020880 -> 5902444304
+	5827924432 -> 5903098576
+	5814340752 -> 20140195408
+	6331809424 -> 5861456272
+	6325482320 -> 5827532496
+	5902402832 -> 5861660368
+	5828435472 -> 6326131536
+	5861456912 -> 20808980432
+	5817904976 -> 6435064464
+	6150487632 -> 6331897680
+	5803273808 -> 6331892816
+	5828688720 -> 6331898064
+	5828686608 -> 20239222864
+	6333418064 -> 20184696784
+	20134507216 -> 6335261648
+	6319596688 -> 20140190288
+	6326129808 -> 20290261136
+	5359516496 -> 6331808528
+	6434778832 -> 6334899024
+	6331897744 -> 5818400912
+	6331807760 -> 6334313168
+	6334909392 -> 20290197712
+	6139134864 -> 6334909392
+	6331897744 -> 6331809168
+	5903102160 -> 6150474448
+	6320323536 -> 6334383504
+	5861754576 -> 5822755408
+	6331807760 -> 6334306192
+	6325478544 -> 20230381008
+	5827532624 -> 6435440848
+	5902441104 -> 6334449296
+	6139147728 -> 6434595728
+	5803266896 -> 6334348496
+	6333987216 -> 6331891280
+	6334343632 -> 21242210320
+	6325429264 -> 6332634192
+	5903038800 -> 6334313872
+	5828435472 -> 5861613968
+	6147506896 -> 5808822992
+	6335407568 -> 5902414864
+	6324275728 -> 6334449488
+	5861614096 -> 5828435152
+	5861801296 -> 5902417424
+	6147978896 -> 5827531856
+	6325482320 -> 6334697424
+	5861614096 -> 5902442000
+	6324275472 -> 6333282192
+	6319595536 -> 5902445072
+	6331902736 -> 6150611024
+	5634768144 -> 6333980112
+	6333987216 -> 6331888656
+	6150611024 -> 6334664272
+	5903035024 -> 6333109776
+	6147978896 -> 5902776464
+	6434210320 -> 5902411408
+	6325429264 -> 6332638864
+	5828682192 -> 5902543888
+	20284210640 -> 5828682832
+	6325482320 -> 5861456912
+	6331906704 -> 6334676944
+	6334015248 -> 6147981136
+	20134500944 -> 6334448528
+	6333418064 -> 20184706256
+	5902537744 -> 6434706960
+	5817904976 -> 6435068048
+	5902445072 -> 6434702608
+	6331891920 -> 5828688720
+	6335407568 -> 20016488336
+	5902888336 -> 6147978832
+	20184695824 -> 6434769744
+	6331807760 -> 5902450192
+	5903035024 -> 6333104976
+	6334915344 -> 5818200656
+	5902402832 -> 5827532048
+	6150487632 -> 6331906192
+	6333987216 -> 6331890832
+	5902537744 -> 6434714384
+	5828688720 -> 6331902736
+	6331906704 -> 6334668304
+	6319595088 -> 6320323536
+	20184695824 -> 6434779664
+	5902411408 -> 20284614800
+	6147506896 -> 5861801296
+	5822755216 -> 5818300304
+	6334451408 -> 20239223312
+	6333116688 -> 5903102160
+	6334343632 -> 21242205392
+	6324275344 -> 5818195984
+	6334383504 -> 5903101904
+	5628951824 -> 6332587920
+	5628951824 -> 6332581584
+	5828435472 -> 5822755216
+	6150483472 -> 5903099088
+	5633094864 -> 5902405200
+	5818201040 -> 6334450064
+	6331906704 -> 6334663504
+	6434894864 -> 6332368400
+	5628951824 -> 6332589008
+	5903099344 -> 6335408016
+	6150487632 -> 6331893072
+	6323133904 -> 5818196560
+	6325478544 -> 20230386768
+	5818161232 -> 5861617040
+	5814340752 -> 20140193616
+	5861390032 -> 6325429264
+	6331902736 -> 5827532112
+	6334667152 -> 20807975696
+	6150611024 -> 6334661520
+	6334663504 -> 6435439120
+	5632020880 -> 5818199376
+	5628951824 -> 5828937104
+	5861800784 -> 6332272592
+	5827924432 -> 5903098320
+	5818198352 -> 6332631760
+	20284210640 -> 6334724176
+	6334451408 -> 20239229200
+	6331902736 -> 6331809616
+	5903092560 -> 6334980240
+	6331893072 -> 6334987856
+	6331809424 -> 5903038800
+	6331809424 -> 5903034960
+	5861389584 -> 20285922896
+	5861389584 -> 20285929232
+	5818201040 -> 6334452112
+	6334015248 -> 6139147600
+	5814340752 -> 20140192400
+	5828434960 -> 5861389776
+	5822479184 -> 5803587344
+	5828686608 -> 20239223696
+	5861801296 -> 6331807760
+	5861390032 -> 20130940560
+	6331809104 -> 6150475536
+	5902441104 -> 6334449040
+	6319595536 -> 5861389840
+	5828435472 -> 5861606288
+	5822755408 -> 5828936784
+	6334313744 -> 6139147664
+	6334313744 -> 20245103376
+	6334383504 -> 5903098064
+	5818198352 -> 6332642448
+	6434600208 -> 6434846352
+	5822479184 -> 5902888336
+	6434210320 -> 5902411024
+	5903092560 -> 6334972688
+	5903102160 -> 6150473936
+	5827532176 -> 20244794512
+	5634768144 -> 6333984656
+	5902411408 -> 20284620560
+	5360722064 -> 6334506192
+	6334383504 -> 5903101648
+	6334451408 -> 20239229072
+	6325429264 -> 6332643408
+	6331893072 -> 5803266896
+	20807975696 -> 20247655248
+	5861614096 -> 5902441744
+	6331902736 -> 6434496464
+	6147506896 -> 6320323792
+	6331809104 -> 6150474320
+	20134507216 -> 6335257424
+	6150483472 -> 5827532624
+	5902532816 -> 6323135504
+	5827924432 -> 5903101456
+	5861800784 -> 6334310928
+	6334663504 -> 6435449680
+	5815739344 -> 6324275728
+	6434210320 -> 20146496080
+	5861614096 -> 5902441488
+	6320323536 -> 6334397520
+	5822755408 -> 20285922384
+	5633094864 -> 5827532432
+	6324275472 -> 6333283472
+	5902445072 -> 6434702352
+	6324275472 -> 6333277136
+	6324275728 -> 6334448016
+	6324964304 -> 5632855760
+	5903100624 -> 20284620176
+	5903092560 -> 6334986960
+	5903038800 -> 5861613712
+	5902888336 -> 6147980752
+	5633094864 -> 5902403408
+	5903101456 -> 20134507216
+	6326129808 -> 20290263376
+	6326129808 -> 20290259536
+	6334310928 -> 5814340752
+	6319596688 -> 20140190864
+	6331306576 -> 6324964304
+	6334918544 -> 6331900240
+	5828682192 -> 5861457104
+	6139147728 -> 6434594128
+	6335407568 -> 6331808464
+	5861456912 -> 20808978704
+	6334663504 -> 5818198352
+	6334313744 -> 20245104528
+	5818198352 -> 6332634768
+	6331306576 -> 6333418064
+	6334915344 -> 5818199184
+	4305843984 -> 6334449232
+	6334343632 -> 21242202384
+	6331906704 -> 6334670224
+	20134507216 -> 5903100624
+	5828686608 -> 20239231952
+	6334451984 -> 6150475472
+	20284210640 -> 6334721296
+	5828434960 -> 5861390288
+	5818201040 -> 6334449552
+	5822755216 -> 6334146064
+	6334452432 -> 20256604432
+	5632020880 -> 6139281680
+	5902450128 -> 6334015248
+	4305843984 -> 6334450320
+	5818070736 -> 5818200144
+	6150611024 -> 6334667152
+	6334383504 -> 5903099984
+	5861390032 -> 20130947408
+	6147980880 -> 20278636496
+	5861456912 -> 20808980880
+	6334015248 -> 5818298640
+	5902402832 -> 6334383312
+	6331891920 -> 6333878224
+	6331809168 -> 6323139024
+	6434600208 -> 6434834960
+	5861456912 -> 20808988304
+	6334915344 -> 5818197968
+	5861457104 -> 5860842320
+	5903035024 -> 6333116688
+	5903034704 -> 6331888912
+	5861456528 -> 6434897168
+	6331306576 -> 5825374480
+	5818201040 -> 4305843984
+	6334310928 -> 20163409232
+	6334909392 -> 20290196112
+	6435068048 -> 6334451472
+	5861389584 -> 20285925136
+	5814340752 -> 20140185808
+	5902532816 -> 5903034704
+	5817901008 -> 5353277712
+	6147506896 -> 5827531728
+	5828688720 -> 6331902224
+	6331902736 -> 5803268560
+	5903092560 -> 6334977232
+	5902445072 -> 6434714000
+	6139134864 -> 6334920784
+	5817904976 -> 6435067216
+	5828434960 -> 6334311568
+	6319595536 -> 5861389584
+	6325478544 -> 20230382992
+	6331306576 -> 5359516496
+	5828434960 -> 5818070736
+	5815739344 -> 6319595088
+	5818206224 -> 20286128080
+	5903034704 -> 6331887696
+	6331897744 -> 5633608848
+	5359516496 -> 5628951824
+	5817901008 -> 5817904976
+	6331807760 -> 6334314832
+	20184695824 -> 6434778832
+	5903101456 -> 20134496912
+	5861754576 -> 6326129744
+	5861457104 -> 5860842192
+	5827532624 -> 6435443600
+	6334667152 -> 20807986960
+	6334450192 -> 6331899792
+	6150611024 -> 6334666896
+	5903100624 -> 20284619792
+	5818198352 -> 6332640528
+	5353769744 -> 6331306576
+	5903101456 -> 20134500944
+	5818198352 -> 5861456528
+	5353277712 -> 6434224656
+	5815739344 -> 6324275472
+	5903099344 -> 6335412176
+	6325429264 -> 6332637008
+	5817904976 -> 6435063248
+	5902450128 -> 6334021008
+	6324964304 -> 5822479184
+	6147980880 -> 20278627856
+	6333987216 -> 6331884304
+	6334909392 -> 20290204176
+	6325429264 -> 6332636048
+	6331897744 -> 5818404944
+	5861457104 -> 5827924432
+	5902402832 -> 6334385680
+	6434600208 -> 6434847056
+	6331809424 -> 5903039376
+	5902532816 -> 6323127696
+	5353769744 -> 5353485584
+	5818161232 -> 5861613904
+	6334450192 -> 6331899664
+	6139134864 -> 6334913104
+	6334310928 -> 20163403088
+	6139149712 -> 5818200912
+	6333276688 -> 6325478928
+	6324275728 -> 6334452432
+	6331809424 -> 5861457040
+	5825374480 -> 6435012176
+	5817901008 -> 5818161232
+	5902444304 -> 20125709392
+	6147978896 -> 5902404688
+	5827532624 -> 6435441168
+	5902445072 -> 6434707856
+	5822755216 -> 5632020880
+	6334667152 -> 20807982480
+	6334667152 -> 20807976144
+	5825374480 -> 6147509008
+	6333116688 -> 5903101392
+	6334918544 -> 6331903568
+	5902450128 -> 6334014544
+	6434894864 -> 6332381200
+	6147509008 -> 20289368656
+	6323133904 -> 5818201040
+	5822479184 -> 5803584528
+	6334343632 -> 21242203216
+	5803266896 -> 6334344336
+	6334452432 -> 20256611152
+	5818206224 -> 20286124432
+	20807975696 -> 20247657168
+	5828688720 -> 6331898256
+	6147978896 -> 5902403024
+	6435440848 -> 6333978000
+	6334450192 -> 6331899536
+	6319595536 -> 5861390544
+	5828682192 -> 20163718608
+	6335407568 -> 5861753744
+	5828688720 -> 6331906768
+	6334310928 -> 20163396624
+	6333116688 -> 5903100176
+	5827532176 -> 20244803600
+	6323133904 -> 5818203216
+	6331808464 -> 20284210640
+	6334343632 -> 5827532176
+	5818201040 -> 6334447760
+	6325478544 -> 6319596688
+	6319595088 -> 6334313616
+	5902888336 -> 6331807632
+	6331809168 -> 6323135056
+	5903100624 -> 20284614416
+	5815739344 -> 6324275344
+	5825374480 -> 6435000912
+	5902450128 -> 6334008528
+	6331891920 -> 6333884816
+	6334452432 -> 20256618448
+	6334972688 -> 6334365328
+	5903099344 -> 6335410960
+	6334450192 -> 6331904336
 }

@@ -29,7 +29,7 @@ def main():
     )
 
     max_rollouts = 128
-    top_k = 3
+    top_k = 5
     beam_width = 1
     # hyperparameters for P-UCB function
     c_base = 10
@@ -77,9 +77,7 @@ def main():
         return max_node
 
     def get_top_k_tokens(curr_node, k):
-        output = model(
-            prompt=curr_node.state, max_tokens=1, temperature=0.2, logprobs=k
-        )
+        output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
         output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
         return output_probs.items()
 
@@ -94,7 +92,7 @@ def main():
         """
         output = model(
             prompt=curr_node.state,
-            max_tokens=256,
+            max_tokens=1024,
             temperature=0.2,
             top_k=beam_width,
             stop=STOP_SEQUENCES,
