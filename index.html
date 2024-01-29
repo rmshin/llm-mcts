@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="global.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"
+      integrity="sha512-RcuA+PEnJcg1caTn53YLhZ3bYVFXphzcPL1BjBoAwFiA3bErav+AndZz1xrqpAtv/8Waep2X+9zn8KWpwacUSA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.umd.js"
+      integrity="sha512-LxtJh1JTtBgZQaf0DF+4f/thp9An8o8UC35/YaDTYtHIOCPIuEDZRYRCLDw++hEvm/AFlGOM5HmgAMuSkxzsyg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"
+      integrity="sha512-psLUZfcgPmi012lcpVHkWoOqyztollwCGu4w/mXijFMK/YcdUdP06voJNVOJ7f/dUIlO2tGlDLuypRyXX2lcvQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="cytoscape-dagre.js"></script>
+    <style>
+      #cy {
+        width: 100%;
+        height: 800px;
+        display: block;
+      }
+    </style>
+
+    <title>LLM code gen</title>
+  </head>
+  <body>
+    <input type="range" id="time-step" name="time-step" min="0" />
+    <label id="time-step-label" for="time-step">Time step:</label>
+    <div id="cy"></div>
+  </body>
+  <script>
+    var cy, graph;
+    const slider = document.getElementById('time-step');
+    const sliderLabel = document.getElementById('time-step-label');
+    const graphCtr = document.getElementById('cy');
+    function renderGraph(graphData, timeStep) {
+      graph = graphData[timeStep];
+      cy = cytoscape({
+        container: graphCtr,
+        elements: {
+          nodes: graph.nodes.map((node) => ({
+            data: { ...node },
+            style: graph.selectedNodes.includes(node.id)
+              ? { 'background-color': 'red' }
+              : undefined,
+          })),
+          edges: graph.edges.map(([n1, n2]) => ({
+            data: { source: n1, target: n2 },
+            style: graph.selectedNodes.includes(n2)
+              ? { 'line-color': 'red', 'target-arrow-color': 'red' }
+              : undefined,
+          })),
+        },
+        style: [
+          {
+            selector: 'node',
+            style: {
+              'background-color': '#666',
+              label: 'data(label)',
+            },
+          },
+          {
+            selector: 'edge',
+            style: {
+              width: 3,
+              'line-color': '#ccc',
+              'target-arrow-color': '#ccc',
+              'target-arrow-shape': 'triangle',
+              'curve-style': 'bezier',
+            },
+          },
+        ],
+        panningEnabled: false,
+        boxSelectionEnabled: false,
+        layout: {
+          name: 'dagre',
+          align: 'UL',
+        },
+      });
+      cy.autolock(true);
+    }
+    fetch('public/graph_HumanEval_113.json')
+      .then((res) => res.json())
+      .then((graphData) => {
+        slider.max = Math.max.apply(null, Object.keys(graphData));
+        renderGraph(graphData, slider.value);
+        sliderLabel.textContent = `Time step: ${slider.value}`;
+        slider.addEventListener(
+          'change',
+          (e) => (sliderLabel.textContent = `Time step: ${slider.value}`)
+        );
+        slider.addEventListener('change', (e) => renderGraph(graphData, e.target.value));
+      });
+  </script>
+</html>
