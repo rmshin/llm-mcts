@@ -1,7 +1,12 @@
 *.gguf
 tree*
+!svgviz/tree*
 .DS_Store
 .vscode
+ext
 Code-AI-Tree-Search
 human-eval
+verilog-eval
+vcdvcd
 __pycache__
+*jsonl_results.jsonl

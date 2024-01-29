@@ -1,0 +1,680 @@
+digraph {
+	graph [rankdir=TB]
+	20015048080 [label="{ 296 | ',' | value 0.0000 | p_ucb 0.4537 | visits 0 | prob 0.0748 }" shape=record]
+	20015048016 [label="{ 24 | 'slow' | value 0.0000 | p_ucb 0.0202 | visits 0 | prob 0.0057 }" shape=record]
+	20289946960 [label="{ 228 | 'begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0023 }" shape=record]
+	20164454544 [label="{ 132 | ' ' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0001 }" shape=record]
+	20081231440 [label="{ 286 | ' pos' | value 0.6794 | p_ucb 3.5390 | visits 1 | prob 0.9973 }" shape=record]
+	6334628048 [label="{ 107 | 'posed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20158657168 [label="{ 217 | 'always' | value 0.6914 | p_ucb 0.8919 | visits 8 | prob 0.1562 }" shape=record]
+	6335005328 [label="{ 92 | '\\t' | value 0.6914 | p_ucb 1.8887 | visits 5 | prob 0.9872 }" shape=record]
+	6440205328 [label="{ 319 | '@' | value 0.0000 | p_ucb 0.0151 | visits 0 | prob 0.0020 }" shape=record]
+	20081240976 [label="{ 158 | '0' | value 1.0000 | p_ucb 1.5488 | visits 8 | prob 0.9999 }" shape=record]
+	6334123664 [label="{ 64 | ',' | value 0.0000 | p_ucb 0.6313 | visits 0 | prob 0.0851 }" shape=record]
+	6434840208 [label="{ 337 | '  ' | value 0.0000 | p_ucb 0.0062 | visits 0 | prob 0.0005 }" shape=record]
+	6434708240 [label="{ 308 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20147162512 [label="{ 242 | 'ges' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6333372816 [label="{ 295 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20128510352 [label="{ 252 | '*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20157568144 [label="{ 161 | ';' | value 1.0000 | p_ucb 1.9854 | visits 4 | prob 0.9213 }" shape=record]
+	20015040208 [label="{ 192 | 'state' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0256 }" shape=record]
+	20081245712 [label="{ 268 | 'k' | value 0.6914 | p_ucb 1.7580 | visits 6 | prob 1.0000 }" shape=record]
+	6333467472 [label="{ 169 | '  ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
+	20289621648 [label="{ 256 | '_' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
+	20289624592 [label="{ 315 | ' (' | value 0.0000 | p_ucb 0.0891 | visits 0 | prob 0.0120 }" shape=record]
+	20158650320 [label="{ 3 | '\\n' | value 0.6914 | p_ucb 0.9126 | visits 30 | prob 0.5939 }" shape=record]
+	20081231760 [label="{ 124 | '3' | value 0.6794 | p_ucb 2.3824 | visits 3 | prob 0.9850 }" shape=record]
+	20081231120 [label="{ 140 | '1' | value 0.0000 | p_ucb 0.0440 | visits 0 | prob 0.0085 }" shape=record]
+	20159677456 [label="{ 49 | ' pos' | value 0.6794 | p_ucb 2.9459 | visits 2 | prob 0.9973 }" shape=record]
+	20154395024 [label="{ 186 | ' next' | value 0.0000 | p_ucb 0.5850 | visits 1 | prob 0.1828 }" shape=record]
+	6334978832 [label="{ 63 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6434770320 [label="{ 13 | ' begin' | value 0.6914 | p_ucb 1.7286 | visits 6 | prob 0.9724 }" shape=record]
+	6441510608 [label="{ 187 | '_' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.6787 }" shape=record]
+	20015053712 [label="{ 188 | ';' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.1195 }" shape=record]
+	6334127824 [label="{ 246 | 'neg' | value 0.0000 | p_ucb 0.0125 | visits 0 | prob 0.0021 }" shape=record]
+	20015046480 [label="{ 302 | ')' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081238352 [label="{ 18 | 'reset' | value 0.6914 | p_ucb 3.5282 | visits 1 | prob 0.9942 }" shape=record]
+	20147159696 [label="{ 245 | 'g' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20826241744 [label="{ 213 | '[' | value 0.0000 | p_ucb 0.0320 | visits 0 | prob 0.0042 }" shape=record]
+	6434770064 [label="{ 46 | 'begin' | value 0.0000 | p_ucb 0.0090 | visits 0 | prob 0.0014 }" shape=record]
+	20146303888 [label="{ 69 | ' k' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20164459024 [label="{ 126 | '0' | value 0.6794 | p_ucb 3.5482 | visits 1 | prob 0.9999 }" shape=record]
+	6333376208 [label="{ 293 | 'posed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6441510032 [label="{ 88 | ' ' | value 0.0000 | p_ucb 0.0005 | visits 0 | prob 0.0001 }" shape=record]
+	20289631504 [label="{ 317 | 'begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20146461136 [label="{ 103 | ' pos' | value 0.0000 | p_ucb 0.0005 | visits 0 | prob 0.0001 }" shape=record]
+	20015039632 [label="{ 26 | '~' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20146462480 [label="{ 102 | 'neg' | value 0.0000 | p_ucb 0.0045 | visits 0 | prob 0.0013 }" shape=record]
+	20081230096 [label="{ 222 | ' cl' | value 0.6914 | p_ucb 2.4082 | visits 3 | prob 0.9930 }" shape=record]
+	6334631184 [label="{ 106 | ' (' | value 0.0000 | p_ucb 0.0260 | visits 0 | prob 0.0057 }" shape=record]
+	20146299280 [label="{ 262 | 'always' | value 0.6914 | p_ucb 1.1733 | visits 12 | prob 0.7407 }" shape=record]
+	20154016336 [label="{ 303 | ' reset' | value 0.0000 | p_ucb 0.0272 | visits 0 | prob 0.0041 }" shape=record]
+	20081245328 [label="{ 314 | 'pos' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6441514640 [label="{ 123 | ' [' | value 0.6794 | p_ucb 2.0884 | visits 4 | prob 0.9939 }" shape=record]
+	6440200016 [label="{ 320 | ' ' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0000 }" shape=record]
+	20152507024 [label="{ 181 | '  ' | value 0.0000 | p_ucb 0.0017 | visits 0 | prob 0.0003 }" shape=record]
+	20128508560 [label="{ 251 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20163664272 [label="{ 174 | '\\n' | value 0.0000 | p_ucb 1.2218 | visits 0 | prob 0.2688 }" shape=record]
+	20081231056 [label="{ 146 | ' count' | value 0.0000 | p_ucb 0.0016 | visits 0 | prob 0.0003 }" shape=record]
+	20163665104 [label="{ 175 | '  ' | value 0.0000 | p_ucb 0.0175 | visits 0 | prob 0.0039 }" shape=record]
+	6441509072 [label="{ 83 | ' (' | value 0.0000 | p_ucb 0.0828 | visits 0 | prob 0.0100 }" shape=record]
+	20289954064 [label="{ 226 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0300 }" shape=record]
+	20146457296 [label="{ 104 | '*)' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20289957456 [label="{ 225 | ' begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9595 }" shape=record]
+	20081244432 [label="{ 265 | 'posed' | value 0.6914 | p_ucb 1.4892 | visits 9 | prob 0.9979 }" shape=record]
+	20164457424 [label="{ 29 | ' (!' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	20015045072 [label="{ 300 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20164456528 [label="{ 134 | '9' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6333466128 [label="{ 165 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9908 }" shape=record]
+	20154386256 [label="{ 195 | ' q' | value 0.0000 | p_ucb 0.7939 | visits 0 | prob 0.1240 }" shape=record]
+	20015054608 [label="{ 190 | 'Q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0561 }" shape=record]
+	20015048720 [label="{ 172 | 'assign' | value 0.0000 | p_ucb 0.0155 | visits 0 | prob 0.0044 }" shape=record]
+	6333837648 [label="{ 76 | ' ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20154012560 [label="{ 304 | ' slow' | value 0.0000 | p_ucb 0.0063 | visits 0 | prob 0.0009 }" shape=record]
+	20146213904 [label="{ 288 | ' edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20156560336 [label="{ 55 | 'reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332513488 [label="{ 284 | '\\t' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0001 }" shape=record]
+	20017091664 [label="{ 32 | '\\n' | value 0.0000 | p_ucb 0.0158 | visits 0 | prob 0.0030 }" shape=record]
+	20152507472 [label="{ 112 | '_' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20128509840 [label="{ 238 | ' reset' | value 0.0000 | p_ucb 0.0314 | visits 0 | prob 0.0060 }" shape=record]
+	6333477968 [label="{ 166 | '\\t//' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0082 }" shape=record]
+	6334979664 [label="{ 62 | ' positive' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20146294928 [label="{ 67 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20146305936 [label="{ 324 | '\\n' | value 0.0000 | p_ucb 0.8016 | visits 0 | prob 0.1027 }" shape=record]
+	6333438672 [label="{ 210 | '2' | value 0.0000 | p_ucb 0.0348 | visits 0 | prob 0.0047 }" shape=record]
+	20015052880 [label="{ 99 | ' ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20825639056 [label="{ 277 | ' ' | value 0.0000 | p_ucb 0.0158 | visits 0 | prob 0.0045 }" shape=record]
+	6434780304 [label="{ 45 | ' ' | value 0.0000 | p_ucb 0.0385 | visits 0 | prob 0.0060 }" shape=record]
+	20163668752 [label="{ 163 | '\\t' | value 1.0000 | p_ucb 2.3077 | visits 2 | prob 0.7165 }" shape=record]
+	20154016144 [label="{ 305 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6441504656 [label="{ 254 | '@' | value 0.0000 | p_ucb 0.0234 | visits 0 | prob 0.0035 }" shape=record]
+	20152505552 [label="{ 56 | ' edge' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6332879312 [label="{ 79 | 'neg' | value 0.0000 | p_ucb 0.0139 | visits 0 | prob 0.0017 }" shape=record]
+	20152509072 [label="{ 59 | 'ed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081237456 [label="{ 84 | 'posed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20015052048 [label="{ 173 | 'initial' | value 0.0000 | p_ucb 0.0108 | visits 0 | prob 0.0030 }" shape=record]
+	20825637776 [label="{ 280 | ' //' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0002 }" shape=record]
+	20147165456 [label="{ 243 | ' ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334134864 [label="{ 66 | ' )' | value 0.0000 | p_ucb 0.0014 | visits 0 | prob 0.0002 }" shape=record]
+	20128498640 [label="{ 272 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9865 }" shape=record]
+	20825643920 [label="{ 279 | '\\t\\t' | value 0.0000 | p_ucb 0.0015 | visits 0 | prob 0.0004 }" shape=record]
+	20128509584 [label="{ 239 | ' slow' | value 0.0000 | p_ucb 0.0050 | visits 0 | prob 0.0010 }" shape=record]
+	20128505552 [label="{ 274 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0030 }" shape=record]
+	20159676688 [label="{ 333 | '\\t//' | value 0.0000 | p_ucb 0.0924 | visits 0 | prob 0.0075 }" shape=record]
+	20081234256 [label="{ 153 | 'always' | value 0.0000 | p_ucb 0.0196 | visits 0 | prob 0.0020 }" shape=record]
+	6334061392 [label="{ 21 | '==' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0012 }" shape=record]
+	20164457360 [label="{ 17 | ' (' | value 0.6914 | p_ucb 2.3348 | visits 2 | prob 0.7231 }" shape=record]
+	6441503376 [label="{ 122 | 'reg' | value 0.6794 | p_ucb 1.0212 | visits 5 | prob 0.1729 }" shape=record]
+	6333825936 [label="{ 9 | 'ge' | value 0.6914 | p_ucb 1.3057 | visits 13 | prob 1.0000 }" shape=record]
+	20081238928 [label="{ 144 | '[' | value 0.0000 | p_ucb 0.0218 | visits 0 | prob 0.0038 }" shape=record]
+	20164459664 [label="{ 30 | '(!' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20015041168 [label="{ 189 | 'q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0789 }" shape=record]
+	20081236368 [label="{ 200 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20015049040 [label="{ 233 | ' )' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0002 }" shape=record]
+	20081235280 [label="{ 312 | ' pos' | value 0.0000 | p_ucb 0.0017 | visits 0 | prob 0.0002 }" shape=record]
+	20164455376 [label="{ 71 | ' reset' | value 0.0000 | p_ucb 0.0394 | visits 0 | prob 0.0050 }" shape=record]
+	20015042256 [label="{ 27 | 'q' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081240528 [label="{ 141 | '2' | value 0.0000 | p_ucb 0.0315 | visits 0 | prob 0.0061 }" shape=record]
+	20081245392 [label="{ 116 | 'integer' | value 0.0000 | p_ucb 0.0039 | visits 0 | prob 0.0007 }" shape=record]
+	6334124048 [label="{ 48 | ' or' | value 0.6794 | p_ucb 1.2970 | visits 3 | prob 0.3332 }" shape=record]
+	20289949776 [label="{ 229 | '\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
+	20147172624 [label="{ 244 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20128501968 [label="{ 273 | '\\t\\t' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0048 }" shape=record]
+	20128510544 [label="{ 253 | 'begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6333473872 [label="{ 167 | '   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0004 }" shape=record]
+	20825879312 [label="{ 234 | ' k' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20826231312 [label="{ 216 | ' next' | value 0.0000 | p_ucb 0.0019 | visits 0 | prob 0.0003 }" shape=record]
+	20825880656 [label="{ 236 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334642448 [label="{ 138 | '2' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20290262096 [label="{ 155 | ' [' | value 1.0000 | p_ucb 1.3670 | visits 11 | prob 0.9929 }" shape=record]
+	20081240144 [label="{ 151 | '\\n' | value 0.0000 | p_ucb 0.0708 | visits 0 | prob 0.0071 }" shape=record]
+	6441510480 [label="{ 89 | '_' | value 0.0000 | p_ucb 0.0003 | visits 0 | prob 0.0000 }" shape=record]
+	20152502736 [label="{ 179 | ' ' | value 0.0000 | p_ucb 0.0288 | visits 0 | prob 0.0055 }" shape=record]
+	20825872016 [label="{ 237 | ')' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20826497424 [label="{ 36 | '\\t\\t' | value 0.0000 | p_ucb 0.0279 | visits 0 | prob 0.0049 }" shape=record]
+	20146458192 [label="{ 105 | 'pos' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20015049744 [label="{ 285 | ' or' | value 0.6794 | p_ucb 1.7020 | visits 2 | prob 0.3373 }" shape=record]
+	20163667088 [label="{ 176 | '    ' | value 0.0000 | p_ucb 0.0150 | visits 0 | prob 0.0033 }" shape=record]
+	20289853072 [label="{ 218 | ' @' | value 0.6914 | p_ucb 1.6441 | visits 7 | prob 0.9964 }" shape=record]
+	20164445712 [label="{ 73 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20826497936 [label="{ 15 | '\\t' | value 0.6914 | p_ucb 2.0923 | visits 4 | prob 0.9881 }" shape=record]
+	6441507024 [label="{ 231 | ',' | value 0.0000 | p_ucb 0.2528 | visits 0 | prob 0.0713 }" shape=record]
+	20157576400 [label="{ 185 | ',' | value 0.0000 | p_ucb 0.0032 | visits 0 | prob 0.0006 }" shape=record]
+	20081241232 [label="{ 147 | ' ' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0002 }" shape=record]
+	6434708496 [label="{ 310 | 'g' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20157581328 [label="{ 328 | '   ' | value 0.0000 | p_ucb 0.1216 | visits 0 | prob 0.0152 }" shape=record]
+	20015042704 [label="{ 232 | ' ,' | value 0.0000 | p_ucb 0.0010 | visits 0 | prob 0.0003 }" shape=record]
+	20128510480 [label="{ 241 | ' clock' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20017087824 [label="{ 16 | '\\tif' | value 0.6914 | p_ucb 2.4099 | visits 3 | prob 0.9939 }" shape=record]
+	20290270160 [label="{ 335 | '\\t' | value 0.0000 | p_ucb 0.0838 | visits 0 | prob 0.0068 }" shape=record]
+	20081230608 [label="{ 4 | '\\t' | value 0.6914 | p_ucb 1.0227 | visits 29 | prob 0.9629 }" shape=record]
+	6434224464 [label="{ 40 | ' ' | value 0.0000 | p_ucb 0.0202 | visits 0 | prob 0.0033 }" shape=record]
+	6441516560 [label="{ 90 | ' begin' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	20826499664 [label="{ 37 | '\\n' | value 0.0000 | p_ucb 0.0108 | visits 0 | prob 0.0019 }" shape=record]
+	20290269648 [label="{ 266 | 'ge' | value 0.6914 | p_ucb 1.5610 | visits 8 | prob 1.0000 }" shape=record]
+	20158653264 [label="{ 259 | 'integer' | value 0.0000 | p_ucb 0.0207 | visits 0 | prob 0.0018 }" shape=record]
+	20164451152 [label="{ 10 | ' cl' | value 0.6914 | p_ucb 1.3381 | visits 12 | prob 0.9939 }" shape=record]
+	20289874768 [label="{ 331 | '   ' | value 0.0000 | p_ucb 0.1266 | visits 0 | prob 0.0102 }" shape=record]
+	6332500816 [label="{ 281 | '\\n' | value 0.0000 | p_ucb 0.1180 | visits 0 | prob 0.0260 }" shape=record]
+	20015054224 [label="{ 171 | 'reg' | value 0.0000 | p_ucb 0.1684 | visits 0 | prob 0.0474 }" shape=record]
+	20158660176 [label="{ 154 | 'reg' | value 1.0000 | p_ucb 0.9133 | visits 12 | prob 0.2430 }" shape=record]
+	20152509776 [label="{ 50 | 'edge' | value 0.6794 | p_ucb 3.5486 | visits 1 | prob 1.0000 }" shape=record]
+	6335010128 [label="{ 118 | '\\t//' | value 0.0000 | p_ucb 0.0510 | visits 0 | prob 0.0084 }" shape=record]
+	20289628048 [label="{ 257 | ' begin' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20158651856 [label="{ 258 | 'initial' | value 0.0000 | p_ucb 0.0251 | visits 0 | prob 0.0022 }" shape=record]
+	20154396368 [label="{ 193 | ' counter' | value 0.0000 | p_ucb 0.9017 | visits 0 | prob 0.1409 }" shape=record]
+	6334058448 [label="{ 23 | ' )' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0001 }" shape=record]
+	20152508688 [label="{ 162 | '\\n' | value 1.0000 | p_ucb 2.3813 | visits 3 | prob 0.9843 }" shape=record]
+	6334631504 [label="{ 129 | '\}' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20146296592 [label="{ 323 | 'reg' | value 0.0000 | p_ucb 1.1669 | visits 0 | prob 0.1494 }" shape=record]
+	6334636240 [label="{ 109 | '*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20826496144 [label="{ 38 | '\\t   ' | value 0.0000 | p_ucb 0.0071 | visits 0 | prob 0.0012 }" shape=record]
+	20146305040 [label="{ 70 | ')' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332963792 [label="{ 334 | '    ' | value 0.0000 | p_ucb 0.0615 | visits 0 | prob 0.0050 }" shape=record]
+	6434212304 [label="{ 14 | '\\n' | value 0.6914 | p_ucb 1.8973 | visits 5 | prob 0.9943 }" shape=record]
+	20015053648 [label="{ 100 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081238992 [label="{ 117 | 'initial' | value 0.0000 | p_ucb 0.0037 | visits 0 | prob 0.0006 }" shape=record]
+	6333377808 [label="{ 294 | ' positive' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6332877584 [label="{ 80 | ' pos' | value 0.0000 | p_ucb 0.0017 | visits 0 | prob 0.0002 }" shape=record]
+	6334128272 [label="{ 65 | ' ,' | value 0.0000 | p_ucb 0.0022 | visits 0 | prob 0.0003 }" shape=record]
+	20157575184 [label="{ 184 | '=' | value 0.0000 | p_ucb 0.0114 | visits 0 | prob 0.0020 }" shape=record]
+	20081230160 [label="{ 152 | '   ' | value 0.0000 | p_ucb 0.0681 | visits 0 | prob 0.0068 }" shape=record]
+	20152507408 [label="{ 57 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081238288 [label="{ 311 | 'neg' | value 0.0000 | p_ucb 0.0129 | visits 0 | prob 0.0018 }" shape=record]
+	6333443856 [label="{ 209 | '1' | value 0.0000 | p_ucb 0.0648 | visits 0 | prob 0.0087 }" shape=record]
+	6334629904 [label="{ 131 | '0' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20128504912 [label="{ 275 | '\\t   ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0013 }" shape=record]
+	20157589264 [label="{ 327 | '\\n' | value 0.0000 | p_ucb 0.1488 | visits 0 | prob 0.0186 }" shape=record]
+	6434518736 [label="{ 52 | ' slow' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20290024144 [label="{ 1 | '\\n' | value 1.0000 | p_ucb 0.8773 | visits 66 | prob 0.9883 }" shape=record]
+	20081237840 [label="{ 114 | '\\n' | value 0.0000 | p_ucb 0.0579 | visits 0 | prob 0.0102 }" shape=record]
+	20081232848 [label="{ 95 | '(' | value 0.6914 | p_ucb 2.9510 | visits 2 | prob 0.9943 }" shape=record]
+	6441505040 [label="{ 149 | 'initial' | value 0.0000 | p_ucb 0.0205 | visits 0 | prob 0.0021 }" shape=record]
+	20164456912 [label="{ 28 | '(' | value 0.0000 | p_ucb 1.2580 | visits 0 | prob 0.2768 }" shape=record]
+	6334126672 [label="{ 247 | ' pos' | value 0.0000 | p_ucb 0.0017 | visits 0 | prob 0.0003 }" shape=record]
+	6332882320 [label="{ 82 | '*)' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6334054608 [label="{ 22 | ' ==' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0007 }" shape=record]
+	20081241680 [label="{ 198 | '\}' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6440192208 [label="{ 263 | ' @' | value 0.6914 | p_ucb 1.3825 | visits 11 | prob 0.9979 }" shape=record]
+	20289358416 [label="{ 2 | '\\t' | value 1.0000 | p_ucb 0.8714 | visits 51 | prob 0.7425 }" shape=record]
+	20081234384 [label="{ 202 | '1' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20157581008 [label="{ 330 | 'always' | value 0.0000 | p_ucb 0.0321 | visits 0 | prob 0.0040 }" shape=record]
+	20157566224 [label="{ 183 | '_' | value 0.0000 | p_ucb 0.0731 | visits 0 | prob 0.0129 }" shape=record]
+	20146300880 [label="{ 11 | 'k' | value 0.6914 | p_ucb 1.3840 | visits 11 | prob 1.0000 }" shape=record]
+	6333840656 [label="{ 78 | 'g' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6333476944 [label="{ 168 | '\\n' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0002 }" shape=record]
+	20156557072 [label="{ 54 | ' res' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20146299152 [label="{ 325 | 'initial' | value 0.0000 | p_ucb 0.0191 | visits 0 | prob 0.0024 }" shape=record]
+	20128499088 [label="{ 240 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20289521744 [label="{ 159 | ']' | value 1.0000 | p_ucb 1.6356 | visits 7 | prob 1.0000 }" shape=record]
+	6333835472 [label="{ 75 | 'ges' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6333443152 [label="{ 156 | '3' | value 1.0000 | p_ucb 1.4105 | visits 10 | prob 0.9860 }" shape=record]
+	20826240464 [label="{ 214 | ' slow' | value 0.0000 | p_ucb 0.0092 | visits 0 | prob 0.0012 }" shape=record]
+	20147174864 [label="{ 221 | 'ge' | value 0.6914 | p_ucb 2.1091 | visits 4 | prob 1.0000 }" shape=record]
+	20015054032 [label="{ 25 | ' reset' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20015049296 [label="{ 301 | 'K' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20164452432 [label="{ 72 | ' slow' | value 0.0000 | p_ucb 0.0083 | visits 0 | prob 0.0011 }" shape=record]
+	20146465104 [label="{ 96 | 'posed' | value 0.6914 | p_ucb 3.5436 | visits 1 | prob 0.9986 }" shape=record]
+	6333441488 [label="{ 211 | '4' | value 0.0000 | p_ucb 0.0015 | visits 0 | prob 0.0002 }" shape=record]
+	20156549776 [label="{ 53 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334638480 [label="{ 128 | ' ]' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081243024 [label="{ 164 | '\\n' | value 1.0000 | p_ucb 3.0139 | visits 1 | prob 0.8493 }" shape=record]
+	6332509904 [label="{ 282 | ' ' | value 0.0000 | p_ucb 0.0303 | visits 0 | prob 0.0067 }" shape=record]
+	6334637008 [label="{ 130 | '][' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20152501264 [label="{ 178 | '\\t' | value 0.0000 | p_ucb 0.0290 | visits 0 | prob 0.0056 }" shape=record]
+	6434492240 [label="{ 0 | '\<PD\>' | value 1.0000 | p_ucb 0.0000 | visits 67 | prob 1.0000 }" shape=record]
+	20164458896 [label="{ 133 | '1' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081231824 [label="{ 203 | '9' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334134544 [label="{ 12 | ')' | value 0.6914 | p_ucb 1.3070 | visits 7 | prob 0.5812 }" shape=record]
+	20081231568 [label="{ 115 | 'reg' | value 0.0000 | p_ucb 0.0423 | visits 0 | prob 0.0075 }" shape=record]
+	6441508688 [label="{ 87 | '@' | value 0.0000 | p_ucb 0.0108 | visits 0 | prob 0.0013 }" shape=record]
+	20081245520 [label="{ 142 | '4' | value 0.0000 | p_ucb 0.0008 | visits 0 | prob 0.0002 }" shape=record]
+	20081245200 [label="{ 313 | '*)' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20152500560 [label="{ 113 | ' begin' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6334062928 [label="{ 20 | ' == ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0245 }" shape=record]
+	20164456784 [label="{ 135 | '8' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20017093328 [label="{ 34 | '\\t//' | value 0.0000 | p_ucb 0.0021 | visits 0 | prob 0.0004 }" shape=record]
+	6334133456 [label="{ 249 | 'pos' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20825871312 [label="{ 235 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20289621840 [label="{ 316 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20825642832 [label="{ 278 | '\\t' | value 0.0000 | p_ucb 0.0042 | visits 0 | prob 0.0012 }" shape=record]
+	6434710352 [label="{ 307 | 'ges' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20289945808 [label="{ 227 | ' ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0081 }" shape=record]
+	20081235600 [label="{ 145 | ' slow' | value 0.0000 | p_ucb 0.0057 | visits 0 | prob 0.0010 }" shape=record]
+	6434773520 [label="{ 44 | '\\n' | value 0.0000 | p_ucb 0.1289 | visits 0 | prob 0.0201 }" shape=record]
+	20154011280 [label="{ 306 | ' clock' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20146214096 [label="{ 287 | 'edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	20157579792 [label="{ 261 | '\\t' | value 0.6914 | p_ucb 1.2662 | visits 13 | prob 0.9356 }" shape=record]
+	20154393488 [label="{ 196 | ' tmp' | value 0.0000 | p_ucb 0.2526 | visits 0 | prob 0.0395 }" shape=record]
+	6441501200 [label="{ 224 | ')' | value 0.6914 | p_ucb 1.8047 | visits 1 | prob 0.5086 }" shape=record]
+	20152500880 [label="{ 58 | ' Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6334633040 [label="{ 125 | ':' | value 0.6794 | p_ucb 2.9493 | visits 2 | prob 0.9988 }" shape=record]
+	6333829392 [label="{ 77 | 'ged' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20289626576 [label="{ 318 | '((' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6440203728 [label="{ 322 | ' begin' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6333220176 [label="{ 205 | '1' | value 0.0000 | p_ucb 0.0053 | visits 0 | prob 0.0007 }" shape=record]
+	6434221136 [label="{ 43 | ' //' | value 0.0000 | p_ucb 0.0011 | visits 0 | prob 0.0002 }" shape=record]
+	20825641680 [label="{ 271 | '\\n' | value 0.6914 | p_ucb 3.5236 | visits 1 | prob 0.9929 }" shape=record]
+	20826238864 [label="{ 215 | ' count' | value 0.0000 | p_ucb 0.0024 | visits 0 | prob 0.0003 }" shape=record]
+	6334631760 [label="{ 137 | '3' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	20164453712 [label="{ 31 | ' ' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20164454864 [label="{ 74 | ' clock' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081232720 [label="{ 93 | 'always' | value 0.6914 | p_ucb 2.0817 | visits 4 | prob 0.9807 }" shape=record]
+	20128503376 [label="{ 250 | ' (' | value 0.0000 | p_ucb 0.0987 | visits 0 | prob 0.0154 }" shape=record]
+	20146218896 [label="{ 291 | 'ed' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20289875536 [label="{ 160 | ' count' | value 1.0000 | p_ucb 0.9692 | visits 5 | prob 0.2264 }" shape=record]
+	20146293520 [label="{ 68 | 'ks' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20290263248 [label="{ 197 | ' ]' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20163669776 [label="{ 177 | '   ' | value 0.0000 | p_ucb 0.0114 | visits 0 | prob 0.0025 }" shape=record]
+	20152506000 [label="{ 111 | ' ' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6332513424 [label="{ 283 | 'begin' | value 0.0000 | p_ucb 0.0075 | visits 0 | prob 0.0017 }" shape=record]
+	6434224528 [label="{ 42 | '\\t\\t' | value 0.0000 | p_ucb 0.0028 | visits 0 | prob 0.0005 }" shape=record]
+	6441515472 [label="{ 148 | 'integer' | value 0.0000 | p_ucb 0.0344 | visits 0 | prob 0.0035 }" shape=record]
+	6332878992 [label="{ 81 | 'pos' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20290258192 [label="{ 332 | 'always' | value 0.0000 | p_ucb 0.1094 | visits 0 | prob 0.0088 }" shape=record]
+	20081246160 [label="{ 60 | ' neg' | value 0.0000 | p_ucb 0.0119 | visits 0 | prob 0.0026 }" shape=record]
+	20128503056 [label="{ 276 | '       ' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0013 }" shape=record]
+	6441507984 [label="{ 6 | ' @' | value 0.6914 | p_ucb 1.2198 | visits 16 | prob 0.9986 }" shape=record]
+	6440194640 [label="{ 321 | '_' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	20015046288 [label="{ 170 | 'always' | value 0.0000 | p_ucb 0.3236 | visits 0 | prob 0.0912 }" shape=record]
+	6334125072 [label="{ 220 | 'posed' | value 0.6914 | p_ucb 1.9014 | visits 5 | prob 0.9976 }" shape=record]
+	6334640528 [label="{ 108 | 'begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20157577744 [label="{ 182 | ' = ' | value 0.0000 | p_ucb 0.3420 | visits 0 | prob 0.0603 }" shape=record]
+	6335010192 [label="{ 119 | '   ' | value 0.0000 | p_ucb 0.0102 | visits 0 | prob 0.0017 }" shape=record]
+	6335017360 [label="{ 120 | '\\n' | value 0.0000 | p_ucb 0.0087 | visits 0 | prob 0.0014 }" shape=record]
+	20157590864 [label="{ 329 | '\\t//' | value 0.0000 | p_ucb 0.1142 | visits 0 | prob 0.0143 }" shape=record]
+	6335011216 [label="{ 121 | '  ' | value 0.0000 | p_ucb 0.0022 | visits 0 | prob 0.0004 }" shape=record]
+	20152508304 [label="{ 110 | '@' | value 0.0000 | p_ucb 0.0027 | visits 0 | prob 0.0005 }" shape=record]
+	20289862288 [label="{ 8 | 'posed' | value 0.6914 | p_ucb 1.2727 | visits 14 | prob 0.9980 }" shape=record]
+	20826496208 [label="{ 39 | '       ' | value 0.0000 | p_ucb 0.0063 | visits 0 | prob 0.0011 }" shape=record]
+	20081240848 [label="{ 85 | 'begin' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20118165392 [label="{ 219 | '(' | value 0.6914 | p_ucb 1.7416 | visits 6 | prob 0.9846 }" shape=record]
+	6434841872 [label="{ 338 | '    ' | value 0.0000 | p_ucb 0.0028 | visits 0 | prob 0.0002 }" shape=record]
+	20017095312 [label="{ 35 | '\\t' | value 0.0000 | p_ucb 0.0013 | visits 0 | prob 0.0002 }" shape=record]
+	6334643984 [label="{ 127 | ']' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	6334637648 [label="{ 136 | '1' | value 0.0000 | p_ucb 0.0046 | visits 0 | prob 0.0010 }" shape=record]
+	20081230864 [label="{ 86 | '*' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20146297040 [label="{ 326 | 'integer' | value 0.0000 | p_ucb 0.0146 | visits 0 | prob 0.0019 }" shape=record]
+	20289522192 [label="{ 299 | ' k' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20015052624 [label="{ 97 | 'ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 1.0000 }" shape=record]
+	20081233360 [label="{ 199 | '][' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20015053200 [label="{ 297 | ' ,' | value 0.0000 | p_ucb 0.0017 | visits 0 | prob 0.0003 }" shape=record]
+	20152508880 [label="{ 180 | ' //' | value 0.0000 | p_ucb 0.0178 | visits 0 | prob 0.0034 }" shape=record]
+	6334135376 [label="{ 248 | '*)' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	6333229456 [label="{ 207 | '2' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6441516816 [label="{ 91 | '\\n' | value 0.6914 | p_ucb 1.0174 | visits 6 | prob 0.2309 }" shape=record]
+	20015051088 [label="{ 101 | 'g' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20015048144 [label="{ 191 | 'State' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0263 }" shape=record]
+	6333228688 [label="{ 157 | ':' | value 1.0000 | p_ucb 1.4782 | visits 9 | prob 0.9992 }" shape=record]
+	20289874384 [label="{ 260 | '\\n' | value 0.6914 | p_ucb 0.8633 | visits 14 | prob 0.2086 }" shape=record]
+	6333368336 [label="{ 292 | ' neg' | value 0.0000 | p_ucb 0.0095 | visits 0 | prob 0.0027 }" shape=record]
+	6434838096 [label="{ 336 | ' ' | value 0.0000 | p_ucb 0.0410 | visits 0 | prob 0.0033 }" shape=record]
+	20081244368 [label="{ 204 | '2' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6333227344 [label="{ 208 | '5' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6333231632 [label="{ 206 | '3' | value 0.0000 | p_ucb 0.0002 | visits 0 | prob 0.0000 }" shape=record]
+	20015042960 [label="{ 98 | 'ges' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6434767888 [label="{ 47 | '\\t' | value 0.0000 | p_ucb 0.0004 | visits 0 | prob 0.0001 }" shape=record]
+	20081240592 [label="{ 94 | ' @' | value 0.6914 | p_ucb 2.4194 | visits 3 | prob 0.9994 }" shape=record]
+	6434209872 [label="{ 41 | '\\t' | value 0.0000 | p_ucb 0.0071 | visits 0 | prob 0.0012 }" shape=record]
+	6441516240 [label="{ 230 | ' or' | value 0.0000 | p_ucb 1.4892 | visits 0 | prob 0.4196 }" shape=record]
+	20081235472 [label="{ 143 | '6' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0001 }" shape=record]
+	20146214480 [label="{ 290 | ' Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20289368272 [label="{ 255 | ' ' | value 0.0000 | p_ucb 0.0005 | visits 0 | prob 0.0001 }" shape=record]
+	6332510736 [label="{ 270 | ' begin' | value 0.6914 | p_ucb 2.8859 | visits 2 | prob 0.9656 }" shape=record]
+	20015039888 [label="{ 269 | ')' | value 0.6914 | p_ucb 1.5820 | visits 3 | prob 0.5874 }" shape=record]
+	6334984912 [label="{ 61 | 'posed' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	6434715664 [label="{ 309 | ' ge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	20081239760 [label="{ 150 | '\\t//' | value 0.0000 | p_ucb 0.1609 | visits 0 | prob 0.0161 }" shape=record]
+	20290271312 [label="{ 51 | ' reset' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9999 }" shape=record]
+	6441505232 [label="{ 5 | 'always' | value 0.6914 | p_ucb 1.0147 | visits 17 | prob 0.5888 }" shape=record]
+	6333437968 [label="{ 212 | '6' | value 0.0000 | p_ucb 0.0011 | visits 0 | prob 0.0001 }" shape=record]
+	6334058704 [label="{ 19 | ')' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.9734 }" shape=record]
+	20154390160 [label="{ 194 | ' temp' | value 0.0000 | p_ucb 0.8623 | visits 0 | prob 0.1347 }" shape=record]
+	20154023504 [label="{ 267 | ' cl' | value 0.6914 | p_ucb 1.6428 | visits 7 | prob 0.9950 }" shape=record]
+	6334630224 [label="{ 139 | '5' | value 0.0000 | p_ucb 0.0001 | visits 0 | prob 0.0000 }" shape=record]
+	20081232080 [label="{ 201 | ' ' | value 0.0000 | p_ucb 0.0007 | visits 0 | prob 0.0001 }" shape=record]
+	20017097168 [label="{ 33 | '  ' | value 0.0000 | p_ucb 0.0108 | visits 0 | prob 0.0021 }" shape=record]
+	20289618000 [label="{ 264 | '(' | value 0.6914 | p_ucb 1.4240 | visits 10 | prob 0.9880 }" shape=record]
+	20015039504 [label="{ 298 | ' )' | value 0.0000 | p_ucb 0.0012 | visits 0 | prob 0.0002 }" shape=record]
+	20825881552 [label="{ 223 | 'k' | value 0.6914 | p_ucb 2.9640 | visits 2 | prob 1.0000 }" shape=record]
+	20146220496 [label="{ 289 | 'Edge' | value 0.0000 | p_ucb 0.0000 | visits 0 | prob 0.0000 }" shape=record]
+	6441511184 [label="{ 7 | '(' | value 0.6914 | p_ucb 1.2401 | visits 15 | prob 0.9900 }" shape=record]
+	6334134544 -> 6434773520
+	20289853072 -> 20118165392
+	20081230608 -> 6441503376
+	20081232848 -> 20146461136
+	20163668752 -> 20081243024
+	6441511184 -> 6332882320
+	20290269648 -> 20154012560
+	6334633040 -> 20164454544
+	20290024144 -> 20289358416
+	20157568144 -> 20152502736
+	6434492240 -> 20290270160
+	20289875536 -> 20157568144
+	20154023504 -> 20015049296
+	20154023504 -> 20081245712
+	20289618000 -> 20081244432
+	6441507984 -> 20081237456
+	20154395024 -> 20015054608
+	20159677456 -> 20152509072
+	6441507984 -> 6441511184
+	6334125072 -> 20147172624
+	20289875536 -> 20157577744
+	20081230096 -> 20825879312
+	20164459024 -> 6334629904
+	20081244432 -> 6434708240
+	20146465104 -> 20015042960
+	20290024144 -> 20290258192
+	20825881552 -> 6441507024
+	20158660176 -> 20826238864
+	20154395024 -> 20015041168
+	6434492240 -> 6434840208
+	6333228688 -> 20081240976
+	20146465104 -> 20015053648
+	6334134544 -> 6434767888
+	20146299280 -> 6440205328
+	20158660176 -> 20826231312
+	20290262096 -> 6333438672
+	20017087824 -> 20164459664
+	20159677456 -> 20152507408
+	20015049744 -> 20081231440
+	20081243024 -> 6333473872
+	6441514640 -> 20081240528
+	20289618000 -> 20081238288
+	6335005328 -> 20081231568
+	20154395024 -> 20015048144
+	6434212304 -> 20826497424
+	20017087824 -> 20164457360
+	20290024144 -> 20289874384
+	20290269648 -> 20154016144
+	6333443152 -> 6333231632
+	20152508688 -> 20163668752
+	6441511184 -> 6332879312
+	20015049744 -> 6333368336
+	20147174864 -> 20128499088
+	6434212304 -> 20826496208
+	20163668752 -> 20015048720
+	6441503376 -> 6441514640
+	20157568144 -> 20152501264
+	20081231760 -> 6334631760
+	20289875536 -> 20157566224
+	20017087824 -> 20164456912
+	20081232720 -> 20152500560
+	20164451152 -> 20146303888
+	20081230096 -> 20825881552
+	6441501200 -> 20289957456
+	20081245712 -> 20015048080
+	20146300880 -> 6334134544
+	6434770320 -> 6434221136
+	20081230608 -> 6441505040
+	20158657168 -> 20289628048
+	20081231760 -> 6334642448
+	20154023504 -> 20015045072
+	6333825936 -> 20164454864
+	20015049744 -> 6333377808
+	6441503376 -> 20081241232
+	6441503376 -> 20081231056
+	20152508688 -> 20163667088
+	20081231760 -> 6334637648
+	6333228688 -> 20081234384
+	20081240592 -> 6334636240
+	20081238352 -> 6334061392
+	20825641680 -> 20128498640
+	6334125072 -> 20147162512
+	20289521744 -> 20154390160
+	6332510736 -> 20825641680
+	6333228688 -> 20081232080
+	20157579792 -> 20146299280
+	20081230608 -> 6441516816
+	20081240592 -> 20081232848
+	6441516816 -> 6335010192
+	6334125072 -> 20147174864
+	20289853072 -> 20128510352
+	20157568144 -> 20152507024
+	6440192208 -> 20289626576
+	6333825936 -> 20164452432
+	6434212304 -> 20826499664
+	20081240976 -> 20290263248
+	6440192208 -> 20289631504
+	20118165392 -> 6334135376
+	20081243024 -> 6333467472
+	20290262096 -> 6333443856
+	20152509776 -> 20156549776
+	20289874384 -> 20157590864
+	20290262096 -> 6333437968
+	20289358416 -> 20158657168
+	6434492240 -> 6434841872
+	20289853072 -> 20128508560
+	20118165392 -> 6334127824
+	20163668752 -> 20015052048
+	20152509776 -> 20156557072
+	6441501200 -> 20289949776
+	20147174864 -> 20128509840
+	20146299280 -> 6440200016
+	6441516816 -> 6335017360
+	20289618000 -> 20081235280
+	20081240592 -> 6334631184
+	6434492240 -> 20290024144
+	20158650320 -> 20081240144
+	20081231440 -> 20146213904
+	20146300880 -> 6334128272
+	20164451152 -> 20146300880
+	6441503376 -> 20081235600
+	20163668752 -> 20015054224
+	20154395024 -> 6441510608
+	20157579792 -> 20146299152
+	20154395024 -> 20015040208
+	20826497936 -> 20017091664
+	20081232720 -> 20152507472
+	20826497936 -> 20017087824
+	6434770320 -> 6434224464
+	20152509776 -> 20156560336
+	6334124048 -> 20159677456
+	20081230608 -> 6441515472
+	20081244432 -> 6434715664
+	20146299280 -> 6440194640
+	6333228688 -> 20081231824
+	20825641680 -> 20128501968
+	20147174864 -> 20128510480
+	6332510736 -> 20825642832
+	20159677456 -> 20152500880
+	20825641680 -> 20128503056
+	6332510736 -> 20825643920
+	6441505232 -> 6441516560
+	20081232720 -> 20081240592
+	20825641680 -> 20128505552
+	20081232848 -> 20146458192
+	20289358416 -> 20158660176
+	20289874384 -> 20157581008
+	20081243024 -> 6333476944
+	6334124048 -> 6334978832
+	20081230096 -> 20825871312
+	20015049744 -> 6333376208
+	20154395024 -> 20015053712
+	20081245712 -> 20015049744
+	6441514640 -> 20081231120
+	20158657168 -> 6441504656
+	20289862288 -> 6333825936
+	20289874384 -> 20157579792
+	20289521744 -> 20154393488
+	20118165392 -> 6334133456
+	20081240976 -> 20081241680
+	20118165392 -> 6334125072
+	20157579792 -> 20146296592
+	6441511184 -> 20289862288
+	6441511184 -> 6332877584
+	20146465104 -> 20015052880
+	6335005328 -> 20081238992
+	6333825936 -> 20164445712
+	20289358416 -> 20158650320
+	20164451152 -> 20146293520
+	20825881552 -> 20015049040
+	20825881552 -> 20015042704
+	20159677456 -> 20152505552
+	6332510736 -> 20825637776
+	20289358416 -> 20158651856
+	20081243024 -> 6333466128
+	20081245712 -> 20015039888
+	20289875536 -> 20157576400
+	20081245712 -> 20015053200
+	20081240592 -> 6334640528
+	20289862288 -> 6333840656
+	6441501200 -> 20289945808
+	20146299280 -> 6440192208
+	6333443152 -> 6333229456
+	20157568144 -> 20152508688
+	6334124048 -> 6334979664
+	20081232720 -> 20152508304
+	20081238352 -> 6334062928
+	20289874384 -> 20157589264
+	6441514640 -> 20081245520
+	20081231440 -> 20146220496
+	20289853072 -> 20128503376
+	20146300880 -> 6334134864
+	20826497936 -> 20017097168
+	20289875536 -> 20157575184
+	20152508688 -> 20163664272
+	20158657168 -> 20289368272
+	6334633040 -> 20164456784
+	20825881552 -> 6441516240
+	20081230096 -> 20825880656
+	20158660176 -> 20826240464
+	20290269648 -> 20154016336
+	20290024144 -> 6332963792
+	20159677456 -> 20152509776
+	20289862288 -> 6333829392
+	20081231440 -> 20146214480
+	6441503376 -> 20081238928
+	6441501200 -> 20289946960
+	6334125072 -> 20147165456
+	20164457360 -> 20015039632
+	20146300880 -> 6334124048
+	20146465104 -> 20015051088
+	20164459024 -> 6334638480
+	20154023504 -> 20015046480
+	20017087824 -> 20164457424
+	20081240592 -> 6334628048
+	20826497936 -> 20017093328
+	6434212304 -> 20826497936
+	6441501200 -> 20289954064
+	20015039888 -> 6332500816
+	6335005328 -> 20081232720
+	20081232848 -> 20146462480
+	20081231760 -> 6334633040
+	6334124048 -> 20081246160
+	20146465104 -> 20015052624
+	20152508688 -> 20163665104
+	6441505232 -> 6441510032
+	20158660176 -> 20290262096
+	20157579792 -> 20146305936
+	20081230608 -> 6441505232
+	20163668752 -> 20015046288
+	20017087824 -> 20164453712
+	6334134544 -> 6434780304
+	20164457360 -> 20081238352
+	20081230096 -> 20825872016
+	20081244432 -> 6434710352
+	20289618000 -> 20081245328
+	20290024144 -> 20289874768
+	20164457360 -> 20015054032
+	20289862288 -> 6333837648
+	20290269648 -> 20154011280
+	20289521744 -> 20154396368
+	20164451152 -> 20146305040
+	20289853072 -> 20128510544
+	20081245712 -> 20015039504
+	6334633040 -> 20164456528
+	6334633040 -> 20164459024
+	20081244432 -> 20290269648
+	20146299280 -> 6440203728
+	6441507984 -> 20081240848
+	20081240976 -> 20081236368
+	20290269648 -> 20154023504
+	20158657168 -> 20289621648
+	20152508688 -> 20163669776
+	6334134544 -> 6434770320
+	6434212304 -> 20826496144
+	6334633040 -> 20164458896
+	20015039888 -> 6332513424
+	20157579792 -> 20146297040
+	20147174864 -> 20081230096
+	6440192208 -> 20289624592
+	20289521744 -> 20154395024
+	20825641680 -> 20128504912
+	20158650320 -> 20081234256
+	20289618000 -> 20081245200
+	6441505232 -> 6441508688
+	6440192208 -> 20289621840
+	6441516816 -> 6335011216
+	6333228688 -> 20081244368
+	6441516816 -> 6335005328
+	20164459024 -> 6334643984
+	20081231440 -> 20146214096
+	20081238352 -> 6334058704
+	20164459024 -> 6334637008
+	20146300880 -> 6334123664
+	20290262096 -> 6333443152
+	20289874384 -> 20157581328
+	20081231440 -> 20146218896
+	20147174864 -> 20128509584
+	6441507984 -> 20081230864
+	20081232848 -> 20146457296
+	6441516816 -> 6335010128
+	6333443152 -> 6333228688
+	20152509776 -> 6434518736
+	20154023504 -> 20289522192
+	6434770320 -> 6434212304
+	20158650320 -> 20081230608
+	20015049744 -> 6333372816
+	6334124048 -> 6334984912
+	6441511184 -> 6332878992
+	20152509776 -> 20290271312
+	20158650320 -> 20081239760
+	20164459024 -> 6334631504
+	20015039888 -> 6332509904
+	20289521744 -> 20289875536
+	20081232720 -> 20152506000
+	20164451152 -> 20146294928
+	6333443152 -> 6333220176
+	6441507984 -> 6441509072
+	20081240976 -> 20081233360
+	20289358416 -> 20158653264
+	6334134544 -> 6434770064
+	6333825936 -> 20164451152
+	20290262096 -> 6333441488
+	20825881552 -> 6441501200
+	20289521744 -> 20154386256
+	6440192208 -> 20289618000
+	20118165392 -> 6334126672
+	20164457360 -> 20015042256
+	6334125072 -> 20147159696
+	20158650320 -> 20081230160
+	6441505232 -> 6441507984
+	20826497936 -> 20017095312
+	6434770320 -> 6434224528
+	6434492240 -> 6434838096
+	20081238352 -> 6334058448
+	20158657168 -> 20289853072
+	20081238352 -> 6334054608
+	6441514640 -> 20081235472
+	6332510736 -> 20825639056
+	20081231760 -> 6334630224
+	20081243024 -> 6333477968
+	20015039888 -> 6332513488
+	6335005328 -> 20081245392
+	20157568144 -> 20152508880
+	20081244432 -> 6434708496
+	20015039888 -> 6332510736
+	6441514640 -> 20081231760
+	6333825936 -> 20164455376
+	20081240976 -> 20289521744
+	6333443152 -> 6333227344
+	6335005328 -> 20081237840
+	20081232848 -> 20146465104
+	6441505232 -> 6441510480
+	20290024144 -> 20159676688
+	6434770320 -> 6434209872
+	20289862288 -> 6333835472
+	20158660176 -> 20826241744
+	20164457360 -> 20015048016
+}

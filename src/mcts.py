@@ -1,23 +1,35 @@
 from visualise import render_graphviz_tree
-from humaneval import stats_execute, get_prompts_with_ids, STOP_SEQUENCES
-from human_eval.data import write_jsonl
 from llama_cpp import Llama
 from math import exp, log, inf, sqrt
-import time
+import time, sys
 
 
 def main():
+    outfile_prefix = ""
+    if (len(sys.argv) == 2) and sys.argv[1] == "verilog":
+        from verilogeval import (
+            stats_execute,
+            get_prompts_with_ids,
+            STOP_SEQUENCES,
+        )
+        from verilog_eval.data import write_jsonl
+
+        outfile_prefix = "verilog_"
+    else:
+        from humaneval import stats_execute, get_prompts_with_ids, STOP_SEQUENCES
+        from human_eval.data import write_jsonl
+
     model = Llama(
         model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
         n_gpu_layers=-1,
-        n_ctx=2048,
-        n_batch=256,
+        n_ctx=4096,
+        n_batch=1024,
         n_threads=10,
         logits_all=True,
     )
 
     max_rollouts = 128
-    top_k = 3
+    top_k = 5
     beam_width = 1
     # hyperparameters for P-UCB function
     c_base = 10
@@ -65,9 +77,7 @@ def main():
         return max_node
 
     def get_top_k_tokens(curr_node, k):
-        output = model(
-            prompt=curr_node.state, max_tokens=1, temperature=0.2, logprobs=k
-        )
+        output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
         output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
         return output_probs.items()
 
@@ -82,7 +92,7 @@ def main():
         """
         output = model(
             prompt=curr_node.state,
-            max_tokens=256,
+            max_tokens=1024,
             temperature=0.2,
             top_k=beam_width,
             stop=STOP_SEQUENCES,
@@ -140,7 +150,7 @@ def main():
             # evaluation
             reward = match_cached_programs(curr_node.state, program_dict)
             # only run generation if node state not found in cached programs
-            if reward < 0:
+            if reward == -1:
                 generated_program = beam_search(curr_node)
                 completion = generated_program.replace(prompt, "")
                 test_start = time.perf_counter()
@@ -153,7 +163,7 @@ def main():
             curr_node.backprop(reward)
 
             if reward == 1:
-                num_rollouts = i
+                num_rollouts = i + 1
                 break
         best_completion = get_best_program(program_dict).replace(prompt, "")
         end = time.perf_counter()
@@ -167,13 +177,15 @@ def main():
                 mean_test_time=f"{(sum(test_times)/len(test_times)):.4f}s",
             ),
         )
-        write_jsonl("few_shot_mcts.jsonl", [item], append=True)
+        write_jsonl(f"{outfile_prefix}few_shot_mcts.jsonl", [item], append=True)
         print(f"---- COMPLETED MCTS FOR {task_id} ({num_iter}/{len(prompts_ids)}) ----")
         print(f"Eval time: {(end - prompt_start):.4f}s")
         print(f"Mean test time: {(sum(test_times)/len(test_times)):.4f}s")
+        print(f"Stats: {item['stats']}")
         num_iter += 1
-        # render_graphviz_tree(root)
-        # break
+        render_graphviz_tree(
+            root, filename=f"svgviz/tree_{task_id.replace('/', '_')}", view=False
+        )
 
     end = time.perf_counter()
     print(f"Total elapsed time: {(end - start):.4f}s\n")
