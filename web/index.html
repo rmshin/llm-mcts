@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="public/prism.css" />
+    <script src="public/prism.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"
       integrity="sha512-RcuA+PEnJcg1caTn53YLhZ3bYVFXphzcPL1BjBoAwFiA3bErav+AndZz1xrqpAtv/8Waep2X+9zn8KWpwacUSA=="
@@ -35,9 +38,319 @@
     <title>LLM code gen</title>
   </head>
   <body>
+    <h1>Monte Carlo Tree Search for Code Generation using LLMs</h1>
+    <p>
+      There have been a slew of LLMs released to the public over the past ~12 months that have shown
+      surprising levels of knowledge & ability in multiple domains. Code generation in particular
+      has received quite a lot of attention, with a continuous stream of new models being published
+      almost monthly–notable examples including OpenAI's
+      <a href="https://openai.com/gpt-4" target="_blank">GPT-4</a> &
+      <a href="https://platform.openai.com/docs/models/gpt-3-5" target="_blank">GPT-3.5</a>,
+      Microsoft's
+      <a
+        href="https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/"
+        target="_blank"
+        >Phi-2</a
+      >, Meta's
+      <a href="https://ai.meta.com/blog/code-llama-large-language-model-coding/" target="_blank"
+        >CodeLlama</a
+      >, and DeepSeek's
+      <a href="https://deepseekcoder.github.io/" target="_blank">DeepSeek Coder</a>, alongside
+      various fine-tune variants such as
+      <a href="https://github.com/ise-uiuc/magicoder" target="_blank">Magicoder</a> and
+      <a href="https://www.phind.com/blog/code-llama-beats-gpt4" target="_blank">Phind-CodeLlama</a
+      >.
+    </p>
+    <p>
+      Many of these models are impressively good at generating code for short snippets of
+      functionality and even some complex problem descriptions, but this kind of performance often
+      comes at the cost of very large compute budgets and occasional hallucinations and/or incorrect
+      logic due to the inherent unpredictability of LLMs. In this blog post we explore the following
+      question:
+      <em
+        >is it possible to achieve LLM code generation that is accurate, consistent, and relatively
+        cheap to run?</em
+      >
+    </p>
+    <p>
+      We approach the problem by combining a pre-trained transformer model with an adapted version
+      of the
+      <a href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search" target="_blank"
+        >Monte-Carlo tree search</a
+      >
+      (MCTS) algorithm to guide its generation, taking inspiration from the paper
+      <a href="https://arxiv.org/abs/2303.05510" target="_blank"
+        >Planning with Large Language Models for Code Generation</a
+      >
+      . We compare the effectiveness of this approach against direct sampling of the transformer’s
+      unaided generations on the
+      <a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a> and
+      <a href="https://github.com/NVlabs/verilog-eval" target="_blank">VerilogEval</a> benchmarks,
+      and detail the process & observations gathered along the way. Jump ahead to the
+      <a href="#discussion">final discussion</a> if you’re curious about the results!
+    </p>
+
+    <h2>Setting up with an LLM</h2>
+    <p>
+      One of our primary constraints for the experiment is that whatever code LLM we use be
+      relatively cheap to run. While somewhat arbitrary, we decided to define this as any LLM that
+      could run locally on reasonably specced consumer-grade hardware. As we had an Apple M2 Pro
+      with 32GB unified memory and 16-core GPU available on-hand, this machine was set as the
+      baseline for our price-performance requirements.
+    </p>
+    <p>
+      In selecting the specific language model to use, we looked at several popular open-source LLMs
+      ranging from 2.7B~34B parameters in size–<a
+        href="https://huggingface.co/microsoft/phi-2"
+        target="_blank"
+        >Phi-2</a
+      >,
+      <a href="https://huggingface.co/oobabooga/CodeBooga-34B-v0.1" target="_blank"
+        >CodeBooga-34B-v0.1</a
+      >,
+      <a href="https://huggingface.co/ise-uiuc/Magicoder-S-DS-6.7B" target="_blank"
+        >Magicoder-S-DS-6.7B</a
+      >, and
+      <a href="https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct" target="_blank"
+        >deepseek-coder-6.7b-instruct</a
+      >. Our method of appraisal was largely qualitative, running each LLM through a series of
+      prompts either via the HuggingFace
+      <a href="https://huggingface.co/docs/transformers/index" target="_blank">transformers</a>
+      library (<a href="https://github.com/rmshin/llm-mcts/blob/master/nbs/hf.ipynb" target="_blank"
+        >example notebook</a
+      >), <a href="https://lmstudio.ai/" target="_blank">LM Studio</a> chat, or
+      <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp’s</a>
+      <a
+        href="https://github.com/ggerganov/llama.cpp/tree/master/examples/main#quick-start"
+        target="_blank"
+        >CLI interface</a
+      >.
+    </p>
+    <p>
+      The CodeBooga-34B model proved too large to fit in memory unless heavily quantized to 3 bits
+      or below (due to Apple defining a
+      <a
+        href="https://developer.apple.com/documentation/metal/mtldevice/2369280-recommendedmaxworkingsetsize?language=objc"
+        target="_blank"
+        >hard limit for GPU memory usage</a
+      >
+      at roughly ~70% of total memory), which degraded the model quality beyond our acceptable
+      limit. On the other hand, with the smaller Phi-2 model we struggled to get it to follow the
+      output format instructions specified in our prompts, making it difficult to automatically
+      evaluate the model’s code output on benchmark test cases.
+    </p>
+    <pre><code class="language-python">import outlines
+
+@outlines.prompt
+def few_shot_prompt(examples, question):
+    """
+    Please answer the following question following the examples.
+    Generate valid python code by indenting 4 spaces always.
+
+    {% for example in examples %}
+    Question:
+    ```
+    {{ example.prompt }}
+    ```
+    Answer:
+    ```
+    {{ example.canonical_solution }}
+    ```
+    {% endfor %}
+
+    Question:
+    ```
+    {{ question }}
+    ```
+    Answer:
+    ```
+    """</code></pre>
+    <p>
+      We ultimately settled on the mixed 5/6-bit
+      <a
+        href="https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-GGUF/blob/main/deepseek-coder-6.7b-instruct.Q5_K_M.gguf"
+        target="_blank"
+        >Q5_K_M</a
+      >
+      quantized version of deepseek-coder-6.7B-instruct, due to its superior quality & inference
+      speed. Running under llama.cpp, the model could generate an average of ~22.5 tokens/s and we
+      integrated it via the python bindings provided by
+      <a href="https://llama-cpp-python.readthedocs.io/en/latest/" target="_blank"
+        >llama-cpp-python</a
+      >.
+    </p>
+    <pre>
+<code class="language-python">from llama_cpp import Llama
+
+model = Llama(
+    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
+    n_gpu_layers=-1, # run the full model on GPU
+    n_ctx=2048,
+    n_batch=256,
+    n_threads=10,
+    logits_all=True, # include token probabilities in output
+)</code></pre>
+    <p></p>
+
+    <h2>Coding the MCTS algorithm</h2>
+    <pre>
+<code class="language-python">max_rollouts = 128 # max number of iterations through tree
+top_k = 3 # number of child tokens (branches) to generate per node
+for prompt, task_id in prompts:
+    # cache of generated programs => rewards
+    program_dict = {}
+    root = Node(prob=1, state=prompt, parent=None)
+    for i in range(max_rollouts):
+        curr_node = root
+        curr_node.visits += 1
+
+        # selection
+        while len(curr_node._children) > 0:
+            curr_node = p_ucb_select(curr_node._children)
+            curr_node.visits += 1
+
+        # expansion
+        tokens = get_top_k_tokens(curr_node, top_k)
+        child_nodes = [
+            Node(prob, state=(curr_node.state + token), parent=curr_node)
+            for (token, prob) in tokens
+        ]
+        curr_node._children = child_nodes
+
+        # evaluation
+        reward = match_cached_programs(curr_node.state, program_dict)
+        # only run generation if node state not found in cached programs
+        if reward == -1:
+            generated_program = llm_generate(curr_node.state)
+            # run generated program against HumanEval test cases
+            reward = calculate_reward(prompt, generated_program)
+            program_dict[generated_program] = reward
+
+        # backprop reward up the tree
+        curr_node.backprop(reward)
+
+        # early termination if correct program is found
+        if reward == 1:
+            break</code></pre>
+    <p>
+      The most important components of a decision tree are its rollout policy & branch reward
+      function. In our case, the LLM is used for both the rollout policy and reward calcuation.
+    </p>
+    LLM child tokens generation
+    <pre>
+<code class="language-python">def get_top_k_tokens(curr_node, k):
+  output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
+  output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
+  return output_probs.items()</code></pre>
+    HumanEval reward calculation
+    <pre>
+<code class="language-python">def calculate_reward(task_id, completion, timeout=10):
+  problem = human_eval_problems[task_id]
+  split_tests = problem["test"]
+  results = []
+  for test in split_tests:
+      res = check_correctness(test, completion, timeout)
+      results.append(res["passed"])
+
+  return sum(results) / len(results) # set test pass-rate as reward</code></pre>
     <input type="range" id="time-step" name="time-step" min="0" />
     <label id="time-step-label" for="time-step">Time step:</label>
     <div id="cy"></div>
+
+    <h2>Generating comparative samples for HumanEval</h2>
+    Sampling + filtering = 2048 ctx, top-3 sampling, 1.0 temp, max 256 tokens
+    <ul>
+      <li>pass@5 = 84.60%,~1hr total runtime</li>
+      <li>pass@20 = 90.74%, ~4hr total runtime</li>
+    </ul>
+
+    MCTS = 2048 ctx, max rollouts 128, top-3 probs, greedy top-1 generation, 1.0 temp, max 256
+    tokens
+    <ul>
+      <li>92.59% pass rate, ~3.62 generations per problem, ~1.5hr total runtime</li>
+    </ul>
+    <h4>Observations</h4>
+    <ul>
+      <li>
+        Big jump in pass rate from 5 → 20 samples suggest basic LLM generation can be improved by
+        simply tuning generation parameters to reduce variance (e.g. top-k sampling, temperature,
+        higher max tokens, etc.)
+      </li>
+      <li>
+        Smaller fine-tuned models still display impressive performance (or are overfitted for
+        benchmarks)
+      </li>
+      <li>
+        MCTS achieves better benchmark performance than 20-sample baseline with an average of less
+        than 4 samples per problem (i.e. &lt;1/5 transformer compute)
+      </li>
+    </ul>
+    <h2>Extending the experiment for VerilogEval</h2>
+    <p>
+      What happens when dealing with problems that the LLM is not well trained on? How effective is
+      MCTS at improving LLM code quality?
+    </p>
+    Sampling + filtering = top-50 sampling, 1.0 temp, 1024 max tokens per generation, 4096 context
+    length
+    <ul>
+      <li>pass@5 ⇒ 42.58% pass rate</li>
+      <li>pass@10 ⇒ 47.33% pass rate</li>
+      <li>pass@20 ⇒ 51.30% pass rate, ~7hr total run time</li>
+    </ul>
+    MCTS = 128 max rollouts, top-5 probs, 1.0 temp, 1024 max tokens per generation, 4096 context
+    length
+    <ul>
+      <li>46.75% pass rate, ~18.18 generations per problem, ~8.5hr total run time</li>
+    </ul>
+    <h4>Observations</h4>
+    <ul>
+      <li>
+        had to increase context length & max number of generated tokens to account for greater
+        verbosity of verilog source
+      </li>
+      <li>
+        significantly more generations per problem for MCTS, lower quality/pass-rate than
+        ~equivalent 20-sample baseline
+      </li>
+      <li>
+        makes sense because transfomer token probabilities are much less reliable, and thus using
+        LLM to determine which child tokens follow from a given node is less likely to find good
+        solutions
+      </li>
+      <li>
+        introducing more randomness/variability in generation fares better (direct approach samples
+        from top-50 token probabilities)
+      </li>
+    </ul>
+
+    <h2 id="discussion">Recap: what have we learned?</h2>
+    <ul>
+      <li>
+        Smaller language models fine-tuned for code generation instruction can show impressive
+        performance, but require varying degrees of prompting to ensure well-formatted outputs
+      </li>
+      <ul>
+        <li>
+          Consistency is still a concern due to the probabilistic nature of LLMs. You can end up
+          with significantly worse/better results depending on the generation parameters
+        </li>
+        <li>
+          Multiple sampling + filtering can alleviate this concern, but requires a decently large
+          number of samples (and therefore compute) to obtain consistently good results
+        </li>
+      </ul>
+      <li>
+        For programming languages the LLM is already quite adept/familiar with, MCTS enables the
+        model to reliably generate higher quality code than direct sampling with significantly less
+        compute
+      </li>
+      <li>
+        For programming languages the LLM is weak/not familiar with, MCTS doesn’t do so well due to
+        its reliance on the LLM’s token probabilities to generate child branches/nodes to explore.
+        Direct generation with a larger sampling space performs better in this scenario, though the
+        absolute quality still remains low
+      </li>
+    </ul>
   </body>
   <script>
     var cy, graph;
@@ -56,7 +369,7 @@
               : undefined,
           })),
           edges: graph.edges.map(([n1, n2]) => ({
-            data: { source: n1, target: n2 },
+            data: { source: n1, target: n2, selectable: false },
             style: graph.selectedNodes.includes(n2)
               ? { 'line-color': 'red', 'target-arrow-color': 'red' }
               : undefined,
@@ -97,10 +410,10 @@
         renderGraph(graphData, slider.value);
         sliderLabel.textContent = `Time step: ${slider.value}`;
         slider.addEventListener(
-          'change',
+          'input',
           (e) => (sliderLabel.textContent = `Time step: ${slider.value}`)
         );
-        slider.addEventListener('change', (e) => renderGraph(graphData, e.target.value));
+        slider.addEventListener('input', (e) => renderGraph(graphData, e.target.value));
       });
   </script>
 </html>
