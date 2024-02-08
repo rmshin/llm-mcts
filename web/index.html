@@ -27,13 +27,6 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="cytoscape-dagre.js"></script>
-    <style>
-      #cy {
-        width: 100%;
-        height: 800px;
-        display: block;
-      }
-    </style>
 
     <title>LLM code gen</title>
   </head>
@@ -62,11 +55,9 @@
       >.
     </p>
     <p>
-      Many of these models are impressively good at generating code for short snippets of
-      functionality and even some complex problem descriptions, but this kind of performance often
-      comes at the cost of very large compute budgets and occasional hallucinations and/or incorrect
-      logic due to the inherent unpredictability of LLMs. In this blog post we explore the following
-      question:
+      Many of these models are impressive at generating short snippets of code, and often fare well
+      even for complex problem descriptions–albeit with some hallucinations due to the probabilistic
+      nature of LLMs. In this blog post we explore the following:
       <em
         >is it possible to achieve LLM code generation that is accurate, consistent, and relatively
         cheap to run?</em
@@ -78,7 +69,7 @@
       <a href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search" target="_blank"
         >Monte-Carlo tree search</a
       >
-      (MCTS) algorithm to guide its generation, taking inspiration from the paper
+      algorithm to guide the generation, taking inspiration from the paper
       <a href="https://arxiv.org/abs/2303.05510" target="_blank"
         >Planning with Large Language Models for Code Generation</a
       >
@@ -90,9 +81,84 @@
       <a href="#discussion">final discussion</a> if you’re curious about the results!
     </p>
 
+    <h2>Background</h2>
+    <p>
+      At a high level, language models output the characters that they've been trained to recognise
+      as the most probable ones to come after a given sequence or prompt. It can be seen as a kind
+      of <em>statistical token predictor</em>, and it turns out that such an approach works
+      surprisingly well in generating all kinds of text (like source code).
+    </p>
+    <p>
+      But as impressive as they are, LLMs also come with their own quirks and limitations. One
+      well-known issue is the tendency for models to hallucinate and generate responses that are
+      either subtly incorrect or outright made up. This is obviously not what we want when
+      generating code, where we expect the output to be both functionally correct & consistent over
+      time.
+    </p>
+
+    <img
+      loading="lazy"
+      src="public/bad-completion-example.png"
+      alt="llm-incorrect-example"
+      class="llm-example"
+    />
+    <img
+      loading="lazy"
+      src="public/llm-code-execution-example.png"
+      alt="llm-code-execution-example"
+      class="llm-example"
+    />
+    <p class="img-caption">
+      Example of incorrect Python code output from DeepSeek Coder 6.7B (running on llama.cpp).
+    </p>
+
+    <p>
+      Now a simple idea to address this shortcoming might be to run multiple generations for a
+      single prompt and filter out the incorrect ones. We'd expect that the larger the number of
+      samples generated for a given input, the higher the likelihood of the LLM producing at least
+      one correct response–we'll see how a model's accuracy on the HumanEval & VerilogEval datasets
+      later
+    </p>
+
+    <h2>Why Monte Carlo tree search</h2>
+    <p>
+      Tackling a problem as complex as automatic code generation often necessitates coming up with a
+      strategy to reframe the task in a way that is simpler to solve. But prediction is not the only
+      way to think about generating code through computers. Another method might be to treat the
+      problem as one of <em>optimal search</em>–i.e. given the set of all possible characters that
+      can appear in a specific programming language, is it possible to find the "best" combination
+      of characters that would lead to our desired end program?
+    </p>
+    <p>
+      One common means to solve search problems is to model the search process as a
+      <a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a>. Given
+      a starting point (the "root”), you map out all possible next steps from that point ("branches"
+      or "children"), and then recursively expand each of the child branches in the same manner
+      until the entire outcome space has been mapped. Finding the solution is then just a matter of
+      selecting the best option from all possible outcomes.
+    </p>
+    <input type="range" id="time-step-tree" name="time-step-tree" min="0" />
+    <label id="time-step-tree-label" for="time-step-tree">Time step:</label>
+    <div id="tree-cy"></div>
+    <p>
+      Now it’s obvious that the larger the number of branches stemming from each node, the larger
+      the number of total possibilities that exist. This is known as the “branching factor” of a
+      tree, and what makes code generation hard is that the branching factor of text is large enough
+      to make it impractical to compute the entire tree (BF of XXXX = 10^YYY possible outcomes). Try
+      changing the branching factor in the visualisation below to see how it affects the number of
+      total outcomes to compute.
+    </p>
+    <input type="number" id="tree-branch-factor" name="tree-branch-factor" value="2" />
+    <label id="branch-factor-label" for="tree-branch-factor">Branching factor</label>
+    <div id="branching-cy"></div>
+    <p>
+      The most important components of a decision tree are its rollout policy & branch reward
+      function. In our case, the LLM is used for both the rollout policy and reward calcuation.
+    </p>
+
     <h2>Setting up with an LLM</h2>
     <p>
-      One of our primary constraints for the experiment is that whatever code LLM we use be
+      One of our primary constraints for the experiment was to choose a smaller code LLM that is
       relatively cheap to run. While somewhat arbitrary, we decided to define this as any LLM that
       could run locally on reasonably specced consumer-grade hardware. As we had an Apple M2 Pro
       with 32GB unified memory and 16-core GPU available on-hand, this machine was set as the
@@ -253,9 +319,9 @@ for prompt, task_id in prompts:
       results.append(res["passed"])
 
   return sum(results) / len(results) # set test pass-rate as reward</code></pre>
-    <input type="range" id="time-step" name="time-step" min="0" />
-    <label id="time-step-label" for="time-step">Time step:</label>
-    <div id="cy"></div>
+    <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
+    <label id="time-step-rollout-label" for="time-step-rollout">Time step:</label>
+    <div id="rollout-cy"></div>
 
     <h2>Generating comparative samples for HumanEval</h2>
     Sampling + filtering = 2048 ctx, top-3 sampling, 1.0 temp, max 256 tokens
@@ -353,33 +419,135 @@ for prompt, task_id in prompts:
     </ul>
   </body>
   <script>
-    var cy, graph;
-    const slider = document.getElementById('time-step');
-    const sliderLabel = document.getElementById('time-step-label');
-    const graphCtr = document.getElementById('cy');
-    function renderGraph(graphData, timeStep) {
-      graph = graphData[timeStep];
-      cy = cytoscape({
-        container: graphCtr,
+    var treeData;
+    const treeGraph = document.getElementById('tree-cy');
+    function renderTree(timeStep) {
+      const tree = treeData[timeStep];
+      const treeCy = cytoscape({
+        container: treeGraph,
         elements: {
-          nodes: graph.nodes.map((node) => ({
-            data: { ...node },
-            style: graph.selectedNodes.includes(node.id)
-              ? { 'background-color': 'red' }
-              : undefined,
-          })),
+          nodes: tree.nodes,
+          edges: tree.edges,
+        },
+        panningEnabled: false,
+        boxSelectionEnabled: false,
+        layout: {
+          name: 'dagre',
+          align: 'UL',
+        },
+        style: [
+          {
+            selector: 'node',
+            style: { 'background-color': '#11479e' },
+          },
+          {
+            selector: 'edge',
+            style: {
+              width: 3,
+              'line-color': '#9dbaea',
+              'target-arrow-color': '#9dbaea',
+              'target-arrow-shape': 'triangle',
+            },
+          },
+        ],
+      });
+      treeCy.autolock(true);
+    }
+    fetch('public/graph_example_tree.json')
+      .then((res) => res.json())
+      .then((data) => {
+        treeData = data;
+        const treeSlider = document.getElementById('time-step-tree');
+        const treeSliderLabel = document.getElementById('time-step-tree-label');
+        treeSlider.max = Math.max.apply(null, Object.keys(treeData));
+
+        // handle first render
+        renderTree(treeSlider.value);
+        treeSliderLabel.textContent = `Time step: ${treeSlider.value}`;
+
+        // update tree upon time-step input changes
+        treeSlider.addEventListener(
+          'input',
+          (e) => (treeSliderLabel.textContent = `Time step: ${treeSlider.value}`)
+        );
+        treeSlider.addEventListener('input', (e) => renderTree(e.target.value));
+      });
+  </script>
+  <script>
+    var branchData;
+    const branchGraph = document.getElementById('branching-cy');
+    function renderBranching(factor) {
+      const tree = branchData[factor];
+      const treeCy = cytoscape({
+        container: branchGraph,
+        elements: {
+          nodes: tree.nodes,
+          edges: tree.edges,
+        },
+        panningEnabled: false,
+        boxSelectionEnabled: false,
+        layout: {
+          name: 'dagre',
+          align: 'DL',
+        },
+        style: [
+          {
+            selector: 'node',
+            style: { 'background-color': '#11479e' },
+          },
+          {
+            selector: 'edge',
+            style: {
+              width: 3,
+              'line-color': '#9dbaea',
+              'target-arrow-color': '#9dbaea',
+              'target-arrow-shape': 'triangle',
+            },
+          },
+        ],
+      });
+      treeCy.autolock(true);
+    }
+    fetch('public/graph_branching_factor.json')
+      .then((res) => res.json())
+      .then((data) => {
+        branchData = data;
+        const bfInput = document.getElementById('tree-branch-factor');
+        bfInput.min = Math.min.apply(null, Object.keys(branchData));
+        bfInput.max = Math.max.apply(null, Object.keys(branchData));
+
+        // handle first render
+        renderBranching(bfInput.value);
+
+        // update tree upon branching factor input changes
+        bfInput.addEventListener('input', (e) => renderBranching(e.target.value));
+        bfInput.addEventListener('blur', (_) => {
+          const val = Math.max(bfInput.min, Math.min(bfInput.value, bfInput.max));
+          if (bfInput.value != val) renderBranching(val);
+          bfInput.value = val;
+        });
+      });
+  </script>
+  <script>
+    var graphData;
+    const rolloutGraph = document.getElementById('rollout-cy');
+    function renderGraph(timeStep) {
+      const graph = graphData[timeStep];
+      const rolloutCy = cytoscape({
+        container: rolloutGraph,
+        elements: {
+          nodes: graph.nodes.map((node) => ({ data: { ...node } })),
           edges: graph.edges.map(([n1, n2]) => ({
             data: { source: n1, target: n2, selectable: false },
-            style: graph.selectedNodes.includes(n2)
-              ? { 'line-color': 'red', 'target-arrow-color': 'red' }
-              : undefined,
           })),
         },
         style: [
           {
             selector: 'node',
             style: {
-              'background-color': '#666',
+              'background-color': function (el) {
+                return graph.selectedNodes.includes(Number(el.id())) ? 'red' : '#666';
+              },
               label: 'data(label)',
             },
           },
@@ -387,8 +555,12 @@ for prompt, task_id in prompts:
             selector: 'edge',
             style: {
               width: 3,
-              'line-color': '#ccc',
-              'target-arrow-color': '#ccc',
+              'line-color': function (el) {
+                return graph.selectedNodes.includes(Number(el.data('target'))) ? 'red' : '#ccc';
+              },
+              'target-arrow-color': function (el) {
+                return graph.selectedNodes.includes(Number(el.data('target'))) ? 'red' : '#ccc';
+              },
               'target-arrow-shape': 'triangle',
               'curve-style': 'bezier',
             },
@@ -401,19 +573,26 @@ for prompt, task_id in prompts:
           align: 'UL',
         },
       });
-      cy.autolock(true);
+      rolloutCy.autolock(true);
     }
     fetch('public/graph_HumanEval_113.json')
       .then((res) => res.json())
-      .then((graphData) => {
-        slider.max = Math.max.apply(null, Object.keys(graphData));
-        renderGraph(graphData, slider.value);
-        sliderLabel.textContent = `Time step: ${slider.value}`;
-        slider.addEventListener(
+      .then((data) => {
+        graphData = data;
+        const rolloutSlider = document.getElementById('time-step-rollout');
+        const rolloutSliderLabel = document.getElementById('time-step-rollout-label');
+        rolloutSlider.max = Math.max.apply(null, Object.keys(graphData));
+
+        // handle first render
+        renderGraph(rolloutSlider.value);
+        rolloutSliderLabel.textContent = `Time step: ${rolloutSlider.value}`;
+
+        // update tree upon time-step input changes
+        rolloutSlider.addEventListener(
           'input',
-          (e) => (sliderLabel.textContent = `Time step: ${slider.value}`)
+          (e) => (rolloutSliderLabel.textContent = `Time step: ${rolloutSlider.value}`)
         );
-        slider.addEventListener('input', (e) => renderGraph(graphData, e.target.value));
+        rolloutSlider.addEventListener('input', (e) => renderGraph(e.target.value));
       });
   </script>
 </html>
