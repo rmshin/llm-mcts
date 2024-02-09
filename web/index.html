@@ -8,26 +8,19 @@
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="public/prism.css" />
     <script src="public/prism.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"
       integrity="sha512-RcuA+PEnJcg1caTn53YLhZ3bYVFXphzcPL1BjBoAwFiA3bErav+AndZz1xrqpAtv/8Waep2X+9zn8KWpwacUSA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- <script
       src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.umd.js"
       integrity="sha512-LxtJh1JTtBgZQaf0DF+4f/thp9An8o8UC35/YaDTYtHIOCPIuEDZRYRCLDw++hEvm/AFlGOM5HmgAMuSkxzsyg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
-    ></script> -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"
+      ></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"
       integrity="sha512-psLUZfcgPmi012lcpVHkWoOqyztollwCGu4w/mXijFMK/YcdUdP06voJNVOJ7f/dUIlO2tGlDLuypRyXX2lcvQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="cytoscape-dagre.js"></script>
-
     <title>LLM code gen</title>
   </head>
   <body>
@@ -40,39 +33,29 @@
       <a href="https://openai.com/gpt-4" target="_blank">GPT-4</a> &
       <a href="https://platform.openai.com/docs/models/gpt-3-5" target="_blank">GPT-3.5</a>,
       Microsoft's
-      <a
-        href="https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/"
-        target="_blank"
-        >Phi-2</a
-      >, Meta's
-      <a href="https://ai.meta.com/blog/code-llama-large-language-model-coding/" target="_blank"
-        >CodeLlama</a
-      >, and DeepSeek's
+      <a href="https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/"
+        target="_blank">Phi-2</a>, Meta's
+      <a href="https://ai.meta.com/blog/code-llama-large-language-model-coding/" target="_blank">CodeLlama</a>, and
+      DeepSeek's
       <a href="https://deepseekcoder.github.io/" target="_blank">DeepSeek Coder</a>, alongside
       various fine-tune variants such as
       <a href="https://github.com/ise-uiuc/magicoder" target="_blank">Magicoder</a> and
-      <a href="https://www.phind.com/blog/code-llama-beats-gpt4" target="_blank">Phind-CodeLlama</a
-      >.
+      <a href="https://www.phind.com/blog/code-llama-beats-gpt4" target="_blank">Phind-CodeLlama</a>.
     </p>
     <p>
       Many of these models are impressive at generating short snippets of code, and often fare well
       even for complex problem descriptions–albeit with some hallucinations due to the probabilistic
       nature of LLMs. In this blog post we explore the following:
-      <em
-        >is it possible to achieve LLM code generation that is accurate, consistent, and relatively
-        cheap to run?</em
-      >
+      <em>is it possible to achieve LLM code generation that is accurate, consistent, and relatively
+      cheap to run?</em>
     </p>
     <p>
       We approach the problem by combining a pre-trained transformer model with an adapted version
       of the
-      <a href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search" target="_blank"
-        >Monte-Carlo tree search</a
-      >
+      <a href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search" target="_blank">Monte-Carlo tree search</a>
       algorithm to guide the generation, taking inspiration from the paper
-      <a href="https://arxiv.org/abs/2303.05510" target="_blank"
-        >Planning with Large Language Models for Code Generation</a
-      >
+      <a href="https://arxiv.org/abs/2303.05510" target="_blank">Planning with Large Language Models for Code
+      Generation</a>
       . We compare the effectiveness of this approach against direct sampling of the transformer’s
       unaided generations on the
       <a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a> and
@@ -80,7 +63,6 @@
       and detail the process & observations gathered along the way. Jump ahead to the
       <a href="#discussion">final discussion</a> if you’re curious about the results!
     </p>
-
     <h2>Background</h2>
     <p>
       At a high level, language models output the characters that they've been trained to recognise
@@ -95,39 +77,34 @@
       generating code, where we expect the output to be both functionally correct & consistent over
       time.
     </p>
-
-    <img
-      loading="lazy"
-      src="public/bad-completion-example.png"
-      alt="llm-incorrect-example"
-      class="llm-example"
-    />
-    <img
-      loading="lazy"
-      src="public/llm-code-execution-example.png"
-      alt="llm-code-execution-example"
-      class="llm-example"
-    />
+    <img loading="lazy" src="public/bad-completion-example.png" alt="llm-incorrect-example" class="llm-example" />
+    <img loading="lazy" src="public/llm-code-execution-example.png" alt="llm-code-execution-example"
+      class="llm-example" />
     <p class="img-caption">
       Example of incorrect Python code output from DeepSeek Coder 6.7B (running on llama.cpp).
     </p>
-
     <p>
       Now a simple idea to address this shortcoming might be to run multiple generations for a
-      single prompt and filter out the incorrect ones. We'd expect that the larger the number of
+      single prompt and filter out the incorrect ones, by running against a test bench or doing compile. We'd expect that
+      the larger the number of
       samples generated for a given input, the higher the likelihood of the LLM producing at least
       one correct response–we'll see how a model's accuracy on the HumanEval & VerilogEval datasets
       later
     </p>
-
     <h2>Why Monte Carlo tree search</h2>
+    <p color="red">
+      Code Generation with LLMs as a next token prediction can be seen as search problem, where finding the correct
+      sequence of tokens that passes some objectives i.e. test cases is the optimum.
+    </p>
     <p>
+      <s>
       Tackling a problem as complex as automatic code generation often necessitates coming up with a
       strategy to reframe the task in a way that is simpler to solve. But prediction is not the only
       way to think about generating code through computers. Another method might be to treat the
       problem as one of <em>optimal search</em>–i.e. given the set of all possible characters that
       can appear in a specific programming language, is it possible to find the "best" combination
       of characters that would lead to our desired end program?
+      </s>
     </p>
     <p>
       One common means to solve search problems is to model the search process as a
@@ -143,8 +120,9 @@
     <p>
       Now it’s obvious that the larger the number of branches stemming from each node, the larger
       the number of total possibilities that exist. This is known as the “branching factor” of a
-      tree, and what makes code generation hard is that the branching factor of text is large enough
-      to make it impractical to compute the entire tree (BF of XXXX = 10^YYY possible outcomes). Try
+      tree, and what makes code generation hard using LLMs is that the branching factor of the tokenizer is very large,
+      making it impractical to compute the entire tree! The tokenizer vocabulary is usually 50K, and enumerating all
+      possible sequences for 20 tokens is $9.5 * 10^{93}$ combinations! Try
       changing the branching factor in the visualisation below to see how it affects the number of
       total outcomes to compute.
     </p>
@@ -155,7 +133,6 @@
       The most important components of a decision tree are its rollout policy & branch reward
       function. In our case, the LLM is used for both the rollout policy and reward calcuation.
     </p>
-
     <h2>Setting up with an LLM</h2>
     <p>
       One of our primary constraints for the experiment was to choose a smaller code LLM that is
@@ -166,45 +143,53 @@
     </p>
     <p>
       In selecting the specific language model to use, we looked at several popular open-source LLMs
-      ranging from 2.7B~34B parameters in size–<a
-        href="https://huggingface.co/microsoft/phi-2"
-        target="_blank"
-        >Phi-2</a
-      >,
-      <a href="https://huggingface.co/oobabooga/CodeBooga-34B-v0.1" target="_blank"
-        >CodeBooga-34B-v0.1</a
-      >,
-      <a href="https://huggingface.co/ise-uiuc/Magicoder-S-DS-6.7B" target="_blank"
-        >Magicoder-S-DS-6.7B</a
-      >, and
-      <a href="https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct" target="_blank"
-        >deepseek-coder-6.7b-instruct</a
-      >. Our method of appraisal was largely qualitative, running each LLM through a series of
+      ranging from 2.7B~34B parameters in size–<a href="https://huggingface.co/microsoft/phi-2" target="_blank">Phi-2</a>,
+      <a href="https://huggingface.co/oobabooga/CodeBooga-34B-v0.1" target="_blank">CodeBooga-34B-v0.1</a>,
+      <a href="https://huggingface.co/ise-uiuc/Magicoder-S-DS-6.7B" target="_blank">Magicoder-S-DS-6.7B</a>, and
+      <a href="https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct"
+        target="_blank">deepseek-coder-6.7b-instruct</a>. Our method of appraisal was largely qualitative, running each
+      LLM through a series of
       prompts either via the HuggingFace
       <a href="https://huggingface.co/docs/transformers/index" target="_blank">transformers</a>
-      library (<a href="https://github.com/rmshin/llm-mcts/blob/master/nbs/hf.ipynb" target="_blank"
-        >example notebook</a
-      >), <a href="https://lmstudio.ai/" target="_blank">LM Studio</a> chat, or
+      library (<a href="https://github.com/rmshin/llm-mcts/blob/master/nbs/hf.ipynb" target="_blank">example
+      notebook</a>), <a href="https://lmstudio.ai/" target="_blank">LM Studio</a> chat, or
       <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp’s</a>
-      <a
-        href="https://github.com/ggerganov/llama.cpp/tree/master/examples/main#quick-start"
-        target="_blank"
-        >CLI interface</a
-      >.
+      <a href="https://github.com/ggerganov/llama.cpp/tree/master/examples/main#quick-start" target="_blank">CLI
+      interface</a>.
     </p>
     <p>
       The CodeBooga-34B model proved too large to fit in memory unless heavily quantized to 3 bits
       or below (due to Apple defining a
-      <a
-        href="https://developer.apple.com/documentation/metal/mtldevice/2369280-recommendedmaxworkingsetsize?language=objc"
-        target="_blank"
-        >hard limit for GPU memory usage</a
-      >
+      <a href="https://developer.apple.com/documentation/metal/mtldevice/2369280-recommendedmaxworkingsetsize?language=objc"
+        target="_blank">hard limit for GPU memory usage</a>
       at roughly ~70% of total memory), which degraded the model quality beyond our acceptable
       limit. On the other hand, with the smaller Phi-2 model we struggled to get it to follow the
       output format instructions specified in our prompts, making it difficult to automatically
       evaluate the model’s code output on benchmark test cases.
     </p>
+    <p>
+      We ultimately settled on the mixed 5/6-bit
+      <a href="https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-GGUF/blob/main/deepseek-coder-6.7b-instruct.Q5_K_M.gguf"
+        target="_blank">Q5_K_M</a>
+      quantized version of <b>deepseek-coder-6.7B-instruct</b>, due to its superior quality & inference
+      speed. Running under llama.cpp, the model could generate an average of ~22.5 tokens/s and we
+      integrated it via the python bindings provided by
+      <a href="https://llama-cpp-python.readthedocs.io/en/latest/" target="_blank">llama-cpp-python</a>.
+    </p>
+    
+<pre><code class="language-python">from llama_cpp import Llama
+
+model = Llama(
+    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
+    n_gpu_layers=-1, # run the full model on GPU
+    n_ctx=2048,
+    n_batch=256,
+    n_threads=10,
+    logits_all=True, # include token probabilities in output
+)</code></pre>
+    <p></p>
+    <h2>Prompting</h2>
+    We use templating from the outlines library, a upcoming popular library for LLM tooling.
     <pre><code class="language-python">import outlines
 
 @outlines.prompt
@@ -230,51 +215,37 @@ def few_shot_prompt(examples, question):
     ```
     Answer:
     ```
-    """</code></pre>
-    <p>
-      We ultimately settled on the mixed 5/6-bit
-      <a
-        href="https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-GGUF/blob/main/deepseek-coder-6.7b-instruct.Q5_K_M.gguf"
-        target="_blank"
-        >Q5_K_M</a
-      >
-      quantized version of deepseek-coder-6.7B-instruct, due to its superior quality & inference
-      speed. Running under llama.cpp, the model could generate an average of ~22.5 tokens/s and we
-      integrated it via the python bindings provided by
-      <a href="https://llama-cpp-python.readthedocs.io/en/latest/" target="_blank"
-        >llama-cpp-python</a
-      >.
-    </p>
-    <pre>
-<code class="language-python">from llama_cpp import Llama
-
-model = Llama(
-    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
-    n_gpu_layers=-1, # run the full model on GPU
-    n_ctx=2048,
-    n_batch=256,
-    n_threads=10,
-    logits_all=True, # include token probabilities in output
-)</code></pre>
-    <p></p>
-
+    """
+</code></pre>
     <h2>Coding the MCTS algorithm</h2>
-    <pre>
-<code class="language-python">max_rollouts = 128 # max number of iterations through tree
+    <p>
+      We use a simple Node class to represent the nodes of decision tree, which has attributes liek state, parent,
+      children, visits, and rewards and p_ucb metric.
+    </p>
+    
+    <pre><code class="language-python">max_rollouts = 128 # max number of iterations through tree
 top_k = 3 # number of child tokens (branches) to generate per node
 for prompt, task_id in prompts:
     # cache of generated programs => rewards
     program_dict = {}
     root = Node(prob=1, state=prompt, parent=None)
+</code></pre>
+    The tree is expanded and evaluated for a fixed number of iterations called rollout. In each rollout, we peform
+    selection, expansion, evaluation and backprop. At the end, we return the best node.
+    <pre><code class="language-python">
     for i in range(max_rollouts):
         curr_node = root
         curr_node.visits += 1
-
+      </code></pre>
+    According to a P-UCB metric, we select the best leaf child of the current node to expand.
+    <pre><code class="language-python">
         # selection
         while len(curr_node._children) > 0:
             curr_node = p_ucb_select(curr_node._children)
             curr_node.visits += 1
-
+          </code></pre>
+    We then expand the selected node by generating top-k tokens and creating child nodes.
+    <pre><code class="language-python">
         # expansion
         tokens = get_top_k_tokens(curr_node, top_k)
         child_nodes = [
@@ -282,7 +253,12 @@ for prompt, task_id in prompts:
             for (token, prob) in tokens
         ]
         curr_node._children = child_nodes
-
+      </code></pre>
+    We then evaluate the child nodes, by generating a program from the current state. This is usually done using a greedy
+    search, but can easily be replaced with a beam search or other search algorithms. We believe that Code Gen should be
+    done using a greedy search as opposed to sampling but it should be tested.
+    The generated programs are evaluated by running tests on them. Look below for the calculate_reward function.
+    <pre><code class="language-python">
         # evaluation
         reward = match_cached_programs(curr_node.state, program_dict)
         # only run generation if node state not found in cached programs
@@ -291,24 +267,28 @@ for prompt, task_id in prompts:
             # run generated program against HumanEval test cases
             reward = calculate_reward(prompt, generated_program)
             program_dict[generated_program] = reward
+            <pre><code class="language-python">
+              Finally we backprop the reward up the tree to all the nodes upto the root. We stop when a reward of 1 is found, as there is no more exploration to do. 
+            </code></pre>
+  <pre><code class="language-python">
+            </code></pre>
+  # backprop reward up the tree
+  curr_node.backprop(reward)
 
-        # backprop reward up the tree
-        curr_node.backprop(reward)
-
-        # early termination if correct program is found
-        if reward == 1:
-            break</code></pre>
+  # early termination if correct program is found
+  if reward == 1:
+  break</code></pre>
     <p>
       The most important components of a decision tree are its rollout policy & branch reward
       function. In our case, the LLM is used for both the rollout policy and reward calcuation.
     </p>
-    LLM child tokens generation
+    <b>Rollout Policy:</b>
     <pre>
 <code class="language-python">def get_top_k_tokens(curr_node, k):
   output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
   output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
   return output_probs.items()</code></pre>
-    HumanEval reward calculation
+    <b>Reward Function:</b>
     <pre>
 <code class="language-python">def calculate_reward(task_id, completion, timeout=10):
   problem = human_eval_problems[task_id]
@@ -319,17 +299,20 @@ for prompt, task_id in prompts:
       results.append(res["passed"])
 
   return sum(results) / len(results) # set test pass-rate as reward</code></pre>
+    <h2> Visualizing the MCTS Tree</h2>
+    <p>
+      Here we visulize searching for a solution to HumanEval-113 using MCTS. The tree is visualized at each time step, and
+      the nodes are colored red if they are selected for expansion. Finally on rollout no. x, we find a solution.
+    </p>
     <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
     <label id="time-step-rollout-label" for="time-step-rollout">Time step:</label>
     <div id="rollout-cy"></div>
-
     <h2>Generating comparative samples for HumanEval</h2>
     Sampling + filtering = 2048 ctx, top-3 sampling, 1.0 temp, max 256 tokens
     <ul>
       <li>pass@5 = 84.60%,~1hr total runtime</li>
       <li>pass@20 = 90.74%, ~4hr total runtime</li>
     </ul>
-
     MCTS = 2048 ctx, max rollouts 128, top-3 probs, greedy top-1 generation, 1.0 temp, max 256
     tokens
     <ul>
@@ -388,7 +371,6 @@ for prompt, task_id in prompts:
         from top-50 token probabilities)
       </li>
     </ul>
-
     <h2 id="discussion">Recap: what have we learned?</h2>
     <ul>
       <li>
@@ -460,11 +442,11 @@ for prompt, task_id in prompts:
         const treeSlider = document.getElementById('time-step-tree');
         const treeSliderLabel = document.getElementById('time-step-tree-label');
         treeSlider.max = Math.max.apply(null, Object.keys(treeData));
-
+    
         // handle first render
         renderTree(treeSlider.value);
         treeSliderLabel.textContent = `Time step: ${treeSlider.value}`;
-
+    
         // update tree upon time-step input changes
         treeSlider.addEventListener(
           'input',
@@ -515,10 +497,10 @@ for prompt, task_id in prompts:
         const bfInput = document.getElementById('tree-branch-factor');
         bfInput.min = Math.min.apply(null, Object.keys(branchData));
         bfInput.max = Math.max.apply(null, Object.keys(branchData));
-
+    
         // handle first render
         renderBranching(bfInput.value);
-
+    
         // update tree upon branching factor input changes
         bfInput.addEventListener('input', (e) => renderBranching(e.target.value));
         bfInput.addEventListener('blur', (_) => {
@@ -582,11 +564,11 @@ for prompt, task_id in prompts:
         const rolloutSlider = document.getElementById('time-step-rollout');
         const rolloutSliderLabel = document.getElementById('time-step-rollout-label');
         rolloutSlider.max = Math.max.apply(null, Object.keys(graphData));
-
+    
         // handle first render
         renderGraph(rolloutSlider.value);
         rolloutSliderLabel.textContent = `Time step: ${rolloutSlider.value}`;
-
+    
         // update tree upon time-step input changes
         rolloutSlider.addEventListener(
           'input',
