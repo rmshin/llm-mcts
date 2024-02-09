@@ -217,6 +217,10 @@ def few_shot_prompt(examples, question):
     ```
     """
 </code></pre>
+<p>
+  Here is the 2-shot prompt for HumanEval-113 templated using outlines.
+  TODO
+</p>
     <h2>Coding the MCTS algorithm</h2>
     <p>
       We use a simple Node class to represent the nodes of decision tree, which has attributes liek state, parent,
@@ -307,17 +311,10 @@ for prompt, task_id in prompts:
     <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
     <label id="time-step-rollout-label" for="time-step-rollout">Time step:</label>
     <div id="rollout-cy"></div>
-    <h2>Generating comparative samples for HumanEval</h2>
-    Sampling + filtering = 2048 ctx, top-3 sampling, 1.0 temp, max 256 tokens
-    <ul>
-      <li>pass@5 = 84.60%,~1hr total runtime</li>
-      <li>pass@20 = 90.74%, ~4hr total runtime</li>
-    </ul>
-    MCTS = 2048 ctx, max rollouts 128, top-3 probs, greedy top-1 generation, 1.0 temp, max 256
-    tokens
-    <ul>
-      <li>92.59% pass rate, ~3.62 generations per problem, ~1.5hr total runtime</li>
-    </ul>
+    <h2>Observations</h2>
+    <h3>Sampling vs MCTS for HumanEval</h3>
+    <p>For naive sampling, with hyper parameters - 2048 context size, top-3 sampling, 1.0 temp, max 256 tokens, we get a <b>pass@5 = 84.60%</b> and <b>pass@20 = 90.74%</b> with a total runtime of ~1hr and ~4hr respectively. </p>
+    <p>For MCTS with 128 rollouts, and same hyper parameters, we get <b>pass@128 = 92.59%</b> with an average of 3.62 unique generations per problem, average 15.46 no. of rollouts and ~1.5hr total runtime.</p>
     <h4>Observations</h4>
     <ul>
       <li>
@@ -338,6 +335,9 @@ for prompt, task_id in prompts:
     <p>
       What happens when dealing with problems that the LLM is not well trained on? How effective is
       MCTS at improving LLM code quality?
+    </p>
+    <p> For naive sampling, with hyper parameters - 4096 context size, top-50 sampling, 1.0 temp, max 1024 tokens, we get a <b>pass@5 = 42.58%</b>, <b>pass@10 = 47.33%</b> and <b>pass@20 = 51.30%</b>. 20 samples gen has a total runtime of ~7hr.</p>
+
     </p>
     Sampling + filtering = top-50 sampling, 1.0 temp, 1024 max tokens per generation, 4096 context
     length
