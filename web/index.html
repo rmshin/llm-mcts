@@ -232,38 +232,30 @@ top_k = 3 # number of child tokens (branches) to generate per node
 for prompt, task_id in prompts:
     # cache of generated programs => rewards
     program_dict = {}
-    root = Node(prob=1, state=prompt, parent=None)
-</code></pre>
+    root = Node(prob=1, state=prompt, parent=None)</code></pre>
     The tree is expanded and evaluated for a fixed number of iterations called rollout. In each rollout, we peform
     selection, expansion, evaluation and backprop. At the end, we return the best node.
-    <pre><code class="language-python">
-    for i in range(max_rollouts):
+    <pre><code class="language-python">    for i in range(max_rollouts):
         curr_node = root
-        curr_node.visits += 1
-      </code></pre>
+        curr_node.visits += 1</code></pre>
     According to a P-UCB metric, we select the best leaf child of the current node to expand.
-    <pre><code class="language-python">
-        # selection
+    <pre><code class="language-python">        # selection
         while len(curr_node._children) > 0:
             curr_node = p_ucb_select(curr_node._children)
-            curr_node.visits += 1
-          </code></pre>
+            curr_node.visits += 1</code></pre>
     We then expand the selected node by generating top-k tokens and creating child nodes.
-    <pre><code class="language-python">
-        # expansion
+    <pre><code class="language-python">        # expansion
         tokens = get_top_k_tokens(curr_node, top_k)
         child_nodes = [
             Node(prob, state=(curr_node.state + token), parent=curr_node)
             for (token, prob) in tokens
         ]
-        curr_node._children = child_nodes
-      </code></pre>
+        curr_node._children = child_nodes</code></pre>
     We then evaluate the child nodes, by generating a program from the current state. This is usually done using a greedy
     search, but can easily be replaced with a beam search or other search algorithms. We believe that Code Gen should be
     done using a greedy search as opposed to sampling but it should be tested.
     The generated programs are evaluated by running tests on them. Look below for the calculate_reward function.
-    <pre><code class="language-python">
-        # evaluation
+    <pre><code class="language-python">        # evaluation
         reward = match_cached_programs(curr_node.state, program_dict)
         # only run generation if node state not found in cached programs
         if reward == -1:
@@ -271,17 +263,14 @@ for prompt, task_id in prompts:
             # run generated program against HumanEval test cases
             reward = calculate_reward(prompt, generated_program)
             program_dict[generated_program] = reward
-            <pre><code class="language-python">
+          </code></pre>
               Finally we backprop the reward up the tree to all the nodes upto the root. We stop when a reward of 1 is found, as there is no more exploration to do. 
-            </code></pre>
-  <pre><code class="language-python">
-            </code></pre>
-  # backprop reward up the tree
-  curr_node.backprop(reward)
+  <pre><code class="language-python">    # backprop reward up the tree
+    curr_node.backprop(reward)
 
-  # early termination if correct program is found
-  if reward == 1:
-  break</code></pre>
+    # early termination if correct program is found
+    if reward == 1:
+        break</code></pre>
     <p>
       The most important components of a decision tree are its rollout policy & branch reward
       function. In our case, the LLM is used for both the rollout policy and reward calcuation.
@@ -289,20 +278,20 @@ for prompt, task_id in prompts:
     <b>Rollout Policy:</b>
     <pre>
 <code class="language-python">def get_top_k_tokens(curr_node, k):
-  output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
-  output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
-  return output_probs.items()</code></pre>
+    output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
+    output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
+    return output_probs.items()</code></pre>
     <b>Reward Function:</b>
     <pre>
 <code class="language-python">def calculate_reward(task_id, completion, timeout=10):
-  problem = human_eval_problems[task_id]
-  split_tests = problem["test"]
-  results = []
-  for test in split_tests:
-      res = check_correctness(test, completion, timeout)
-      results.append(res["passed"])
+    problem = human_eval_problems[task_id]
+    split_tests = problem["test"]
+    results = []
+    for test in split_tests:
+        res = check_correctness(test, completion, timeout)
+        results.append(res["passed"])
 
-  return sum(results) / len(results) # set test pass-rate as reward</code></pre>
+    return sum(results) / len(results) # set test pass-rate as reward</code></pre>
     <h2> Visualizing the MCTS Tree</h2>
     <p>
       Here we visulize searching for a solution to HumanEval-113 using MCTS. The tree is visualized at each time step, and
@@ -316,6 +305,7 @@ for prompt, task_id in prompts:
     <p>For naive sampling, with hyper parameters - 2048 context size, top-3 sampling, 1.0 temp, max 256 tokens, we get a <b>pass@5 = 84.60%</b> and <b>pass@20 = 90.74%</b> with a total runtime of ~1hr and ~4hr respectively. </p>
     <p>For MCTS with 128 rollouts, and same hyper parameters, we get <b>pass@128 = 92.59%</b> with an average of 3.62 unique generations per problem, average 15.46 no. of rollouts and ~1.5hr total runtime.</p>
     <h4>Observations</h4>
+    
     <ul>
       <li>
         Big jump in pass rate from 5 → 20 samples suggest basic LLM generation can be improved by
