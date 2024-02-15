@@ -1,7 +1,11 @@
 {
-  "0": { "nodes": [{ "data": { "id": 0 } }], "edges": [] },
+  "0": { "nodes": [{ "data": { "id": 0 }, "style": { "background-color": "red" } }], "edges": [] },
   "1": {
-    "nodes": [{ "data": { "id": 0 } }, { "data": { "id": 1 } }, { "data": { "id": 2 } }],
+    "nodes": [
+      { "data": { "id": 0 }, "style": { "background-color": "red" } },
+      { "data": { "id": 1 } },
+      { "data": { "id": 2 } }
+    ],
     "edges": [
       { "data": { "source": 0, "target": 1, "selectable": false } },
       { "data": { "source": 0, "target": 2, "selectable": false } }
@@ -9,7 +13,7 @@
   },
   "2": {
     "nodes": [
-      { "data": { "id": 0 } },
+      { "data": { "id": 0 }, "style": { "background-color": "red" } },
       { "data": { "id": 1 } },
       { "data": { "id": 2 } },
       { "data": { "id": 3 } },
@@ -28,7 +32,7 @@
   },
   "3": {
     "nodes": [
-      { "data": { "id": 0 } },
+      { "data": { "id": 0 }, "style": { "background-color": "red" } },
       { "data": { "id": 1 } },
       { "data": { "id": 2 } },
       { "data": { "id": 3 } },
@@ -63,7 +67,7 @@
   },
   "4": {
     "nodes": [
-      { "data": { "id": 0 } },
+      { "data": { "id": 0 }, "style": { "background-color": "red" } },
       { "data": { "id": 1 } },
       { "data": { "id": 2 } },
       { "data": { "id": 3 } },

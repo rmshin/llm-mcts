@@ -1,4 +1,5 @@
 import json
+import random
 
 depth = 5
 # decision tree
@@ -57,3 +58,36 @@ for bf in range(2, 6):
 
 with open(f"web/public/graph_branching_factor.json", "w") as f:
     json.dump(graph_dict, f)
+
+
+# asymmetric tree
+depths = [2, 5, 3, 4]
+nodes, edges = set([0]), set()
+for depth in depths:
+    parents = [0]
+    bf = 1
+    while depth > 0:
+        all_children = []
+        for p in random.choices(parents, k=1):
+            child_nodes = [len(nodes) + ci for ci in range(bf)]
+            nodes.update(child_nodes)
+            edges.update([(p, c) for c in child_nodes])
+            all_children += child_nodes
+        parents = all_children
+        depth -= 1
+        bf = 2
+
+nodes = [{"data": {"id": n}} for n in list(nodes)]
+edges = [
+    {
+        "data": {
+            "source": p,
+            "target": c,
+            "selectable": False,
+        }
+    }
+    for (p, c) in list(edges)
+]
+
+with open(f"web/public/graph_asymmetric.json", "w") as f:
+    json.dump({"nodes": nodes, "edges": edges}, f)
