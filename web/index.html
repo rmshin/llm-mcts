@@ -105,7 +105,7 @@
       alt="llm-code-execution-example"
       class="llm-example"
     />
-    <p class="img-caption">
+    <p class="caption">
       Example of incorrect Python code output from DeepSeek Coder 6.7B (running on llama.cpp).
     </p>
     <p>
@@ -127,7 +127,7 @@
     <input type="range" id="time-step-tree" name="time-step-tree" min="0" />
     <label id="time-step-tree-label" for="time-step-tree">Time step:</label>
     <div id="tree-cy"></div>
-    <p class="img-caption">
+    <p class="caption">
       A visualisation of a small decision tree. <span class="red">Red</span> represents the root
       node (i.e. the initial prompt), <span class="blue">blue</span> represents child nodes
       (subsequent tokens). <span class="green">Green</span> represents the final set of all possible
@@ -144,7 +144,7 @@
     <label id="branch-factor-outcomes"># total outcomes:</label>
     <label id="branch-factor-depth">(depth = 5)</label>
     <div id="branching-cy"></div>
-    <p class="img-caption">
+    <p class="caption">
       Try changing the branching factor in the visualisation above to see how it affects the number
       of total outcomes to compute.
     </p>
@@ -177,13 +177,13 @@
       promising subtrees are computed.
     </p>
     <div id="asymmetric-cy"></div>
-    <p class="img-caption">Example tree with uneven development of branches.</p>
+    <p class="caption">Example tree with uneven development of branches.</p>
     <p>
       The way MCTS works is by repeatedly cycling through four logical stages: selection, expansion,
       evaluation (or simulation), and back-propagation.
     </p>
     <img loading="lazy" src="public/mcts-steps.svg" alt="mcts steps" class="mcts-steps" />
-    <p class="img-caption">
+    <p class="caption">
       High-level diagram of steps in conventional Monte-Carlo tree search (source
       <a
         href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search#/media/File:MCTS-steps.svg"
@@ -196,41 +196,48 @@
       should explore next via the algorithm's <b>rollout policy</b>. This is a function that assigns
       a kind of "priority" to each node, with greater weight given to nodes that are either higher
       in value or have fewer visits. For our case of LLM code generation, the exact rollout policy
-      is calculated with the following:
+      is calculated by the following:
     </p>
     <img loading="lazy" src="public/p-ucb.png" alt="p-ucb function" class="p-ucb" />
-    <p>and the actual node selection:</p>
+    <p>and the final node selection:</p>
     <img loading="lazy" src="public/p-ucb-select.png" alt="p-ucb selection" class="p-ucb-select" />
     <p>
-      For the purposes of this post, it is not necessary to understand the above in detail. It's
-      merely sufficient to know that the choice of which branches to pursue is a function of three
-      main parameters: the branch value <b>Q</b> (to be elaborated further below), the branch token
-      probability <b>P</b> (provided by the LLM), and an <b>exploration term</b> that is a ratio of
-      the branch's visits relative to its parent's.
+      It is not necessary to understand the above in detail. What's more important is to realise
+      that the choice of which nodes to explore is a function of three main parameters: the node
+      value
+      <b>Q</b> (to be elaborated further below), the node token probability <b>P</b> (provided by
+      the LLM), and an <b>exploration term</b> that captures how often we've previously visited the
+      node.
     </p>
     <p>
       Once a node has been selected, it is then expanded with <em>k</em> new child nodes in the
       <b>expansion</b> phase. Because only a single branch is selected at any given point in time,
       MCTS develops the search tree asymmetrically by disregarding all other nodes. In this
-      experiment, the child nodes are obtained from the top 3 most probable next tokens given by an
-      LLM.
+      experiment, the child nodes are obtained from the top 3 most probable next token options given
+      by an LLM.
     </p>
     <p>
-      Following expansion comes <b>evaluation</b>. It is here that the value of the node is
-      determined via the <b>reward</b> or <b>value function</b>–a key design parameter that can have
-      a large impact on the effectiveness of the entire MCTS algorithm. The point of the value
-      function is to offer a quantitative means of ranking comparative options against one another,
-      such that choosing higher value options would yield better end outcomes.
+      Following expansion comes the <b>evaluation</b> step. It is here that the value of the node is
+      determined via the <b>reward</b> or <b>value function</b>–a quantitative measure to rank
+      nodes, such that choosing higher value nodes would yield better end outcomes. But each node in
+      the tree represents an incomplete intermediate state that is often difficult to evaluate
+      directly. Thus we instead evalute a chosen node's eventual end outcome by
+      <b>simulating</b> the remaining branch expansions.
     </p>
     <p>
-      If we take a step back for a moment, it's not immediately obvious what a good value function
-      should look like in the context of code generation. Let's say we have some partially generated
-      Python code <code class="inline-code">a = b + </code>, and our next token options are
-      <code class="inline-code">c</code>, <code class="inline-code">5</code> and
-      <code class="inline-code">^</code>. This would yield the subsequent states
-      <code class="inline-code">a = b + c</code>, <code class="inline-code">a = b + 5</code> and
-      <code class="inline-code">a = b + ^</code>. What do we expect the respective values of each of
-      these branches to be?
+      We achieve this simulation by having an LLM complete the remaining sequence (program) from the
+      node's partial state. This completed program is then evaluated against a bench of tests from
+      the HumanEval (or VerilogEval) datasets, to obtain a pass rate between 0 - 1 that is assigned
+      as the node's value. In this manner, code that passes more tests are explored further in
+      future iterations through the tree.
+    </p>
+    <p>
+      But due to the nested nature of search trees, any high-value nodes discovered deep in the
+      hierarchy might not be reached again in successive searches (e.g. if the previous parent
+      branches have low values). To ensure that this information isn't "lost", a node's reward value
+      is propagated to all it's parents up to the tree's root. This is the final
+      <b>back-propagation</b> phase that completes a single iteration of MCTS, and once finished we
+      return to the top (root) of the tree to restart the cycle.
     </p>
 
     <h2>Setting up with an LLM</h2>
@@ -343,6 +350,25 @@ def few_shot_prompt(examples, question):
       We use a simple Node class to represent the nodes of decision tree, which has attributes liek
       state, parent, children, visits, and rewards and p_ucb metric.
     </p>
+    <pre><code class="language-python">class Node:
+    def __init__(self, prob, state, parent):
+        self.value = 0  # total reward obtainable from node
+        self.prob = prob  # necessary for P-UCB calculation
+        self.state = state  # full generated text
+        self._children = []
+        self._parent = parent
+        self.visits = 0
+
+    def backprop(self, value):
+        # only propagate if new reward is greater than current max
+        if value > self.value:
+            self.value = value
+            if self._parent is not None:
+                self._parent.backprop(value)</code></pre>
+    <p class="caption">
+      Remember that a node is equivalent to a branch in the Monte-Carlo tree, and it represents a
+      possible token (character) that could come next in the sequence of generated text.
+    </p>
     <pre><code class="language-python">max_rollouts = 128 # max number of iterations through tree
 top_k = 3 # number of child tokens (branches) to generate per node
 for prompt, task_id in prompts:
@@ -396,16 +422,32 @@ for prompt, task_id in prompts:
     # early termination if correct program is found
     if reward == 1:
         break</code></pre>
-    <p>
-      The most important components of a decision tree are its rollout policy & branch reward
-      function. In our case, the LLM is used for both the rollout policy and reward calcuation.
-    </p>
-    <b>Rollout Policy:</b>
-    <pre><code class="language-python">def get_top_k_tokens(curr_node, k):
+
+    <h4>Node selection:</h4>
+    <pre><code class="language-python">def p_ucb_select(parent_node, child_nodes):
+    s_visits = parent_node.visits
+    # scalar constant term
+    beta = log((s_visits + c_base + 1) / c_base) + c
+
+    # find the child node with the highest P-UCB value
+    max_p_ucb = -inf
+    max_node = None
+    for i in range(len(child_nodes)):
+        node = child_nodes[i]
+        p_ucb = node.value + beta * node.prob * sqrt(log(s_visits)) / (
+            1 + node.visits
+        ) # calculate the P-UCB value for each child
+        if p_ucb > max_p_ucb:
+            max_node = node
+            max_p_ucb = p_ucb
+    return max_node # return max(P-UCB) node</code></pre>
+    <h4>Rollout policy:</h4>
+    <pre><code class="language-python"># fetch the top 3 highest probability token candidates from the LLM
+def get_top_k_tokens(curr_node, k=3):
     output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
     output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
     return output_probs.items()</code></pre>
-    <b>Reward Function:</b>
+    <h4>Reward function:</h4>
     <pre><code class="language-python">def calculate_reward(task_id, completion, timeout=10):
     problem = human_eval_problems[task_id]
     split_tests = problem["test"]
