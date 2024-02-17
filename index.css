@@ -8,6 +8,7 @@ body {
   font-style: normal;
   max-width: 40rem;
   margin: auto;
+  margin-bottom: 8rem;
   font-size: 1rem;
   line-height: 1.4rem;
 }
@@ -48,6 +49,27 @@ p {
 sup {
   font-size: 0.7rem;
   vertical-align: super;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+table {
+  width: 100%;
+  min-width: 35rem;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+th {
+  background-color: #f2f2f2;
 }
 
 .inline-code {
@@ -95,6 +117,10 @@ sup {
 }
 .green {
   color: green;
+}
+
+.dataset-example {
+  width: 90%;
 }
 
 #tree-cy {
