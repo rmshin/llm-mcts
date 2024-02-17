@@ -345,6 +345,48 @@ def few_shot_prompt(examples, question):
     """</code></pre>
     <p>Here is the 2-shot prompt for HumanEval-113 templated using outlines. TODO</p>
 
+    <h2>Exploring the HumanEval & VerilogEval datasets</h2>
+    <p>
+      We use HumanEval to test for python proficiency, and VerilogEval for verilog proficiency. Here
+      are some instances of the datasets.
+    </p>
+    <img class="dataset-example" src="public/humaneval.png" alt="human-eval example" />
+    <p class="caption">
+      (source
+      <a
+        href="https://www.researchgate.net/figure/Example-Problem-ID-0-from-HumanEval-dataset_fig1_363267006"
+        >ResearchGate</a
+      >)
+    </p>
+    <img class="dataset-example" src="public/verilogeval.png" alt="verlilog-eval example" />
+    <p class="caption">
+      (source
+      <a href="https://arxiv.org/abs/2309.07544">VerilogEval</a>)
+    </p>
+
+    <h2>Generating S+F baselines</h2>
+    <p>
+      The baseline for code generation is naive few shot sampling. We call this S+F. Here is the
+      code for naive sampling using llama-cpp-python.
+    </p>
+    <pre><code class="language-python">from humaneval import get_prompts_with_ids
+from human_eval.data import write_jsonl
+      
+N_SAMPLES = 20
+prompts_ids = get_prompts_with_ids()
+for prompt, task_id in prompts_ids:
+    samples = []
+    for _ in range(N_SAMPLES):
+        output = model(
+            prompt=prompt, max_tokens=1024, temperature=1, top_k=50, stop=["```"]
+        )
+        res = output["choices"][0]["text"]
+        item = dict(task_id=task_id, completion=res)
+        samples.append(item)
+
+    # save generated samples in jsonl out file
+    write_jsonl("baselines.jsonl", samples, append=True)</code></pre>
+
     <h2>Coding the MCTS algorithm</h2>
     <p>
       We use a simple Node class to represent the nodes of decision tree, which has attributes liek
@@ -469,76 +511,178 @@ def get_top_k_tokens(curr_node, k=3):
     <div id="rollout-cy"></div>
     <h2>Observations</h2>
     <h3>Sampling vs MCTS for HumanEval</h3>
-    <p>
-      For naive sampling, with hyper parameters - 2048 context size, top-3 sampling, 1.0 temp, max
-      256 tokens, we get a <b>pass@5 = 84.60%</b> and <b>pass@20 = 90.74%</b> with a total runtime
-      of ~1hr and ~4hr respectively.
-    </p>
-    <p>
-      For MCTS with 128 rollouts, and same hyper parameters, we get <b>pass@128 = 92.59%</b> with an
-      average of 3.62 unique generations per problem, average 15.46 no. of rollouts and ~1.5hr total
-      runtime.
-    </p>
-    <h4>Observations</h4>
+    <p>With hyper parameters: 2048 context size, top-3 sampling, 1.0 temp, 256 max tokens</p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass@5</th>
+            <th>pass@20</th>
+            <th>time for 5 samples</th>
+            <th>time for 20 samples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S + F</td>
+            <td>84.60%</td>
+            <td>90.74%</td>
+            <td>~1h</td>
+            <td>~4h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>For MCTS with 128 max rollouts, 2048 context, top-3 probs, 1.0 temp, 256 max tokens</p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass rate</th>
+            <th>avg unique generations</th>
+            <th>avg rollouts</th>
+            <th>time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MCTS</td>
+            <td>92.59%</td>
+            <td>3.62</td>
+            <td>15.46</td>
+            <td>~1h 30m</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
+    <h4>Discussions</h4>
     <ul>
       <li>
-        Big jump in pass rate from 5 → 20 samples suggest basic LLM generation can be improved by
-        simply tuning generation parameters to reduce variance (e.g. top-k sampling, temperature,
-        higher max tokens, etc.)
+        <b>pass@k:</b> Big jump in pass rate from 5 → 20 samples suggest basic LLM generation can be
+        improved by simply tuning generation parameters (e.g. top-k sampling, temperature, higher
+        max tokens, etc.), and exploring many diverse solutions.
       </li>
       <li>
-        Smaller fine-tuned models still display impressive performance (or are overfitted for
-        benchmarks)
+        Small fine-tuned models of around 6.7b params and 5-bit quantisation still display
+        impressive performance (or could be overfitted for benchmarks)!
       </li>
       <li>
         MCTS achieves better benchmark performance than 20-sample baseline with an average of less
-        than 4 samples per problem (i.e. &lt;1/5 transformer compute)
+        than 4 samples per problem (i.e. &lt;1/5 transformer compute<sup>
+          <a href="#callout">[1]</a></sup
+        >). The compute is saved because of caching of previously generated programs, rewards and
+        token probabilities.
+      </li>
+      <li>
+        MCTS has explored almost 15.46 solutions (avg rollouts) per problem about 2x faster, to
+        achieve a higher accuracy than S+F 20. It is to be noted, that generations in MCTS undergo
+        tests which will lead to overhead.
       </li>
     </ul>
+
+    <ol id="callout" class="caption">
+      <li>
+        One may suggest measuring the avg roll outs until sucess in S+F, but because of the
+        probablistic nature, which cannot guarantee replication, we rather report the expected
+        metrics like pass@k from some finite samples.
+      </li>
+    </ol>
     <h2>Extending the experiment for VerilogEval</h2>
     <p>
       What happens when dealing with problems that the LLM is not well trained on? How effective is
       MCTS at improving LLM code quality?
     </p>
+    <p>With hyper parameters: 4096 context size, top-50 sampling, 1.0 temp, 1024 max tokens</p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass@5</th>
+            <th>pass@10</th>
+            <th>pass@20</th>
+            <th>time for 20 samples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S + F</td>
+            <td>42.58%</td>
+            <td>47.33%</td>
+            <td>51.30%</td>
+            <td>~7h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <p>
-      For naive sampling, with hyper parameters - 4096 context size, top-50 sampling, 1.0 temp, max
-      1024 tokens, we get a <b>pass@5 = 42.58%</b>, <b>pass@10 = 47.33%</b> and
-      <b>pass@20 = 51.30%</b>. 20 samples gen has a total runtime of ~7hr.
+      For MCTS, with hyperparameters: 128 max rollouts, 4096 context, top-5 probs, 1.0 temp, 1024
+      max tokens
     </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass rate</th>
+            <th>avg unique generations</th>
+            <th>avg rollouts</th>
+            <th>time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MCTS</td>
+            <td>46.75%</td>
+            <td>18.18</td>
+            <td>73.46</td>
+            <td>~8h 30m</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Discussion</h4>
+    <ul>
+      <li>
+        We had to increase the context length & max number of generated tokens to account for
+        greater verbosity of verilog code.
+      </li>
+      <li>
+        As this deepseek model is not trained on verilog data, MCTS required significantly more
+        exploration (greater rollouts) despite achieving lower quality/pass-rate than compared to
+        its performance on HumanEval.
+      </li>
+      <li>
+        S+F fared better than MCTS with a 10 and 20-sample baseline and was more time efficient than
+        MCTS. The mean test time for verilog was 0.71s when compared to python which was 3.82s,
+        highlighting the fact that test time did not account for much.
+      </li>
+      <li>
+        MCTS is probably failing to explore solutions even in a structured manner because the
+        transfomer’s token probabilities are badly calibrated and less reliable. This is just due
+        tot the fact that it has not seen enough verilog data. However, it has probably learnt good
+        programming principles to solve at least 45%.
+      </li>
+      <li>
+        S+F introduces more randomness/variability in generation and therefore explores wider and
+        fares better (as it samples from top-50 token probabilities).
+      </li>
+    </ul>
 
-    Sampling + filtering = top-50 sampling, 1.0 temp, 1024 max tokens per generation, 4096 context
-    length
-    <ul>
-      <li>pass@5 ⇒ 42.58% pass rate</li>
-      <li>pass@10 ⇒ 47.33% pass rate</li>
-      <li>pass@20 ⇒ 51.30% pass rate, ~7hr total run time</li>
-    </ul>
-    MCTS = 128 max rollouts, top-5 probs, 1.0 temp, 1024 max tokens per generation, 4096 context
-    length
-    <ul>
-      <li>46.75% pass rate, ~18.18 generations per problem, ~8.5hr total run time</li>
-    </ul>
-    <h4>Observations</h4>
-    <ul>
+    <h4>How to make MCTS better?</h4>
+    <ol>
       <li>
-        had to increase context length & max number of generated tokens to account for greater
-        verbosity of verilog source
+        <b>Reward:</b> A better heuristic to determine the validity of a partial program, could
+        guide the search better.
       </li>
       <li>
-        significantly more generations per problem for MCTS, lower quality/pass-rate than
-        ~equivalent 20-sample baseline
+        <b>Policy:</b> As the transformer for verilog code gen was mis-calibrated, we can lower the
+        weight given to the transformer probability for it to instead explore more solutions.
       </li>
-      <li>
-        makes sense because transfomer token probabilities are much less reliable, and thus using
-        LLM to determine which child tokens follow from a given node is less likely to find good
-        solutions
-      </li>
-      <li>
-        introducing more randomness/variability in generation fares better (direct approach samples
-        from top-50 token probabilities)
-      </li>
-    </ul>
+    </ol>
     <h2 id="discussion">Recap: what have we learned?</h2>
     <p>
       The biggest takeaway from our experiments is that using LLMs with MCTS to generate code is,
