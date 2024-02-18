@@ -109,12 +109,240 @@
       Example of incorrect Python code output from DeepSeek Coder 6.7B (running on llama.cpp).
     </p>
     <p>
-      One way to address this shortcoming is to run multiple generations for a single prompt and
-      simply filter out the incorrect ones that fail compilation or a test bench (known as
-      <b>sampling + filtering</b>). With this strategy, we'd expect a higher number of samples
-      generated per prompt to increase the LLM's accuracy, and we'll see this later when testing the
-      model against the HumanEval & VerilogEval datasets.
+      A naïve solution to this shortcoming is to run multiple LLM generations for a single prompt
+      and simply filter out the incorrect ones that fail compilation or a test bench. This is known
+      as
+      <b>sampling + filtering</b> (S+F), and we adopted it as the baseline against which to compare
+      our later
+      <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)" target="_blank">tree-based</a>
+      approach.
     </p>
+
+    <h2>Setting up with an LLM</h2>
+    <p>
+      One of our primary constraints for the experiment was to choose a smaller code LLM that is
+      relatively cheap to run. While somewhat arbitrary, we decided to define this as any LLM that
+      could run locally on an Apple M2 Pro with 32GB unified memory and 16-core GPU as a reasonably
+      specced consumer-grade machine.
+    </p>
+    <p>
+      In selecting the specific language model to use, we looked at several popular open-source LLMs
+      ranging from 2.7B~34B parameters in size:
+      <a href="https://huggingface.co/microsoft/phi-2" target="_blank">Phi-2</a>,
+      <a href="https://huggingface.co/oobabooga/CodeBooga-34B-v0.1" target="_blank"
+        >CodeBooga-34B-v0.1</a
+      >,
+      <a href="https://huggingface.co/ise-uiuc/Magicoder-S-DS-6.7B" target="_blank"
+        >Magicoder-S-DS-6.7B</a
+      >, and
+      <a href="https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct" target="_blank"
+        >deepseek-coder-6.7b-instruct</a
+      >. Our method of appraisal was largely qualitative, running each LLM through a series of
+      prompts either via the HuggingFace
+      <a href="https://huggingface.co/docs/transformers/index" target="_blank">transformers</a>
+      library (<a href="https://github.com/rmshin/llm-mcts/blob/master/nbs/hf.ipynb" target="_blank"
+        >example notebook</a
+      >), <a href="https://lmstudio.ai/" target="_blank">LM Studio</a> chat, or
+      <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp’s</a>
+      <a
+        href="https://github.com/ggerganov/llama.cpp/tree/master/examples/main#quick-start"
+        target="_blank"
+        >CLI interface</a
+      >.
+    </p>
+    <p>
+      The CodeBooga-34B model proved too large to fit in memory unless heavily quantized to 3 bits
+      or below (due to Apple defining a
+      <a
+        href="https://developer.apple.com/documentation/metal/mtldevice/2369280-recommendedmaxworkingsetsize?language=objc"
+        target="_blank"
+        >hard limit for GPU memory usage</a
+      >
+      at roughly ~70% of total memory), which degraded the model quality beyond our acceptable
+      limit. On the other hand, with the smaller Phi-2 model we struggled to get it to follow the
+      output format instructions specified in <a href="#prompting">our prompts</a>, making it
+      difficult to automatically evaluate the model’s code output on benchmark test cases.
+    </p>
+    <p>
+      We ultimately settled on the mixed 5/6-bit
+      <a
+        href="https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-GGUF/blob/main/deepseek-coder-6.7b-instruct.Q5_K_M.gguf"
+        target="_blank"
+        >Q5_K_M</a
+      >
+      quantized version of <code class="inline-code">deepseek-coder-6.7B-instruct</code>, due to its
+      superior quality & inference speed. Running under
+      <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp</a>, the model
+      could generate an average of ~22.5 tokens/s and we integrated it via the python bindings
+      provided by
+      <a href="https://llama-cpp-python.readthedocs.io/en/latest/" target="_blank"
+        >llama-cpp-python</a
+      >.
+    </p>
+    <pre><code class="language-python">from llama_cpp import Llama
+
+model = Llama(
+    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
+    n_gpu_layers=-1, # run the full model on GPU
+    n_ctx=2048,
+    n_batch=256,
+    n_threads=10,
+    logits_all=True, # include token probabilities in output
+)</code></pre>
+
+    <h2 id="prompting">Prompting</h2>
+    <p>
+      In order to better process and extract code from the generations given by
+      <code class="inline-code">deepseek-coder-6.7B-instruct</code>, we employed
+      <a href="https://www.promptingguide.ai/techniques/fewshot" target="_blank"
+        >few-shot prompting</a
+      >
+      to ensure the model followed a structured format and proper indentation as appropriate. We
+      relied on templating from the LLM prompting library
+      <a href="https://outlines-dev.github.io/outlines/" target="_blank">outlines</a> to create the
+      final prompts.
+    </p>
+    <pre><code class="language-python">import outlines
+
+@outlines.prompt
+def few_shot_prompt(examples, question):
+    """
+    Please answer the following question following the examples.
+    Generate valid python code by indenting 4 spaces always.
+
+    {% for example in examples %}
+    Question:
+    ```
+    {{ example.prompt }}
+    ```
+    Answer:
+    ```
+    {{ example.canonical_solution }}
+    ```
+    {% endfor %}
+
+    Question:
+    ```
+    {{ question }}
+    ```
+    Answer:
+    ```
+    """</code></pre>
+
+    <h2>The HumanEval dataset</h2>
+    <p>
+      We chose to specifically test the model's Python proficiency via the
+      <a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a> dataset which,
+      though far from being a perfect measure, is an established rubric in evaluating LLM code
+      performance. HumanEval consists of 164 programming tasks in Python of varying difficulty, with
+      each task containing at least an ID, prompt, reference solution, and test to appraise model
+      output. Here is an example of what a single task in the dataset looks like:
+    </p>
+    <img class="dataset-example" src="public/humaneval.png" alt="human-eval example" />
+    <p class="caption">
+      (source
+      <a
+        href="https://www.researchgate.net/figure/Example-Problem-ID-0-from-HumanEval-dataset_fig1_363267006"
+        >ResearchGate</a
+      >)
+    </p>
+    <p>
+      The dataset also provides the
+      <code class="inline-code">evaluate_functional_correctness</code> script to calculate the
+      <a href="https://deepgram.com/learn/humaneval-llm-benchmark#the-passk-metric">pass@k</a>
+      metric for the LLM-generated code samples. <b>Pass@k</b> is a probabilistic calculation that
+      represents the likelihood that at least one of the top k-generated samples for each HumanEval
+      task passes its tests. It can be seen as the overall "pass-rate" of the LLM over the entire
+      HumanEval problem set.
+    </p>
+
+    <h2>Generating S+F baselines</h2>
+    <p>
+      With the S+F strategy, we expected a higher number of samples generated per prompt to increase
+      the LLM's accuracy. In an ideal world, we would've generated upwards of ~200 samples, but due
+      to both hardware & time constraints we limited the generations to 20 samples per task. This
+      has the downside of higher variance in the ensuing pass@k calculations, but we did not expect
+      it to be to so significant as to distort the experiment results.
+    </p>
+
+    <p>
+      Below is the code for generating the S+F baselines with
+      <a href="https://learnprompting.org/docs/basics/configuration_hyperparameters" target="_blank"
+        >hyperparameters</a
+      >:
+    </p>
+    <pre><code class="language-python">from humaneval import get_prompts_with_ids
+from human_eval.data import write_jsonl
+      
+N_SAMPLES = 20
+prompts_ids = get_prompts_with_ids()
+# prompts are already templated to include few-shot examples
+for prompt, task_id in prompts_ids:
+    samples = []
+    for _ in range(N_SAMPLES):
+        # hyperparams: top-3 sampling, 1.0 temp, 256 max tokens
+        output = model(
+            prompt=prompt, max_tokens=256, temperature=1, top_k=3, stop=["```"]
+        )
+        res = output["choices"][0]["text"]
+        item = dict(task_id=task_id, completion=res)
+        samples.append(item)
+
+    # save generated samples in jsonl out file
+    write_jsonl("few_shot_baselines_256_top_3.jsonl", samples, append=True)</code></pre>
+
+    <p>and the resulting pass@k metrics:</p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass@1</th>
+            <th>pass@5</th>
+            <th>pass@20</th>
+            <th>time for 20 samples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S+F</td>
+            <td>62.38%</td>
+            <td>84.60%</td>
+            <td>90.74%</td>
+            <td>~4h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Discussion</h4>
+    <ul>
+      <li>
+        As expected, there was an increase in the pass@k percentages going from 1 → 5 → 20 samples.
+        What was surprising however was the extent of the jump in pass-rates between even 5 and 20
+        samples.
+      </li>
+      <li>
+        This suggests that standalone LLM generation can be improved a lot by sampling many times
+        with hyperparameters that enable exploration of diverse solutions by the model (e.g. higher
+        top-k sampling, temperature, etc.).
+      </li>
+      <li>
+        With a 20-sample pass-rate &gt;90%, even a relatively small 6.7B parameter model at 5-bit
+        quantisation displays impressive performance when fine-tuned for a specific use-case (or
+        could be overfitted for benchmarks)!
+      </li>
+      <li>
+        The accuracy improvements of S+F do not come for free, however. Both compute budget &
+        processing time grow in proportion to the number of samples; 5 sample time was roughly 1/4
+        the time for 20 samples (~1h vs ~4h).
+      </li>
+    </ul>
+    <img src="public/pass-k-baseline.png" class="llm-example" />
+    <p class="caption">
+      Running the HumanEval-provided pass@k evaluation script on LLM-generated samples.
+    </p>
+
+    <h2>Code generation and tree search</h2>
     <p>
       Alternatively, code generation with LLMs may be seen as a search problem, where the goal is to
       find the correct sequence of tokens that passes some end objective such as passing a set of
@@ -163,8 +391,6 @@
       kind of strategy to significantly reduce the branching factor & resulting search space. This
       is precisely why we employ MCTS.
     </p>
-
-    <h2>MCTS with LLMs</h2>
     <p>
       The principal goal of MCTS is to identify the "winning" branches in a tree without computing
       the entire tree. It achieves this by applying a heuristic (the
@@ -178,6 +404,8 @@
     </p>
     <div id="asymmetric-cy"></div>
     <p class="caption">Example tree with uneven development of branches.</p>
+
+    <h2>Combining MCTS with LLMs</h2>
     <p>
       The way MCTS works is by repeatedly cycling through four logical stages: selection, expansion,
       evaluation (or simulation), and back-propagation.
@@ -239,153 +467,6 @@
       <b>back-propagation</b> phase that completes a single iteration of MCTS, and once finished we
       return to the top (root) of the tree to restart the cycle.
     </p>
-
-    <h2>Setting up with an LLM</h2>
-    <p>
-      One of our primary constraints for the experiment was to choose a smaller code LLM that is
-      relatively cheap to run. While somewhat arbitrary, we decided to define this as any LLM that
-      could run locally on an Apple M2 Pro with 32GB unified memory and 16-core GPU as a reasonably
-      specced consumer-grade machine.
-    </p>
-    <p>
-      In selecting the specific language model to use, we looked at several popular open-source LLMs
-      ranging from 2.7B~34B parameters in size–<a
-        href="https://huggingface.co/microsoft/phi-2"
-        target="_blank"
-        >Phi-2</a
-      >,
-      <a href="https://huggingface.co/oobabooga/CodeBooga-34B-v0.1" target="_blank"
-        >CodeBooga-34B-v0.1</a
-      >,
-      <a href="https://huggingface.co/ise-uiuc/Magicoder-S-DS-6.7B" target="_blank"
-        >Magicoder-S-DS-6.7B</a
-      >, and
-      <a href="https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct" target="_blank"
-        >deepseek-coder-6.7b-instruct</a
-      >. Our method of appraisal was largely qualitative, running each LLM through a series of
-      prompts either via the HuggingFace
-      <a href="https://huggingface.co/docs/transformers/index" target="_blank">transformers</a>
-      library (<a href="https://github.com/rmshin/llm-mcts/blob/master/nbs/hf.ipynb" target="_blank"
-        >example notebook</a
-      >), <a href="https://lmstudio.ai/" target="_blank">LM Studio</a> chat, or
-      <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp’s</a>
-      <a
-        href="https://github.com/ggerganov/llama.cpp/tree/master/examples/main#quick-start"
-        target="_blank"
-        >CLI interface</a
-      >.
-    </p>
-    <p>
-      The CodeBooga-34B model proved too large to fit in memory unless heavily quantized to 3 bits
-      or below (due to Apple defining a
-      <a
-        href="https://developer.apple.com/documentation/metal/mtldevice/2369280-recommendedmaxworkingsetsize?language=objc"
-        target="_blank"
-        >hard limit for GPU memory usage</a
-      >
-      at roughly ~70% of total memory), which degraded the model quality beyond our acceptable
-      limit. On the other hand, with the smaller Phi-2 model we struggled to get it to follow the
-      output format instructions specified in our prompts, making it difficult to automatically
-      evaluate the model’s code output on benchmark test cases.
-    </p>
-    <p>
-      We ultimately settled on the mixed 5/6-bit
-      <a
-        href="https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-GGUF/blob/main/deepseek-coder-6.7b-instruct.Q5_K_M.gguf"
-        target="_blank"
-        >Q5_K_M</a
-      >
-      quantized version of <code class="inline-code">deepseek-coder-6.7B-instruct</code>, due to its
-      superior quality & inference speed. Running under
-      <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp</a>, the model
-      could generate an average of ~22.5 tokens/s and we integrated it via the python bindings
-      provided by
-      <a href="https://llama-cpp-python.readthedocs.io/en/latest/" target="_blank"
-        >llama-cpp-python</a
-      >.
-    </p>
-    <pre><code class="language-python">from llama_cpp import Llama
-
-model = Llama(
-    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
-    n_gpu_layers=-1, # run the full model on GPU
-    n_ctx=2048,
-    n_batch=256,
-    n_threads=10,
-    logits_all=True, # include token probabilities in output
-)</code></pre>
-
-    <h2>Prompting</h2>
-    <p>We use templating from the outlines library, a upcoming popular library for LLM tooling.</p>
-    <pre><code class="language-python">import outlines
-
-@outlines.prompt
-def few_shot_prompt(examples, question):
-    """
-    Please answer the following question following the examples.
-    Generate valid python code by indenting 4 spaces always.
-
-    {% for example in examples %}
-    Question:
-    ```
-    {{ example.prompt }}
-    ```
-    Answer:
-    ```
-    {{ example.canonical_solution }}
-    ```
-    {% endfor %}
-
-    Question:
-    ```
-    {{ question }}
-    ```
-    Answer:
-    ```
-    """</code></pre>
-    <p>Here is the 2-shot prompt for HumanEval-113 templated using outlines. TODO</p>
-
-    <h2>Exploring the HumanEval & VerilogEval datasets</h2>
-    <p>
-      We use HumanEval to test for python proficiency, and VerilogEval for verilog proficiency. Here
-      are some instances of the datasets.
-    </p>
-    <img class="dataset-example" src="public/humaneval.png" alt="human-eval example" />
-    <p class="caption">
-      (source
-      <a
-        href="https://www.researchgate.net/figure/Example-Problem-ID-0-from-HumanEval-dataset_fig1_363267006"
-        >ResearchGate</a
-      >)
-    </p>
-    <img class="dataset-example" src="public/verilogeval.png" alt="verlilog-eval example" />
-    <p class="caption">
-      (source
-      <a href="https://arxiv.org/abs/2309.07544">VerilogEval</a>)
-    </p>
-
-    <h2>Generating S+F baselines</h2>
-    <p>
-      The baseline for code generation is naive few shot sampling. We call this S+F. Here is the
-      code for naive sampling using llama-cpp-python.
-    </p>
-    <pre><code class="language-python">from humaneval import get_prompts_with_ids
-from human_eval.data import write_jsonl
-      
-N_SAMPLES = 20
-prompts_ids = get_prompts_with_ids()
-for prompt, task_id in prompts_ids:
-    samples = []
-    for _ in range(N_SAMPLES):
-        output = model(
-            prompt=prompt, max_tokens=1024, temperature=1, top_k=50, stop=["```"]
-        )
-        res = output["choices"][0]["text"]
-        item = dict(task_id=task_id, completion=res)
-        samples.append(item)
-
-    # save generated samples in jsonl out file
-    write_jsonl("baselines.jsonl", samples, append=True)</code></pre>
 
     <h2>Coding the MCTS algorithm</h2>
     <p>
@@ -509,8 +590,8 @@ def get_top_k_tokens(curr_node, k=3):
     <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
     <label id="time-step-rollout-label" for="time-step-rollout">Time step:</label>
     <div id="rollout-cy"></div>
-    <h2>Observations</h2>
-    <h3>Sampling vs MCTS for HumanEval</h3>
+
+    <h2>Beating the baseline on HumanEval</h2>
     <p>With hyper parameters: 2048 context size, top-3 sampling, 1.0 temp, 256 max tokens</p>
     <div class="table-wrapper">
       <table>
@@ -590,10 +671,15 @@ def get_top_k_tokens(curr_node, k=3):
         metrics like pass@k from some finite samples.
       </li>
     </ol>
-    <h2>Extending the experiment for VerilogEval</h2>
+    <h2>Extending the experiment to VerilogEval</h2>
     <p>
       What happens when dealing with problems that the LLM is not well trained on? How effective is
       MCTS at improving LLM code quality?
+    </p>
+    <img class="dataset-example" src="public/verilogeval.png" alt="verlilog-eval example" />
+    <p class="caption">
+      (source
+      <a href="https://arxiv.org/abs/2309.07544">VerilogEval</a>)
     </p>
     <p>With hyper parameters: 4096 context size, top-50 sampling, 1.0 temp, 1024 max tokens</p>
     <div class="table-wrapper">

@@ -15,10 +15,7 @@ body {
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
   font-family: 'Lora', serif;
   font-optical-sizing: auto;
   font-style: normal;
@@ -51,6 +48,17 @@ sup {
   vertical-align: super;
 }
 
+ul,
+ol {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+li {
+  line-height: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
@@ -81,7 +89,7 @@ th {
 }
 
 .llm-example {
-  width: 100%;
+  width: calc(100% - 1rem);
   padding: 0.5rem;
   background-color: #1e1e1e;
 }
@@ -90,7 +98,6 @@ th {
 }
 .mcts-steps {
   width: 100%;
-  padding: 0.5rem;
 }
 .p-ucb {
   width: 80%;
