@@ -292,7 +292,7 @@ for prompt, task_id in prompts_ids:
     write_jsonl("few_shot_baselines_256_top_3.jsonl", samples, append=True)</code></pre>
 
     <p>and the resulting pass@k metrics:</p>
-    <div class="table-wrapper">
+    <div id="s+f-results-table" class="table-wrapper">
       <table>
         <thead>
           <tr>
@@ -322,14 +322,14 @@ for prompt, task_id in prompts_ids:
         samples.
       </li>
       <li>
-        This suggests that standalone LLM generation can be improved a lot by sampling many times
-        with hyperparameters that enable exploration of diverse solutions by the model (e.g. higher
-        top-k sampling, temperature, etc.).
+        This suggests that standalone LLM generation can be improved a lot by sampling the model
+        many times with hyperparameters that encourage diverse exploration (e.g. higher top-k
+        sampling, temperature, etc.).
       </li>
       <li>
-        With a 20-sample pass-rate &gt;90%, even a relatively small 6.7B parameter model at 5-bit
-        quantisation displays impressive performance when fine-tuned for a specific use-case (or
-        could be overfitted for benchmarks)!
+        With a &gt;90% pass-rate at 20 samples, even a relatively small 6.7B parameter model at
+        5-bit quantisation displays impressive performance when fine-tuned for specific domains (or
+        else it's overfitted for benchmarks)!
       </li>
       <li>
         The accuracy improvements of S+F do not come for free, however. Both compute budget &
@@ -344,13 +344,16 @@ for prompt, task_id in prompts_ids:
 
     <h2>Code generation and tree search</h2>
     <p>
-      Alternatively, code generation with LLMs may be seen as a search problem, where the goal is to
-      find the correct sequence of tokens that passes some end objective such as passing a set of
-      test cases. In this approach, the task can be modelled using a
+      Having established the baseline with S+F, we turned to an alternative approach treating LLM
+      code generation as a search problem instead. Here the goal is to find the correct sequence of
+      tokens that passes the tests defined for each HumanEval task.
+    </p>
+    <p>
+      We start by modelling the problem using a
       <a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a>. Given
-      a starting prompt (the <b>root</b>), we map out all the possible next tokens from that point
-      (<b>branches</b> or <b>children</b>), and then recursively expand each of the child branches
-      in the same manner until the desired level (the tree <b>depth</b>) is reached.
+      the initial prompt description (the <b>root</b>), we recursively map out all the possible next
+      tokens that could follow (<b>branches</b> or <b>children</b>) until a specified maximum
+      <b>depth</b> is reached.
     </p>
     <input type="range" id="time-step-tree" name="time-step-tree" min="0" />
     <label id="time-step-tree-label" for="time-step-tree">Time step:</label>
@@ -362,10 +365,11 @@ for prompt, task_id in prompts_ids:
       outcomes. Play around with the time-step slider above to see how the tree grows as it deepens.
     </p>
     <p>
-      Finding the solution with this method is simply a matter of selecting the best option from the
-      final list of outcomes, but this is only possible when the outcome space is small. As a tree's
-      depth and <b>branching factor</b> (number of children at each node) grows, the computation
-      needed to map the full tree increases exponentially.
+      Finding the solution with this method simply requires selecting the best option from the final
+      list of outcomes, but this is only possible when the outcome space is small. Because the
+      computation needed to map a full tree increases exponentially with it's depth and
+      <b>branching factor</b> (the number of children at each node), even slight changes in these
+      values can meaningfully impact the feasibility of the search.
     </p>
     <input type="number" id="tree-branch-factor" name="tree-branch-factor" value="2" />
     <label id="branch-factor-label" for="tree-branch-factor">Branching factor</label>
@@ -373,8 +377,8 @@ for prompt, task_id in prompts_ids:
     <label id="branch-factor-depth">(depth = 5)</label>
     <div id="branching-cy"></div>
     <p class="caption">
-      Try changing the branching factor in the visualisation above to see how it affects the number
-      of total outcomes to compute.
+      Try changing the branching factor of the tree above to see how it affects the number of total
+      outcomes to compute.
     </p>
     <p>
       Though difficult to estimate, we'd expect code text generation to have a depth & branching
@@ -389,26 +393,29 @@ for prompt, task_id in prompts_ids:
     <p>
       It is thus impractical to apply decision trees to code generation without also adopting some
       kind of strategy to significantly reduce the branching factor & resulting search space. This
-      is precisely why we employ MCTS.
-    </p>
-    <p>
-      The principal goal of MCTS is to identify the "winning" branches in a tree without computing
-      the entire tree. It achieves this by applying a heuristic (the
+      is precisely the purpose of MCTS, which applies a heuristic (the
       <a
         href="https://www.geeksforgeeks.org/upper-confidence-bound-algorithm-in-reinforcement-learning/"
         target="_blank"
         >upper confidence bound</a
-      >) to balance <b>exploiting</b> known good options with <b>exploring</b> unknown, potentially
-      better options. This results in an asymmetric expansion of the tree, where only the most
-      promising subtrees are computed.
+      >) to identify the "winning" branches in a tree without computing the entire tree.
     </p>
     <div id="asymmetric-cy"></div>
-    <p class="caption">Example tree with uneven development of branches.</p>
-
-    <h2>Combining MCTS with LLMs</h2>
+    <p class="caption">Example of MCTS–note the differing depths of the various subtrees.</p>
     <p>
-      The way MCTS works is by repeatedly cycling through four logical stages: selection, expansion,
-      evaluation (or simulation), and back-propagation.
+      The result is an asymmetric expansion of the tree, where only a small subset of all
+      possibilities are computed, balancing
+      <b>exploitation</b> of known good options with <b>exploration</b> of unknown, potentially
+      better options. This makes it possible to effectively search even very large trees within a
+      reasonable length of time.
+    </p>
+
+    <h2>Adopting MCTS with LLMs</h2>
+    <p>
+      The way MCTS works is by repeatedly cycling through four logical stages: <b>selection</b>,
+      <b>expansion</b>, <b>evaluation</b> (or simulation), and <b>back-propagation</b>. But unlike
+      in traditional MCTS, we rely on the probabilities/predictions of an LLM to complete each of
+      these steps.
     </p>
     <img loading="lazy" src="public/mcts-steps.svg" alt="mcts steps" class="mcts-steps" />
     <p class="caption">
@@ -421,13 +428,12 @@ for prompt, task_id in prompts_ids:
     </p>
     <p>
       In the <b>selection</b> phase, the MCTS algorithm makes a decision on which node or branch it
-      should explore next via the algorithm's <b>rollout policy</b>. This is a function that assigns
-      a kind of "priority" to each node, with greater weight given to nodes that are either higher
-      in value or have fewer visits. For our case of LLM code generation, the exact rollout policy
-      is calculated by the following:
+      should explore next by assigning a kind of "priority" to each node. Greater weight is
+      typically given to nodes that are either higher in value or have fewer visits. For our case of
+      LLM code generation, the exact calculation of this priority is given by:
     </p>
     <img loading="lazy" src="public/p-ucb.png" alt="p-ucb function" class="p-ucb" />
-    <p>and the final node selection:</p>
+    <p>and the node with the highest priority is selected:</p>
     <img loading="lazy" src="public/p-ucb-select.png" alt="p-ucb selection" class="p-ucb-select" />
     <p>
       It is not necessary to understand the above in detail. What's more important is to realise
@@ -445,39 +451,42 @@ for prompt, task_id in prompts_ids:
       by an LLM.
     </p>
     <p>
-      Following expansion comes the <b>evaluation</b> step. It is here that the value of the node is
+      Then following expansion comes <b>evaluation</b>. It is here that the value of the node is
       determined via the <b>reward</b> or <b>value function</b>–a quantitative measure to rank
       nodes, such that choosing higher value nodes would yield better end outcomes. But each node in
       the tree represents an incomplete intermediate state that is often difficult to evaluate
-      directly. Thus we instead evalute a chosen node's eventual end outcome by
+      directly. Thus we instead evalute a chosen node's "expected" end outcome by
       <b>simulating</b> the remaining branch expansions.
     </p>
     <p>
       We achieve this simulation by having an LLM complete the remaining sequence (program) from the
       node's partial state. This completed program is then evaluated against a bench of tests from
-      the HumanEval (or VerilogEval) datasets, to obtain a pass rate between 0 - 1 that is assigned
-      as the node's value. In this manner, code that passes more tests are explored further in
-      future iterations through the tree.
+      the HumanEval dataset, to obtain a pass rate between 0 - 1 as the node's value. Code that
+      passes more tests end up with higher values, and consequently are explored more in future
+      iterations through the tree.
     </p>
     <p>
       But due to the nested nature of search trees, any high-value nodes discovered deep in the
       hierarchy might not be reached again in successive searches (e.g. if the previous parent
-      branches have low values). To ensure that this information isn't "lost", a node's reward value
-      is propagated to all it's parents up to the tree's root. This is the final
+      branches are never chosen). To ensure that this doesn't happen, a node's reward value is
+      propagated to all it's parents up to the tree's root. This is the final
       <b>back-propagation</b> phase that completes a single iteration of MCTS, and once finished we
       return to the top (root) of the tree to restart the cycle.
     </p>
 
     <h2>Coding the MCTS algorithm</h2>
     <p>
-      We use a simple Node class to represent the nodes of decision tree, which has attributes liek
-      state, parent, children, visits, and rewards and p_ucb metric.
+      We use a simple <code class="inline-code">Node</code> class to represent the nodes of the
+      Monte-Carlo tree. Remember that a node is equivalent to a branch, and it represents a possible
+      token (character) that could come next in the sequence of generated text. Each node carries
+      its own values for generation state, number of visits, node value, LLM token probability, and
+      children.
     </p>
     <pre><code class="language-python">class Node:
     def __init__(self, prob, state, parent):
-        self.value = 0  # total reward obtainable from node
-        self.prob = prob  # necessary for P-UCB calculation
-        self.state = state  # full generated text
+        self.value = 0  # max reward obtainable from node
+        self.prob = prob  # input for the P-UCB calculation
+        self.state = state  # full generated text sequence up til node
         self._children = []
         self._parent = parent
         self.visits = 0
@@ -488,43 +497,52 @@ for prompt, task_id in prompts_ids:
             self.value = value
             if self._parent is not None:
                 self._parent.backprop(value)</code></pre>
-    <p class="caption">
-      Remember that a node is equivalent to a branch in the Monte-Carlo tree, and it represents a
-      possible token (character) that could come next in the sequence of generated text.
+    <p>
+      For each HumanEval task, the tree is expanded and evaluated for a fixed number of iterations
+      (called <b>rollouts</b>). In each rollout we perform selection, expansion, evaluation and
+      back-propagation, and at the end of all iterations return the best found solution.
     </p>
     <pre><code class="language-python">max_rollouts = 128 # max number of iterations through tree
 top_k = 3 # number of child tokens (branches) to generate per node
 for prompt, task_id in prompts:
     # cache of generated programs => rewards
     program_dict = {}
-    root = Node(prob=1, state=prompt, parent=None)</code></pre>
-    <p>
-      The tree is expanded and evaluated for a fixed number of iterations called rollout. In each
-      rollout, we peform selection, expansion, evaluation and backprop. At the end, we return the
-      best node.
-    </p>
-    <pre><code class="language-python">    for i in range(max_rollouts):
-        curr_node = root
+    # initialise tree with HumanEval prompt
+    root = Node(prob=1, state=prompt, parent=None)
+
+    for i in range(max_rollouts):
+        curr_node = root # always start new iteration from root
         curr_node.visits += 1</code></pre>
-    <p>According to a P-UCB metric, we select the best leaf child of the current node to expand.</p>
+    <p>
+      We start by continuously selecting the best nodes in the tree according to the P-UCB metric
+      explained earlier, until we arrive at a leaf node that has not yet been expanded & evaluated.
+    </p>
     <pre><code class="language-python">        # selection
         while len(curr_node._children) > 0:
             curr_node = p_ucb_select(curr_node._children)
             curr_node.visits += 1</code></pre>
-    <p>We then expand the selected node by generating top-k tokens and creating child nodes.</p>
+    <p>
+      Once we've landed on the candidate leaf node, we expand it by generating top-k tokens from the
+      LLM and creating child nodes. Note that we apply the
+      <code class="inline-code">exp()</code> function to exponentiate the probability values as the
+      LLM returns log-probabilities.
+    </p>
     <pre><code class="language-python">        # expansion
-        tokens = get_top_k_tokens(curr_node, top_k)
+        tokens = get_top_k_tokens(curr_node, top_k) # top_k = 3
         child_nodes = [
-            Node(prob, state=(curr_node.state + token), parent=curr_node)
-            for (token, prob) in tokens
+            Node(exp(logprob), state=(curr_node.state + token), parent=curr_node)
+            for (token, logprob) in tokens
         ]
         curr_node._children = child_nodes</code></pre>
     <p>
-      We then evaluate the child nodes, by generating a program from the current state. This is
-      usually done using a greedy search, but can easily be replaced with a beam search or other
-      search algorithms. We believe that Code Gen should be done using a greedy search as opposed to
-      sampling but it should be tested. The generated programs are evaluated by running tests on
-      them. Look below for the calculate_reward function.
+      We then evaluate the selected node by generating a program from its current state. This is
+      done using a greedy search, but can easily be replaced with a beam search or similar algorithm
+      (we believe that code generation should be simulated using deterministic search as opposed to
+      non-deterministic sampling, but this should be tested).
+    </p>
+    <p>
+      The generated program is evaluated against the respective tests from HumanEval to obtain the
+      nodes value.
     </p>
     <pre><code class="language-python">        # evaluation
         reward = match_cached_programs(curr_node.state, program_dict)
@@ -533,11 +551,13 @@ for prompt, task_id in prompts:
             generated_program = llm_generate(curr_node.state)
             # run generated program against HumanEval test cases
             reward = calculate_reward(prompt, generated_program)
+            # cache generated program and its corresponding pass-rate
             program_dict[generated_program] = reward
           </code></pre>
     <p>
-      Finally we backprop the reward up the tree to all the nodes upto the root. We stop when a
-      reward of 1 is found, as there is no more exploration to do.
+      Finally we back-propagate the reward up the tree to all its parents (including the root). We
+      stop when a reward of 1.0 is found, as this represents a fully correct solution and thus there
+      is no more exploration to do.
     </p>
     <pre><code class="language-python">    # backprop reward up the tree
     curr_node.backprop(reward)
@@ -546,7 +566,7 @@ for prompt, task_id in prompts:
     if reward == 1:
         break</code></pre>
 
-    <h4>Node selection:</h4>
+    <h4>P-UCB selection:</h4>
     <pre><code class="language-python">def p_ucb_select(parent_node, child_nodes):
     s_visits = parent_node.visits
     # scalar constant term
@@ -564,7 +584,7 @@ for prompt, task_id in prompts:
             max_node = node
             max_p_ucb = p_ucb
     return max_node # return max(P-UCB) node</code></pre>
-    <h4>Rollout policy:</h4>
+    <h4>Node expansion:</h4>
     <pre><code class="language-python"># fetch the top 3 highest probability token candidates from the LLM
 def get_top_k_tokens(curr_node, k=3):
     output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
@@ -583,47 +603,53 @@ def get_top_k_tokens(curr_node, k=3):
 
     <h2>Visualizing the MCTS Tree</h2>
     <p>
-      Here we visulize searching for a solution to HumanEval-113 using MCTS. The tree is visualized
-      at each time step, and the nodes are colored red if they are selected for expansion. Finally
-      on rollout no. x, we find a solution.
+      Below is the tree graph for HumanEval-113 using MCTS. Each time step represents a single
+      iteration (rollout) of the MCTS algorithm, with the nodes selected at each iteration colored
+      in red. For this particular problem, the final solution is found on the 13th rollout.
     </p>
     <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
     <label id="time-step-rollout-label" for="time-step-rollout">Time step:</label>
     <div id="rollout-cy"></div>
 
     <h2>Beating the baseline on HumanEval</h2>
-    <p>With hyper parameters: 2048 context size, top-3 sampling, 1.0 temp, 256 max tokens</p>
+    <p>
+      If we recall from <a href="#s+f-results-table">above</a>, the following metrics were achieved
+      for S+F with 2048 context size, top-3 sampling, 1.0 temperature, and 256 max tokens:
+    </p>
     <div class="table-wrapper">
       <table>
         <thead>
           <tr>
             <th></th>
+            <th>pass@1</th>
             <th>pass@5</th>
             <th>pass@20</th>
-            <th>time for 5 samples</th>
             <th>time for 20 samples</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>S + F</td>
+            <td>S+F</td>
+            <td>62.38%</td>
             <td>84.60%</td>
             <td>90.74%</td>
-            <td>~1h</td>
             <td>~4h</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p>For MCTS with 128 max rollouts, 2048 context, top-3 probs, 1.0 temp, 256 max tokens</p>
+    <p>
+      Below are the results for MCTS with 128 max rollouts, 2048 context, top-3 probabilities, 1.0
+      temperature, and 256 max tokens:
+    </p>
     <div class="table-wrapper">
       <table>
         <thead>
           <tr>
             <th></th>
             <th>pass rate</th>
-            <th>avg unique generations</th>
-            <th>avg rollouts</th>
+            <th>avg. unique generations</th>
+            <th>avg. rollouts</th>
             <th>time</th>
           </tr>
         </thead>
@@ -642,37 +668,46 @@ def get_top_k_tokens(curr_node, k=3):
     <h4>Discussions</h4>
     <ul>
       <li>
-        <b>pass@k:</b> Big jump in pass rate from 5 → 20 samples suggest basic LLM generation can be
-        improved by simply tuning generation parameters (e.g. top-k sampling, temperature, higher
-        max tokens, etc.), and exploring many diverse solutions.
+        MCTS achieves better benchmark performance than the 20-sample S+F baseline, despite
+        generating an average of less than 4 unique samples per problem (i.e. &lt;1/5 transformer
+        compute<sup><a href="#callout-1">[1]</a></sup
+        >).
       </li>
       <li>
-        Small fine-tuned models of around 6.7b params and 5-bit quantisation still display
-        impressive performance (or could be overfitted for benchmarks)!
+        It's average total sample count per problem is also lower than S+F (~15 avg. rollouts vs 20
+        samples) while running ~2x faster. This is largely possible because MCTS only explores the
+        most promising options and stops as soon as it's found a complete solution<sup
+          ><a href="#callout-2">[2]</a></sup
+        >.
       </li>
       <li>
-        MCTS achieves better benchmark performance than 20-sample baseline with an average of less
-        than 4 samples per problem (i.e. &lt;1/5 transformer compute<sup>
-          <a href="#callout">[1]</a></sup
-        >). The compute is saved because of caching of previously generated programs, rewards and
-        token probabilities.
+        The speed-up for MCTS occurs despite the additional processing overhead of running tests for
+        each generated solution (avg. test time per unique solution was 3.82s).
       </li>
       <li>
-        MCTS has explored almost 15.46 solutions (avg rollouts) per problem about 2x faster, to
-        achieve a higher accuracy than S+F 20. It is to be noted, that generations in MCTS undergo
-        tests which will lead to overhead.
+        Unlike S+F, running MCTS multiple times will produce the exact same solutions and results.
+        This is because node selection, expansion and simulation/evaluation are all deterministic
+        processes as opposed to the non-deterministic sampling of S+F.
       </li>
     </ul>
 
-    <ol id="callout" class="caption">
-      <li>
-        One may suggest measuring the avg roll outs until sucess in S+F, but because of the
-        probablistic nature, which cannot guarantee replication, we rather report the expected
-        metrics like pass@k from some finite samples.
+    <ol class="caption">
+      <li id="callout-1">
+        Technically, the avg. rollouts rather than no. of unique generations should be used to
+        compare against the number of samples generated per problem. But in practice, many rollouts
+        explore the same solution and thus much of the compute can be saved via caching of
+        previously generated programs, reward calculations and token probabilities.
+      </li>
+      <li id="callout-2">
+        One may suggest that we could also stop generation in S+F as soon as a correct solution is
+        found. But due to the probablistic nature of sampling, which cannot guarantee replication
+        across successive generations, we need to collect the full set of samples for every problem
+        in order to properly estimate the pass@k metrics for various values of k.
       </li>
     </ol>
     <h2>Extending the experiment to VerilogEval</h2>
     <p>
+      Using MCTS on the HumanEval dataset proved quite successful, outperforming the S+F baseline
       What happens when dealing with problems that the LLM is not well trained on? How effective is
       MCTS at improving LLM code quality?
     </p>
