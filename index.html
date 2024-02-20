@@ -249,10 +249,12 @@ def few_shot_prompt(examples, question):
     <p>
       The dataset also provides the
       <code class="inline-code">evaluate_functional_correctness</code> script to calculate the
-      <a href="https://deepgram.com/learn/humaneval-llm-benchmark#the-passk-metric">pass@k</a>
+      <a href="https://deepgram.com/learn/humaneval-llm-benchmark#the-passk-metric" target="_blank"
+        >pass@k</a
+      >
       metric for the LLM-generated code samples. <b>Pass@k</b> is a probabilistic calculation that
       represents the likelihood that at least one of the top k-generated samples for each HumanEval
-      task passes its tests. It can be seen as the overall "pass-rate" of the LLM over the entire
+      task passes its tests. It can be seen as the overall "pass rate" of the LLM over the entire
       HumanEval problem set.
     </p>
 
@@ -318,7 +320,7 @@ for prompt, task_id in prompts_ids:
     <ul>
       <li>
         As expected, there was an increase in the pass@k percentages going from 1 → 5 → 20 samples.
-        What was surprising however was the extent of the jump in pass-rates between even 5 and 20
+        What was surprising however was the extent of the jump in pass rates between even 5 and 20
         samples.
       </li>
       <li>
@@ -327,7 +329,7 @@ for prompt, task_id in prompts_ids:
         sampling, temperature, etc.).
       </li>
       <li>
-        With a &gt;90% pass-rate at 20 samples, even a relatively small 6.7B parameter model at
+        With a &gt;90% pass rate at 20 samples, even a relatively small 6.7B parameter model at
         5-bit quantisation displays impressive performance when fine-tuned for specific domains (or
         else it's overfitted for benchmarks)!
       </li>
@@ -551,7 +553,7 @@ for prompt, task_id in prompts:
             generated_program = llm_generate(curr_node.state)
             # run generated program against HumanEval test cases
             reward = calculate_reward(prompt, generated_program)
-            # cache generated program and its corresponding pass-rate
+            # cache generated program and its corresponding pass rate
             program_dict[generated_program] = reward
           </code></pre>
     <p>
@@ -599,13 +601,13 @@ def get_top_k_tokens(curr_node, k=3):
         res = check_correctness(test, completion, timeout)
         results.append(res["passed"])
 
-    return sum(results) / len(results) # set test pass-rate as reward</code></pre>
+    return sum(results) / len(results) # set test pass rate as reward</code></pre>
 
     <h2>Visualizing the MCTS Tree</h2>
     <p>
       Below is the tree graph for HumanEval-113 using MCTS. Each time step represents a single
       iteration (rollout) of the MCTS algorithm, with the nodes selected at each iteration colored
-      in red. For this particular problem, the final solution is found on the 13th rollout.
+      in red. For this particular problem, the final solution was found on the 13th rollout.
     </p>
     <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
     <label id="time-step-rollout-label" for="time-step-rollout">Time step:</label>
@@ -671,10 +673,11 @@ def get_top_k_tokens(curr_node, k=3):
         MCTS achieves better benchmark performance than the 20-sample S+F baseline, despite
         generating an average of less than 4 unique samples per problem (i.e. &lt;1/5 transformer
         compute<sup><a href="#callout-1">[1]</a></sup
-        >).
+        >). Comparing against S+F with a more similar compute budget (e.g. pass@5) shows a much
+        larger improvement in accuracy (84.60% vs 92.59%).
       </li>
       <li>
-        It's average total sample count per problem is also lower than S+F (~15 avg. rollouts vs 20
+        MCTS' average total sample count per problem is also lower than S+F (~15 avg. rollouts vs 20
         samples) while running ~2x faster. This is largely possible because MCTS only explores the
         most promising options and stops as soon as it's found a complete solution<sup
           ><a href="#callout-2">[2]</a></sup
@@ -707,23 +710,43 @@ def get_top_k_tokens(curr_node, k=3):
     </ol>
     <h2>Extending the experiment to VerilogEval</h2>
     <p>
-      Using MCTS on the HumanEval dataset proved quite successful, outperforming the S+F baseline
-      What happens when dealing with problems that the LLM is not well trained on? How effective is
-      MCTS at improving LLM code quality?
+      Using MCTS on the HumanEval dataset proved quite successful, outperforming the ~equivalent S+F
+      5-sample baseline by a decent margin and even the 20-sample baseline at much less compute
+      cost. But due to the raw strength of
+      <code class="inline-code">deepseek-coder-6.7B-instruct</code> in HumanEval and Python,
+      applying MCTS didn't show a significant improvement in <em>absolute</em> quality vs. the top
+      S+F results.
+    </p>
+    <p>
+      We thus wanted to know what would happen when dealing with problems that the LLM wasn't well
+      trained on, and how effective MCTS could be at improving the model's code quality compared to
+      standalone S+F. To this end we adapted our experiment to test on the
+      <a href="https://github.com/NVlabs/verilog-eval" target="_blank">VerilogEval</a> dataset,
+      which follows a very similar format as HumanEval but for testing proficiency in the
+      lesser-known
+      <a href="https://en.wikipedia.org/wiki/Verilog" target="_blank">Verilog language</a> as
+      opposed to Python.
     </p>
     <img class="dataset-example" src="public/verilogeval.png" alt="verlilog-eval example" />
     <p class="caption">
-      (source
-      <a href="https://arxiv.org/abs/2309.07544">VerilogEval</a>)
+      A typical task within VerilogEval (source
+      <a href="https://arxiv.org/abs/2309.07544">VerilogEval</a>). Tests are also present within the
+      dataset but aren't shown in the diagram above.
     </p>
-    <p>With hyper parameters: 4096 context size, top-50 sampling, 1.0 temp, 1024 max tokens</p>
+    <p>
+      Because we expected the deepseek LLM to be less capable in Verilog, we needed to adjust a few
+      generation parameters before running both S+F and MCTS. We increased the context length & max
+      number of generated tokens to account for the greater verbosity of Verilog code, and also
+      upped the top-k sampling from 3 to 50 to encourage more diverse model outputs.
+    </p>
+    <p>S+F with 4096 context size, top-50 sampling, 1.0 temperature, and 1024 max tokens:</p>
     <div class="table-wrapper">
       <table>
         <thead>
           <tr>
             <th></th>
+            <th>pass@1</th>
             <th>pass@5</th>
-            <th>pass@10</th>
             <th>pass@20</th>
             <th>time for 20 samples</th>
           </tr>
@@ -731,8 +754,8 @@ def get_top_k_tokens(curr_node, k=3):
         <tbody>
           <tr>
             <td>S + F</td>
+            <td>29.71%</td>
             <td>42.58%</td>
-            <td>47.33%</td>
             <td>51.30%</td>
             <td>~7h</td>
           </tr>
@@ -740,8 +763,8 @@ def get_top_k_tokens(curr_node, k=3):
       </table>
     </div>
     <p>
-      For MCTS, with hyperparameters: 128 max rollouts, 4096 context, top-5 probs, 1.0 temp, 1024
-      max tokens
+      MCTS with 128 max rollouts, 4096 context, top-5 probabilities, 1.0 temperature, 1024 max
+      tokens:
     </p>
     <div class="table-wrapper">
       <table>
@@ -749,8 +772,8 @@ def get_top_k_tokens(curr_node, k=3):
           <tr>
             <th></th>
             <th>pass rate</th>
-            <th>avg unique generations</th>
-            <th>avg rollouts</th>
+            <th>avg. unique generations</th>
+            <th>avg. rollouts</th>
             <th>time</th>
           </tr>
         </thead>
@@ -768,79 +791,95 @@ def get_top_k_tokens(curr_node, k=3):
     <h4>Discussion</h4>
     <ul>
       <li>
-        We had to increase the context length & max number of generated tokens to account for
-        greater verbosity of verilog code.
+        As expected, the much lower pass rates across the board for both S+F & MCTS proved that the
+        deepseek LLM was not as capable in Verilog.
       </li>
       <li>
-        As this deepseek model is not trained on verilog data, MCTS required significantly more
-        exploration (greater rollouts) despite achieving lower quality/pass-rate than compared to
-        its performance on HumanEval.
+        MCTS required noticably more exploration (~5x greater avg. rollouts & unique generations)
+        despite achieving poorer quality/pass rates than compared to its performance on HumanEval.
       </li>
       <li>
-        S+F fared better than MCTS with a 10 and 20-sample baseline and was more time efficient than
-        MCTS. The mean test time for verilog was 0.71s when compared to python which was 3.82s,
-        highlighting the fact that test time did not account for much.
+        S+F fared better than MCTS with a 20-sample baseline and was both more time efficient and
+        accurate than MCTS. The mean test time for Verilog code was 0.71s (as opposed to 3.82s for
+        Python), highlighting that this time testing overhead did not account much for the observed
+        slow-down in MCTS.
       </li>
       <li>
-        MCTS is probably failing to explore solutions even in a structured manner because the
-        transfomer’s token probabilities are badly calibrated and less reliable. This is just due
-        tot the fact that it has not seen enough verilog data. However, it has probably learnt good
-        programming principles to solve at least 45%.
+        We suspect MCTS failed to achieve good solutions due to it's dependence on the quality of
+        the transfomer’s token probabilities for node selection & expansion. In this instance the
+        probabilities were badly calibrated and less reliable (a natural consequence of the LLM not
+        having seen enough Verilog data during training), leading to poorer judgment by MCTS of what
+        the most promising options in the search space were.
       </li>
       <li>
-        S+F introduces more randomness/variability in generation and therefore explores wider and
-        fares better (as it samples from top-50 token probabilities).
+        S+F was able to capitalise better on the increased randomness/variability in generation
+        (sampling from top-50 token probabilities), and therefore explored a wider range of
+        solutions that ended up faring better.
       </li>
     </ul>
 
-    <h4>How to make MCTS better?</h4>
+    <h2 id="discussion">What have we learned?</h2>
+
+    <p>
+      Our results from comparing S+F performance against MCTS in both the HumanEval and VerilogEval
+      datasets show that, when dealing with domains where an LLM is relatively proficient (e.g.
+      Python), combining the LLM's predictive capabilities with a specialised algorithm such as MCTS
+      does indeed produce higher quality results with significantly less compute.
+    </p>
+    <p>
+      The story changes however as we transition to areas where the LLM is much weaker (e.g.
+      Verilog). In this scenario, MCTS doesn't do well due to its reliance on the LLM’s (usually
+      incorrect) token probabilities to determine the next branches to explore. On the other hand,
+      S+F enables a more consistent boost in LLM performance despite being the simpler approach.
+    </p>
+    <p>
+      It's worth noting that for Verilog code generation, the overall pass rate still remained low
+      irrespective of the approach. This highlights the importance of fine-tuning language models
+      for specific tasks as one of the most effective means to improve accuracy. Even the reasonably
+      small
+      <code class="inline-code">deepseek-coder-6.7b-instruct</code> model showed impressive quality
+      and speed, despite running on a single consumer machine at 5-bit quantisation.
+    </p>
+
+    <h2>Future considerations</h2>
+    <p>
+      Although MCTS' good performance on HumanEval didn't carry through to the VerilogEval dataset,
+      we believe there is opportunity to make it more robust to fluctuations in the underlying LLM
+      ability by tweaking its reward function & selection/expansion policies:
+    </p>
     <ol>
       <li>
-        <b>Reward:</b> A better heuristic to determine the validity of a partial program, could
-        guide the search better.
+        <b>Reward:</b> Picking a better heuristic to judge the validity of a partial program would
+        guide the search more effectively. For example, rather than relying solely on tests to
+        assign reward values, we could apply negative values for nodes that fail compilation, or
+        that represent tokens outside a pre-specified set of acceptable grammar.
       </li>
       <li>
-        <b>Policy:</b> As the transformer for verilog code gen was mis-calibrated, we can lower the
-        weight given to the transformer probability for it to instead explore more solutions.
+        <b>Selection:</b> As the model's token probabilities become more miscalibrated the harder
+        the domain, we can lower the weight given to the transformer probability during node
+        selection.
+      </li>
+      <li>
+        <b>Expansion:</b> Similar to selection, unreliable token probabilities can lead MCTS to
+        expand potentially unproductive branches. One simple improvement would be to expand a larger
+        number of nodes at each iteration (e.g. top-50 instead of top-3), but this doesn't always
+        lead to better exploration if only a small number of nodes have outsized likelihoods
+        relative to the rest. It might instead be worth trying to sample from rather than directly
+        choose the top-k probability nodes, even if it breaks the deterministic guarantee of MCTS.
       </li>
     </ol>
-    <h2 id="discussion">Recap: what have we learned?</h2>
+
     <p>
-      The biggest takeaway from our experiments is that using LLMs with MCTS to generate code is,
-      despite some positive results, unlikely to generalise well to a broader range of programming
-      tasks and languages without significant rethinking.
-    </p>
-    <p>
-      While combining the LLM's predictive capabilities with a specialised algorithm such as MCTS
-      did indeed produce better results in the HumanEval benchmarks than standalone LLM generation,
-      this was largely due to our chosen fine-tuned model
-      <code class="inline-code">deepseek-coder-6.7B-instruct</code> already having strong baseline
-      performance in the Python programming language.
-    </p>
-    <p>
-      Once we transitioned to the VerilogEval benchmarks where the LLM was much weaker, MCTS didn't
-      do so well due to its reliance on the LLM’s (usually incorrect) token probabilities to
-      determine the next child branches to explore. Direct sampling + filtering of the LLM
-      generations performed better in this scenario, particularly as we increased the number of
-      samples per problem, but the overall pass rates still remained low for both approaches.
-    </p>
-    <p>
-      This highlights the relative effectiveness of a simple approach such as sampling + filtering
-      in boosting LLM performance (albeit at the cost of higher compute), and perhaps more
-      importantly the impressive quality obtainable by fine-tuning smaller language models for
-      specific tasks such as code generation.
-    </p>
-    <p>
-      But we are nevertheless cautiously optimistic about the general approach of interweaving LLM
-      capabilities with traditional/alternative algorithms (or even other LLMs) for greater
-      robustness & accuracy. Recent research in
+      On a final note, going beyond pure MCTS we are cautiously optimistic about the general
+      approach of interweaving LLM capabilities with traditional/alternative algorithms (or even
+      other LLMs) to achieve greater robustness & accuracy. Recent research in
       <a
         href="https://deepmind.google/discover/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/"
         target="_blank"
         >using LLMs with evolutionary algorithms</a
       >, <a href="https://arxiv.org/abs/2401.10020" target="_blank">self-rewarding LLMs</a>, and
       other <a href="https://arxiv.org/abs/2401.08500" target="_blank">systemic strategies</a> show
-      promise in this direction, and we expect to develop on both our experiment & these ideas for
+      promise in this direction, and we expect to continue developing both MCTS & these ideas for
       future enquiry.
     </p>
   </body>
