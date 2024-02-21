@@ -1,8 +1,6 @@
 # llm-mcts
 
-This is a project to explore Monte-Carlo Tree Search (MCTS) for Code-Gen tasks. We first test our method on the Human-Eval dataset, and extend to the Verilog-Eval dataset. 
-
-This repo accompanies the blog at https://localhost:3000/web/index.html. 
+This is a project to explore Monte-Carlo Tree Search (MCTS) for Code-Gen tasks. We first test our method on the Human-Eval dataset, and extend to the Verilog-Eval dataset. For a detailed explanation of the experiments please see the accompanying blog at /web/index.html also hosted at https://localhost:3000/web/index.html. 
 
 ## Env Setup
 
