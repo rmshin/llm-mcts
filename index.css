@@ -20,20 +20,18 @@ h3 {
   font-optical-sizing: auto;
   font-style: normal;
 }
-h1,
-h2 {
-  margin-top: 3.8rem;
-  margin-bottom: 2.2rem;
-}
 h1 {
   font-size: 3rem;
   line-height: 3.2rem;
   font-weight: 800;
+  margin-top: 3.8rem;
 }
 h2 {
   font-size: 1.6rem;
   line-height: 1.8rem;
   font-weight: 600;
+  margin-top: 3.8rem;
+  margin-bottom: 2.2rem;
 }
 
 a {
@@ -57,6 +55,10 @@ ol {
 li {
   line-height: 1.4rem;
   margin-bottom: 0.4rem;
+}
+
+footer {
+  text-align: right;
 }
 
 .table-wrapper {
@@ -109,6 +111,10 @@ th {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
   margin-left: 10%;
+}
+.authors {
+  color: #939393;
+  margin: 0.5rem 0 2.2rem;
 }
 .caption {
   color: #939393;

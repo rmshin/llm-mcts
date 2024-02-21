@@ -31,6 +31,14 @@
   </head>
   <body>
     <h1>Monte Carlo Tree Search for Code Generation using LLMs</h1>
+    <p class="authors">
+      by <a href="https://arunpatro.github.io/" target="_blank">Arun Patro</a> and
+      <a href="https://github.com/rmshin" target="_blank">Robert Shin</a>.<br />(<a
+        href="https://github.com/rmshin/llm-mcts"
+        target="_blank"
+        >View on GitHub</a
+      >)
+    </p>
     <p>
       There have been a slew of LLMs released to the public over the past ~12 months that have shown
       surprising levels of knowledge & ability in multiple domains. Code generation in particular
@@ -109,13 +117,19 @@
       Example of incorrect Python code output from DeepSeek Coder 6.7B (running on llama.cpp).
     </p>
     <p>
-      A naïve solution to this shortcoming is to run multiple LLM generations for a single prompt
-      and simply filter out the incorrect ones that fail compilation or a test bench. This is known
-      as
-      <b>sampling + filtering</b> (S+F), and we adopted it as the baseline against which to compare
-      our later
+      There are a number of ways we could approach solving this problem, but the simplest is to just
+      run the LLM multiple times for the same prompt and filter out any incorrect ones that fail
+      compilation or a test bench. This is known as
+      <b>sampling + filtering</b> (S+F), and it provides a reasonable baseline against which to
+      compare alternative solutions.
+    </p>
+    <p>
+      Another approach is, rather than relying on the LLM to directly generate code on its own, to
+      incorporate its predictions as part of a
       <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)" target="_blank">tree-based</a>
-      approach.
+      search algorithm. Neither strategy is likely to prove definitive in solving the issue of LLM
+      accuracy, but we'll explore them in greater depth to learn exactly how and when they might be
+      most useful.
     </p>
 
     <h2>Setting up with an LLM</h2>
@@ -882,6 +896,7 @@ def get_top_k_tokens(curr_node, k=3):
       promise in this direction, and we expect to continue developing both MCTS & these ideas for
       future enquiry.
     </p>
+    <footer><a href="https://github.com/rmshin/llm-mcts" target="_blank">View on GitHub</a></footer>
   </body>
   <script>
     var treeData;
@@ -895,6 +910,7 @@ def get_top_k_tokens(curr_node, k=3):
           edges: tree.edges,
         },
         panningEnabled: false,
+        zoomingEnabled: false,
         boxSelectionEnabled: false,
         layout: {
           name: 'dagre',
@@ -921,6 +937,7 @@ def get_top_k_tokens(curr_node, k=3):
         ],
       });
       treeCy.autolock(true);
+      treeCy.panningEnabled(true);
     }
     fetch('public/graph_example_tree.json')
       .then((res) => res.json())
@@ -954,6 +971,7 @@ def get_top_k_tokens(curr_node, k=3):
           edges: tree.edges,
         },
         panningEnabled: false,
+        zoomingEnabled: false,
         boxSelectionEnabled: false,
         layout: {
           name: 'dagre',
@@ -975,6 +993,7 @@ def get_top_k_tokens(curr_node, k=3):
         ],
       });
       treeCy.autolock(true);
+      treeCy.panningEnabled(true);
     }
     fetch('public/graph_branching_factor.json')
       .then((res) => res.json())
@@ -1014,6 +1033,7 @@ def get_top_k_tokens(curr_node, k=3):
             edges: data.edges,
           },
           panningEnabled: false,
+          zoomingEnabled: false,
           boxSelectionEnabled: false,
           layout: {
             name: 'dagre',
@@ -1035,6 +1055,7 @@ def get_top_k_tokens(curr_node, k=3):
           ],
         });
         treeCy.autolock(true);
+        treeCy.panningEnabled(true);
       });
   </script>
   <script>
@@ -1076,6 +1097,7 @@ def get_top_k_tokens(curr_node, k=3):
           },
         ],
         panningEnabled: false,
+        zoomingEnabled: false,
         boxSelectionEnabled: false,
         layout: {
           name: 'dagre',
@@ -1083,6 +1105,7 @@ def get_top_k_tokens(curr_node, k=3):
         },
       });
       rolloutCy.autolock(true);
+      rolloutCy.panningEnabled(true);
     }
     fetch('public/graph_HumanEval_113.json')
       .then((res) => res.json())
