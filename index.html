@@ -32,8 +32,8 @@
   <body>
     <h1>Monte Carlo Tree Search for Code Generation using LLMs</h1>
     <p class="authors">
-      by <a href="https://arunpatro.github.io/" target="_blank">Arun Patro</a> and
-      <a href="https://github.com/rmshin" target="_blank">Robert Shin</a>.<br />(<a
+      by <a href="https://github.com/rmshin" target="_blank">Robert Shin</a> and
+      <a href="https://arunpatro.github.io/" target="_blank">Arun Patro</a>.<br />(<a
         href="https://github.com/rmshin/llm-mcts"
         target="_blank"
         >View on GitHub</a
@@ -63,12 +63,15 @@
     </p>
     <p>
       Many of these models are impressive at generating short snippets of code, and often fare well
-      even for complex problem descriptions–albeit with some hallucinations due to the probabilistic
+      even for complex problem descriptions, albeit with some hallucinations due to the probabilistic
       nature of LLMs. In this blog post we explore the following:
       <em
         >is it possible to achieve LLM code generation that is accurate, consistent, and relatively
         cheap to run?</em
       >
+    </p>
+    <p>
+      We steer for accuracy by partial scoring in test benches, consistency by using greedy decoding, and cheap by small quantized models.
     </p>
     <p>
       We approach the problem by combining a pre-trained transformer model with an adapted version
@@ -89,10 +92,9 @@
     </p>
     <h2>Background</h2>
     <p>
-      At a high level, language models output the tokens (characters) that they've been trained to
-      recognise as the most probable ones to come after a given sequence or prompt. It can be seen
-      as a kind of <em>statistical predictor</em>, and it turns out that such an approach works
-      surprisingly well in generating all kinds of text (like source code).
+      Language models function by predicting the most likely next tokens (sequence of characters) that follows a given prompt or sequence. They generate text based on probabilities and patterns derived from their training data, essentialy acting as statistical predictors.
+      It turns out that such an approach works
+      surprisingly well in generating all kinds of text including source code for computer programs.
     </p>
     <p>
       But as impressive as they are, LLMs also come with their own quirks and limitations. One
@@ -117,18 +119,17 @@
       Example of incorrect Python code output from DeepSeek Coder 6.7B (running on llama.cpp).
     </p>
     <p>
-      There are a number of ways we could approach solving this problem, but the simplest is to just
-      run the LLM multiple times for the same prompt and filter out any incorrect ones that fail
+      There are a number of ways we could mitigate the effect of hallucinations. 
+      We just naively temperature sample the LLM multiple times for the same prompt and filter out the incorrect ones that fail
       compilation or a test bench. This is known as
       <b>sampling + filtering</b> (S+F), and it provides a reasonable baseline against which to
       compare alternative solutions.
     </p>
     <p>
-      Another approach is, rather than relying on the LLM to directly generate code on its own, to
-      incorporate its predictions as part of a
+      Another approach is to search for the correct sequence of tokens using a
       <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)" target="_blank">tree-based</a>
       search algorithm. Neither strategy is likely to prove definitive in solving the issue of LLM
-      accuracy, but we'll explore them in greater depth to learn exactly how and when they might be
+      accuracy, simply because the learned probabilities are miscalibrated. We'll explore them in greater depth to learn exactly how and when they might be
       most useful.
     </p>
 
@@ -193,6 +194,9 @@
         >llama-cpp-python</a
       >.
     </p>
+    <p>
+      We would like to point llama-cpp-python bindings did not yet support multibatch sampling, so we had to run the model in a single batch mode, sequentially. However, due to default prompt kv-caching, there was significant speedup in subsequent runs of the same prompt.
+    </p>
     <pre><code class="language-python">from llama_cpp import Llama
 
 model = Llama(
@@ -247,7 +251,7 @@ def few_shot_prompt(examples, question):
     <p>
       We chose to specifically test the model's Python proficiency via the
       <a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a> dataset which,
-      though far from being a perfect measure, is an established rubric in evaluating LLM code
+      though far from being a perfect measure, is an established benchmark in evaluating LLM code
       performance. HumanEval consists of 164 programming tasks in Python of varying difficulty, with
       each task containing at least an ID, prompt, reference solution, and test to appraise model
       output. Here is an example of what a single task in the dataset looks like:
@@ -266,9 +270,7 @@ def few_shot_prompt(examples, question):
       <a href="https://deepgram.com/learn/humaneval-llm-benchmark#the-passk-metric" target="_blank"
         >pass@k</a
       >
-      metric for the LLM-generated code samples. <b>Pass@k</b> is a probabilistic calculation that
-      represents the likelihood that at least one of the top k-generated samples for each HumanEval
-      task passes its tests. It can be seen as the overall "pass rate" of the LLM over the entire
+      metric for the LLM-generated code samples. The <b>pass@k</b> metric is defined as the probability that at least one of the k-generated samples for each task in the benchmark passes its unit tests. It can be seen as the overall "problem pass rate" of the LLM over the entire
       HumanEval problem set.
     </p>
 
@@ -349,7 +351,7 @@ for prompt, task_id in prompts_ids:
       </li>
       <li>
         The accuracy improvements of S+F do not come for free, however. Both compute budget &
-        processing time grow in proportion to the number of samples; 5 sample time was roughly 1/4
+        processing time grow linearly with number of samples; 5 sample time was roughly 1/4
         the time for 20 samples (~1h vs ~4h).
       </li>
     </ul>
@@ -403,7 +405,7 @@ for prompt, task_id in prompts_ids:
       <a href="https://homepages.cwi.nl/~aeb/go/misc/gostat.html" target="_blank"
         >average of 211 turns to complete</a
       >
-      with a branching factor of ~250. This equates to ~10<sup>500</sup> possible outcomes needed to
+      with an average branching factor of ~250. This equates to ~10<sup>500</sup> possible outcomes needed to
       be computed, which is already far more than can be processed in any reasonable length of time.
     </p>
     <p>
@@ -444,15 +446,17 @@ for prompt, task_id in prompts_ids:
     </p>
     <p>
       In the <b>selection</b> phase, the MCTS algorithm makes a decision on which node or branch it
-      should explore next by assigning a kind of "priority" to each node. Greater weight is
-      typically given to nodes that are either higher in value or have fewer visits. For our case of
+      should explore or exploit next by assigning a kind of "priority" to each node. Greater weight is
+      typically given to nodes that are either higher in value (currently observed performance) or have fewer visits (not yet explored i.e. uncertainity). For our case of
       LLM code generation, the exact calculation of this priority is given by:
     </p>
     <img loading="lazy" src="public/p-ucb.png" alt="p-ucb function" class="p-ucb" />
     <p>and the node with the highest priority is selected:</p>
     <img loading="lazy" src="public/p-ucb-select.png" alt="p-ucb selection" class="p-ucb-select" />
     <p>
-      It is not necessary to understand the above in detail. What's more important is to realise
+      This formulation adapts a popular Upper Confidence Bound metric in RL with transfomer probabilities to weight the exploration, see more in <a href="https://arxiv.org/abs/2303.05510" target="_blank"
+      >Planning with Large Language Models for Code Generation</a
+    >.  What's more important is to realise
       that the choice of which nodes to explore is a function of three main parameters: the node
       value
       <b>Q</b> (to be elaborated further below), the node token probability <b>P</b> (provided by
@@ -640,7 +644,7 @@ def get_top_k_tokens(curr_node, k=3):
             <th>pass@1</th>
             <th>pass@5</th>
             <th>pass@20</th>
-            <th>time for 20 samples</th>
+            <th>total time (20 samples / task)</th>
           </tr>
         </thead>
         <tbody>
@@ -691,8 +695,8 @@ def get_top_k_tokens(curr_node, k=3):
         larger improvement in accuracy (84.60% vs 92.59%).
       </li>
       <li>
-        MCTS' average total sample count per problem is also lower than S+F (~15 avg. rollouts vs 20
-        samples) while running ~2x faster. This is largely possible because MCTS only explores the
+        MCTS' average sample count per problem is also lower than S+F (~15 avg. rollouts vs 20
+        samples) while running ~2x faster to acheive slighly better accuracy. This is largely possible because MCTS only explores the
         most promising options and stops as soon as it's found a complete solution<sup
           ><a href="#callout-2">[2]</a></sup
         >.
@@ -720,6 +724,7 @@ def get_top_k_tokens(curr_node, k=3):
         found. But due to the probablistic nature of sampling, which cannot guarantee replication
         across successive generations, we need to collect the full set of samples for every problem
         in order to properly estimate the pass@k metrics for various values of k.
+        One can definitely sample until success and calculate the empiricial expected k to compare with average rollout, but we suffice with estimating the pass@k metric.
       </li>
     </ol>
     <h2>Extending the experiment to VerilogEval</h2>
