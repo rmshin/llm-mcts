@@ -19,7 +19,7 @@
       integrity="sha512-LxtJh1JTtBgZQaf0DF+4f/thp9An8o8UC35/YaDTYtHIOCPIuEDZRYRCLDw++hEvm/AFlGOM5HmgAMuSkxzsyg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
-    ></script> -->
+      ></script> -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"
       integrity="sha512-psLUZfcgPmi012lcpVHkWoOqyztollwCGu4w/mXijFMK/YcdUdP06voJNVOJ7f/dUIlO2tGlDLuypRyXX2lcvQ=="
@@ -27,18 +27,18 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="cytoscape-dagre.js"></script>
-    <style>
-      #cy {
-        width: 100%;
-        height: 800px;
-        display: block;
-      }
-    </style>
-
     <title>LLM code gen</title>
   </head>
   <body>
     <h1>Monte Carlo Tree Search for Code Generation using LLMs</h1>
+    <p class="authors">
+      by <a href="https://arunpatro.github.io/" target="_blank">Arun Patro</a> and
+      <a href="https://github.com/rmshin" target="_blank">Robert Shin</a>.<br />(<a
+        href="https://github.com/rmshin/llm-mcts"
+        target="_blank"
+        >View on GitHub</a
+      >)
+    </p>
     <p>
       There have been a slew of LLMs released to the public over the past ~12 months that have shown
       surprising levels of knowledge & ability in multiple domains. Code generation in particular
@@ -62,11 +62,9 @@
       >.
     </p>
     <p>
-      Many of these models are impressively good at generating code for short snippets of
-      functionality and even some complex problem descriptions, but this kind of performance often
-      comes at the cost of very large compute budgets and occasional hallucinations and/or incorrect
-      logic due to the inherent unpredictability of LLMs. In this blog post we explore the following
-      question:
+      Many of these models are impressive at generating short snippets of code, and often fare well
+      even for complex problem descriptions–albeit with some hallucinations due to the probabilistic
+      nature of LLMs. In this blog post we explore the following:
       <em
         >is it possible to achieve LLM code generation that is accurate, consistent, and relatively
         cheap to run?</em
@@ -78,7 +76,7 @@
       <a href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search" target="_blank"
         >Monte-Carlo tree search</a
       >
-      (MCTS) algorithm to guide its generation, taking inspiration from the paper
+      (MCTS) algorithm to guide the generation, taking inspiration from the paper
       <a href="https://arxiv.org/abs/2303.05510" target="_blank"
         >Planning with Large Language Models for Code Generation</a
       >
@@ -89,22 +87,62 @@
       and detail the process & observations gathered along the way. Jump ahead to the
       <a href="#discussion">final discussion</a> if you’re curious about the results!
     </p>
+    <h2>Background</h2>
+    <p>
+      At a high level, language models output the tokens (characters) that they've been trained to
+      recognise as the most probable ones to come after a given sequence or prompt. It can be seen
+      as a kind of <em>statistical predictor</em>, and it turns out that such an approach works
+      surprisingly well in generating all kinds of text (like source code).
+    </p>
+    <p>
+      But as impressive as they are, LLMs also come with their own quirks and limitations. One
+      well-known issue is the tendency for models to hallucinate and generate responses that are
+      either subtly incorrect or outright made up. This is obviously not what we want when
+      generating code, where we expect the output to be both functionally correct & consistent over
+      time.
+    </p>
+    <img
+      loading="lazy"
+      src="public/bad-completion-example.png"
+      alt="llm-incorrect-example"
+      class="llm-example"
+    />
+    <img
+      loading="lazy"
+      src="public/llm-code-execution-example.png"
+      alt="llm-code-execution-example"
+      class="llm-example"
+    />
+    <p class="caption">
+      Example of incorrect Python code output from DeepSeek Coder 6.7B (running on llama.cpp).
+    </p>
+    <p>
+      There are a number of ways we could approach solving this problem, but the simplest is to just
+      run the LLM multiple times for the same prompt and filter out any incorrect ones that fail
+      compilation or a test bench. This is known as
+      <b>sampling + filtering</b> (S+F), and it provides a reasonable baseline against which to
+      compare alternative solutions.
+    </p>
+    <p>
+      Another approach is, rather than relying on the LLM to directly generate code on its own, to
+      incorporate its predictions as part of a
+      <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)" target="_blank">tree-based</a>
+      search algorithm. Neither strategy is likely to prove definitive in solving the issue of LLM
+      accuracy, but we'll explore them in greater depth to learn exactly how and when they might be
+      most useful.
+    </p>
 
     <h2>Setting up with an LLM</h2>
     <p>
-      One of our primary constraints for the experiment is that whatever code LLM we use be
+      One of our primary constraints for the experiment was to choose a smaller code LLM that is
       relatively cheap to run. While somewhat arbitrary, we decided to define this as any LLM that
-      could run locally on reasonably specced consumer-grade hardware. As we had an Apple M2 Pro
-      with 32GB unified memory and 16-core GPU available on-hand, this machine was set as the
-      baseline for our price-performance requirements.
+      could run locally on an Apple M2 Pro with 32GB unified memory and 16-core GPU as a reasonably
+      specced consumer-grade machine.
     </p>
     <p>
       In selecting the specific language model to use, we looked at several popular open-source LLMs
-      ranging from 2.7B~34B parameters in size–<a
-        href="https://huggingface.co/microsoft/phi-2"
-        target="_blank"
-        >Phi-2</a
-      >,
+      ranging from 2.7B~34B parameters in size:
+      <a href="https://huggingface.co/microsoft/phi-2" target="_blank">Phi-2</a>,
       <a href="https://huggingface.co/oobabooga/CodeBooga-34B-v0.1" target="_blank"
         >CodeBooga-34B-v0.1</a
       >,
@@ -136,8 +174,47 @@
       >
       at roughly ~70% of total memory), which degraded the model quality beyond our acceptable
       limit. On the other hand, with the smaller Phi-2 model we struggled to get it to follow the
-      output format instructions specified in our prompts, making it difficult to automatically
-      evaluate the model’s code output on benchmark test cases.
+      output format instructions specified in <a href="#prompting">our prompts</a>, making it
+      difficult to automatically evaluate the model’s code output on benchmark test cases.
+    </p>
+    <p>
+      We ultimately settled on the mixed 5/6-bit
+      <a
+        href="https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-GGUF/blob/main/deepseek-coder-6.7b-instruct.Q5_K_M.gguf"
+        target="_blank"
+        >Q5_K_M</a
+      >
+      quantized version of <code class="inline-code">deepseek-coder-6.7B-instruct</code>, due to its
+      superior quality & inference speed. Running under
+      <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp</a>, the model
+      could generate an average of ~22.5 tokens/s and we integrated it via the python bindings
+      provided by
+      <a href="https://llama-cpp-python.readthedocs.io/en/latest/" target="_blank"
+        >llama-cpp-python</a
+      >.
+    </p>
+    <pre><code class="language-python">from llama_cpp import Llama
+
+model = Llama(
+    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
+    n_gpu_layers=-1, # run the full model on GPU
+    n_ctx=2048,
+    n_batch=256,
+    n_threads=10,
+    logits_all=True, # include token probabilities in output
+)</code></pre>
+
+    <h2 id="prompting">Prompting</h2>
+    <p>
+      In order to better process and extract code from the generations given by
+      <code class="inline-code">deepseek-coder-6.7B-instruct</code>, we employed
+      <a href="https://www.promptingguide.ai/techniques/fewshot" target="_blank"
+        >few-shot prompting</a
+      >
+      to ensure the model followed a structured format and proper indentation as appropriate. We
+      relied on templating from the LLM prompting library
+      <a href="https://outlines-dev.github.io/outlines/" target="_blank">outlines</a> to create the
+      final prompts.
     </p>
     <pre><code class="language-python">import outlines
 
@@ -165,221 +242,842 @@ def few_shot_prompt(examples, question):
     Answer:
     ```
     """</code></pre>
-    <p>
-      We ultimately settled on the mixed 5/6-bit
-      <a
-        href="https://huggingface.co/TheBloke/deepseek-coder-6.7B-instruct-GGUF/blob/main/deepseek-coder-6.7b-instruct.Q5_K_M.gguf"
-        target="_blank"
-        >Q5_K_M</a
-      >
-      quantized version of deepseek-coder-6.7B-instruct, due to its superior quality & inference
-      speed. Running under llama.cpp, the model could generate an average of ~22.5 tokens/s and we
-      integrated it via the python bindings provided by
-      <a href="https://llama-cpp-python.readthedocs.io/en/latest/" target="_blank"
-        >llama-cpp-python</a
-      >.
-    </p>
-    <pre>
-<code class="language-python">from llama_cpp import Llama
 
-model = Llama(
-    model_path="deepseek-coder-6.7b-instruct.Q5_K_M.gguf",
-    n_gpu_layers=-1, # run the full model on GPU
-    n_ctx=2048,
-    n_batch=256,
-    n_threads=10,
-    logits_all=True, # include token probabilities in output
-)</code></pre>
-    <p></p>
+    <h2>The HumanEval dataset</h2>
+    <p>
+      We chose to specifically test the model's Python proficiency via the
+      <a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a> dataset which,
+      though far from being a perfect measure, is an established rubric in evaluating LLM code
+      performance. HumanEval consists of 164 programming tasks in Python of varying difficulty, with
+      each task containing at least an ID, prompt, reference solution, and test to appraise model
+      output. Here is an example of what a single task in the dataset looks like:
+    </p>
+    <img class="dataset-example" src="public/humaneval.png" alt="human-eval example" />
+    <p class="caption">
+      (source
+      <a
+        href="https://www.researchgate.net/figure/Example-Problem-ID-0-from-HumanEval-dataset_fig1_363267006"
+        >ResearchGate</a
+      >)
+    </p>
+    <p>
+      The dataset also provides the
+      <code class="inline-code">evaluate_functional_correctness</code> script to calculate the
+      <a href="https://deepgram.com/learn/humaneval-llm-benchmark#the-passk-metric" target="_blank"
+        >pass@k</a
+      >
+      metric for the LLM-generated code samples. <b>Pass@k</b> is a probabilistic calculation that
+      represents the likelihood that at least one of the top k-generated samples for each HumanEval
+      task passes its tests. It can be seen as the overall "pass rate" of the LLM over the entire
+      HumanEval problem set.
+    </p>
+
+    <h2>Generating S+F baselines</h2>
+    <p>
+      With the S+F strategy, we expected a higher number of samples generated per prompt to increase
+      the LLM's accuracy. In an ideal world, we would've generated upwards of ~200 samples, but due
+      to both hardware & time constraints we limited the generations to 20 samples per task. This
+      has the downside of higher variance in the ensuing pass@k calculations, but we did not expect
+      it to be to so significant as to distort the experiment results.
+    </p>
+
+    <p>
+      Below is the code for generating the S+F baselines with
+      <a href="https://learnprompting.org/docs/basics/configuration_hyperparameters" target="_blank"
+        >hyperparameters</a
+      >:
+    </p>
+    <pre><code class="language-python">from humaneval import get_prompts_with_ids
+from human_eval.data import write_jsonl
+      
+N_SAMPLES = 20
+prompts_ids = get_prompts_with_ids()
+# prompts are already templated to include few-shot examples
+for prompt, task_id in prompts_ids:
+    samples = []
+    for _ in range(N_SAMPLES):
+        # hyperparams: top-3 sampling, 1.0 temp, 256 max tokens
+        output = model(
+            prompt=prompt, max_tokens=256, temperature=1, top_k=3, stop=["```"]
+        )
+        res = output["choices"][0]["text"]
+        item = dict(task_id=task_id, completion=res)
+        samples.append(item)
+
+    # save generated samples in jsonl out file
+    write_jsonl("few_shot_baselines_256_top_3.jsonl", samples, append=True)</code></pre>
+
+    <p>and the resulting pass@k metrics:</p>
+    <div id="s+f-results-table" class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass@1</th>
+            <th>pass@5</th>
+            <th>pass@20</th>
+            <th>time for 20 samples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S+F</td>
+            <td>62.38%</td>
+            <td>84.60%</td>
+            <td>90.74%</td>
+            <td>~4h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Discussion</h4>
+    <ul>
+      <li>
+        As expected, there was an increase in the pass@k percentages going from 1 → 5 → 20 samples.
+        What was surprising however was the extent of the jump in pass rates between even 5 and 20
+        samples.
+      </li>
+      <li>
+        This suggests that standalone LLM generation can be improved a lot by sampling the model
+        many times with hyperparameters that encourage diverse exploration (e.g. higher top-k
+        sampling, temperature, etc.).
+      </li>
+      <li>
+        With a &gt;90% pass rate at 20 samples, even a relatively small 6.7B parameter model at
+        5-bit quantisation displays impressive performance when fine-tuned for specific domains (or
+        else it's overfitted for benchmarks)!
+      </li>
+      <li>
+        The accuracy improvements of S+F do not come for free, however. Both compute budget &
+        processing time grow in proportion to the number of samples; 5 sample time was roughly 1/4
+        the time for 20 samples (~1h vs ~4h).
+      </li>
+    </ul>
+    <img src="public/pass-k-baseline.png" class="llm-example" />
+    <p class="caption">
+      Running the HumanEval-provided pass@k evaluation script on LLM-generated samples.
+    </p>
+
+    <h2>Code generation and tree search</h2>
+    <p>
+      Having established the baseline with S+F, we turned to an alternative approach treating LLM
+      code generation as a search problem instead. Here the goal is to find the correct sequence of
+      tokens that passes the tests defined for each HumanEval task.
+    </p>
+    <p>
+      We start by modelling the problem using a
+      <a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a>. Given
+      the initial prompt description (the <b>root</b>), we recursively map out all the possible next
+      tokens that could follow (<b>branches</b> or <b>children</b>) until a specified maximum
+      <b>depth</b> is reached.
+    </p>
+    <input type="range" id="time-step-tree" name="time-step-tree" min="0" />
+    <label id="time-step-tree-label" for="time-step-tree">Time step:</label>
+    <div id="tree-cy"></div>
+    <p class="caption">
+      A visualisation of a small decision tree. <span class="red">Red</span> represents the root
+      node (i.e. the initial prompt), <span class="blue">blue</span> represents child nodes
+      (subsequent tokens). <span class="green">Green</span> represents the final set of all possible
+      outcomes. Play around with the time-step slider above to see how the tree grows as it deepens.
+    </p>
+    <p>
+      Finding the solution with this method simply requires selecting the best option from the final
+      list of outcomes, but this is only possible when the outcome space is small. Because the
+      computation needed to map a full tree increases exponentially with it's depth and
+      <b>branching factor</b> (the number of children at each node), even slight changes in these
+      values can meaningfully impact the feasibility of the search.
+    </p>
+    <input type="number" id="tree-branch-factor" name="tree-branch-factor" value="2" />
+    <label id="branch-factor-label" for="tree-branch-factor">Branching factor</label>
+    <label id="branch-factor-outcomes"># total outcomes:</label>
+    <label id="branch-factor-depth">(depth = 5)</label>
+    <div id="branching-cy"></div>
+    <p class="caption">
+      Try changing the branching factor of the tree above to see how it affects the number of total
+      outcomes to compute.
+    </p>
+    <p>
+      Though difficult to estimate, we'd expect code text generation to have a depth & branching
+      factor on the order of hundreds, if not thousands. A typical game of Go, for reference, takes
+      an
+      <a href="https://homepages.cwi.nl/~aeb/go/misc/gostat.html" target="_blank"
+        >average of 211 turns to complete</a
+      >
+      with a branching factor of ~250. This equates to ~10<sup>500</sup> possible outcomes needed to
+      be computed, which is already far more than can be processed in any reasonable length of time.
+    </p>
+    <p>
+      It is thus impractical to apply decision trees to code generation without also adopting some
+      kind of strategy to significantly reduce the branching factor & resulting search space. This
+      is precisely the purpose of MCTS, which applies a heuristic (the
+      <a
+        href="https://www.geeksforgeeks.org/upper-confidence-bound-algorithm-in-reinforcement-learning/"
+        target="_blank"
+        >upper confidence bound</a
+      >) to identify the "winning" branches in a tree without computing the entire tree.
+    </p>
+    <div id="asymmetric-cy"></div>
+    <p class="caption">Example of MCTS–note the differing depths of the various subtrees.</p>
+    <p>
+      The result is an asymmetric expansion of the tree, where only a small subset of all
+      possibilities are computed, balancing
+      <b>exploitation</b> of known good options with <b>exploration</b> of unknown, potentially
+      better options. This makes it possible to effectively search even very large trees within a
+      reasonable length of time.
+    </p>
+
+    <h2>Adopting MCTS with LLMs</h2>
+    <p>
+      The way MCTS works is by repeatedly cycling through four logical stages: <b>selection</b>,
+      <b>expansion</b>, <b>evaluation</b> (or simulation), and <b>back-propagation</b>. But unlike
+      in traditional MCTS, we rely on the probabilities/predictions of an LLM to complete each of
+      these steps.
+    </p>
+    <img loading="lazy" src="public/mcts-steps.svg" alt="mcts steps" class="mcts-steps" />
+    <p class="caption">
+      High-level diagram of steps in conventional Monte-Carlo tree search (source
+      <a
+        href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search#/media/File:MCTS-steps.svg"
+        target="_blank"
+        >Wikipedia</a
+      >).
+    </p>
+    <p>
+      In the <b>selection</b> phase, the MCTS algorithm makes a decision on which node or branch it
+      should explore next by assigning a kind of "priority" to each node. Greater weight is
+      typically given to nodes that are either higher in value or have fewer visits. For our case of
+      LLM code generation, the exact calculation of this priority is given by:
+    </p>
+    <img loading="lazy" src="public/p-ucb.png" alt="p-ucb function" class="p-ucb" />
+    <p>and the node with the highest priority is selected:</p>
+    <img loading="lazy" src="public/p-ucb-select.png" alt="p-ucb selection" class="p-ucb-select" />
+    <p>
+      It is not necessary to understand the above in detail. What's more important is to realise
+      that the choice of which nodes to explore is a function of three main parameters: the node
+      value
+      <b>Q</b> (to be elaborated further below), the node token probability <b>P</b> (provided by
+      the LLM), and an <b>exploration term</b> that captures how often we've previously visited the
+      node.
+    </p>
+    <p>
+      Once a node has been selected, it is then expanded with <em>k</em> new child nodes in the
+      <b>expansion</b> phase. Because only a single branch is selected at any given point in time,
+      MCTS develops the search tree asymmetrically by disregarding all other nodes. In this
+      experiment, the child nodes are obtained from the top 3 most probable next token options given
+      by an LLM.
+    </p>
+    <p>
+      Then following expansion comes <b>evaluation</b>. It is here that the value of the node is
+      determined via the <b>reward</b> or <b>value function</b>–a quantitative measure to rank
+      nodes, such that choosing higher value nodes would yield better end outcomes. But each node in
+      the tree represents an incomplete intermediate state that is often difficult to evaluate
+      directly. Thus we instead evalute a chosen node's "expected" end outcome by
+      <b>simulating</b> the remaining branch expansions.
+    </p>
+    <p>
+      We achieve this simulation by having an LLM complete the remaining sequence (program) from the
+      node's partial state. This completed program is then evaluated against a bench of tests from
+      the HumanEval dataset, to obtain a pass rate between 0 - 1 as the node's value. Code that
+      passes more tests end up with higher values, and consequently are explored more in future
+      iterations through the tree.
+    </p>
+    <p>
+      But due to the nested nature of search trees, any high-value nodes discovered deep in the
+      hierarchy might not be reached again in successive searches (e.g. if the previous parent
+      branches are never chosen). To ensure that this doesn't happen, a node's reward value is
+      propagated to all it's parents up to the tree's root. This is the final
+      <b>back-propagation</b> phase that completes a single iteration of MCTS, and once finished we
+      return to the top (root) of the tree to restart the cycle.
+    </p>
 
     <h2>Coding the MCTS algorithm</h2>
-    <pre>
-<code class="language-python">max_rollouts = 128 # max number of iterations through tree
+    <p>
+      We use a simple <code class="inline-code">Node</code> class to represent the nodes of the
+      Monte-Carlo tree. Remember that a node is equivalent to a branch, and it represents a possible
+      token (character) that could come next in the sequence of generated text. Each node carries
+      its own values for generation state, number of visits, node value, LLM token probability, and
+      children.
+    </p>
+    <pre><code class="language-python">class Node:
+    def __init__(self, prob, state, parent):
+        self.value = 0  # max reward obtainable from node
+        self.prob = prob  # input for the P-UCB calculation
+        self.state = state  # full generated text sequence up til node
+        self._children = []
+        self._parent = parent
+        self.visits = 0
+
+    def backprop(self, value):
+        # only propagate if new reward is greater than current max
+        if value > self.value:
+            self.value = value
+            if self._parent is not None:
+                self._parent.backprop(value)</code></pre>
+    <p>
+      For each HumanEval task, the tree is expanded and evaluated for a fixed number of iterations
+      (called <b>rollouts</b>). In each rollout we perform selection, expansion, evaluation and
+      back-propagation, and at the end of all iterations return the best found solution.
+    </p>
+    <pre><code class="language-python">max_rollouts = 128 # max number of iterations through tree
 top_k = 3 # number of child tokens (branches) to generate per node
 for prompt, task_id in prompts:
     # cache of generated programs => rewards
     program_dict = {}
+    # initialise tree with HumanEval prompt
     root = Node(prob=1, state=prompt, parent=None)
-    for i in range(max_rollouts):
-        curr_node = root
-        curr_node.visits += 1
 
-        # selection
+    for i in range(max_rollouts):
+        curr_node = root # always start new iteration from root
+        curr_node.visits += 1</code></pre>
+    <p>
+      We start by continuously selecting the best nodes in the tree according to the P-UCB metric
+      explained earlier, until we arrive at a leaf node that has not yet been expanded & evaluated.
+    </p>
+    <pre><code class="language-python">        # selection
         while len(curr_node._children) > 0:
             curr_node = p_ucb_select(curr_node._children)
-            curr_node.visits += 1
-
-        # expansion
-        tokens = get_top_k_tokens(curr_node, top_k)
+            curr_node.visits += 1</code></pre>
+    <p>
+      Once we've landed on the candidate leaf node, we expand it by generating top-k tokens from the
+      LLM and creating child nodes. Note that we apply the
+      <code class="inline-code">exp()</code> function to exponentiate the probability values as the
+      LLM returns log-probabilities.
+    </p>
+    <pre><code class="language-python">        # expansion
+        tokens = get_top_k_tokens(curr_node, top_k) # top_k = 3
         child_nodes = [
-            Node(prob, state=(curr_node.state + token), parent=curr_node)
-            for (token, prob) in tokens
+            Node(exp(logprob), state=(curr_node.state + token), parent=curr_node)
+            for (token, logprob) in tokens
         ]
-        curr_node._children = child_nodes
-
-        # evaluation
+        curr_node._children = child_nodes</code></pre>
+    <p>
+      We then evaluate the selected node by generating a program from its current state. This is
+      done using a greedy search, but can easily be replaced with a beam search or similar algorithm
+      (we believe that code generation should be simulated using deterministic search as opposed to
+      non-deterministic sampling, but this should be tested).
+    </p>
+    <p>
+      The generated program is evaluated against the respective tests from HumanEval to obtain the
+      nodes value.
+    </p>
+    <pre><code class="language-python">        # evaluation
         reward = match_cached_programs(curr_node.state, program_dict)
         # only run generation if node state not found in cached programs
         if reward == -1:
             generated_program = llm_generate(curr_node.state)
             # run generated program against HumanEval test cases
             reward = calculate_reward(prompt, generated_program)
+            # cache generated program and its corresponding pass rate
             program_dict[generated_program] = reward
-
-        # backprop reward up the tree
-        curr_node.backprop(reward)
-
-        # early termination if correct program is found
-        if reward == 1:
-            break</code></pre>
+          </code></pre>
     <p>
-      The most important components of a decision tree are its rollout policy & branch reward
-      function. In our case, the LLM is used for both the rollout policy and reward calcuation.
+      Finally we back-propagate the reward up the tree to all its parents (including the root). We
+      stop when a reward of 1.0 is found, as this represents a fully correct solution and thus there
+      is no more exploration to do.
     </p>
-    LLM child tokens generation
-    <pre>
-<code class="language-python">def get_top_k_tokens(curr_node, k):
-  output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
-  output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
-  return output_probs.items()</code></pre>
-    HumanEval reward calculation
-    <pre>
-<code class="language-python">def calculate_reward(task_id, completion, timeout=10):
-  problem = human_eval_problems[task_id]
-  split_tests = problem["test"]
-  results = []
-  for test in split_tests:
-      res = check_correctness(test, completion, timeout)
-      results.append(res["passed"])
+    <pre><code class="language-python">    # backprop reward up the tree
+    curr_node.backprop(reward)
 
-  return sum(results) / len(results) # set test pass-rate as reward</code></pre>
-    <input type="range" id="time-step" name="time-step" min="0" />
-    <label id="time-step-label" for="time-step">Time step:</label>
-    <div id="cy"></div>
+    # early termination if correct program is found
+    if reward == 1:
+        break</code></pre>
 
-    <h2>Generating comparative samples for HumanEval</h2>
-    Sampling + filtering = 2048 ctx, top-3 sampling, 1.0 temp, max 256 tokens
-    <ul>
-      <li>pass@5 = 84.60%,~1hr total runtime</li>
-      <li>pass@20 = 90.74%, ~4hr total runtime</li>
-    </ul>
+    <h4>P-UCB selection:</h4>
+    <pre><code class="language-python">def p_ucb_select(parent_node, child_nodes):
+    s_visits = parent_node.visits
+    # scalar constant term
+    beta = log((s_visits + c_base + 1) / c_base) + c
 
-    MCTS = 2048 ctx, max rollouts 128, top-3 probs, greedy top-1 generation, 1.0 temp, max 256
-    tokens
-    <ul>
-      <li>92.59% pass rate, ~3.62 generations per problem, ~1.5hr total runtime</li>
-    </ul>
-    <h4>Observations</h4>
-    <ul>
-      <li>
-        Big jump in pass rate from 5 → 20 samples suggest basic LLM generation can be improved by
-        simply tuning generation parameters to reduce variance (e.g. top-k sampling, temperature,
-        higher max tokens, etc.)
-      </li>
-      <li>
-        Smaller fine-tuned models still display impressive performance (or are overfitted for
-        benchmarks)
-      </li>
-      <li>
-        MCTS achieves better benchmark performance than 20-sample baseline with an average of less
-        than 4 samples per problem (i.e. &lt;1/5 transformer compute)
-      </li>
-    </ul>
-    <h2>Extending the experiment for VerilogEval</h2>
+    # find the child node with the highest P-UCB value
+    max_p_ucb = -inf
+    max_node = None
+    for i in range(len(child_nodes)):
+        node = child_nodes[i]
+        p_ucb = node.value + beta * node.prob * sqrt(log(s_visits)) / (
+            1 + node.visits
+        ) # calculate the P-UCB value for each child
+        if p_ucb > max_p_ucb:
+            max_node = node
+            max_p_ucb = p_ucb
+    return max_node # return max(P-UCB) node</code></pre>
+    <h4>Node expansion:</h4>
+    <pre><code class="language-python"># fetch the top 3 highest probability token candidates from the LLM
+def get_top_k_tokens(curr_node, k=3):
+    output = model(prompt=curr_node.state, max_tokens=1, temperature=1, logprobs=k)
+    output_probs = output["choices"][0]["logprobs"]["top_logprobs"][0]
+    return output_probs.items()</code></pre>
+    <h4>Reward function:</h4>
+    <pre><code class="language-python">def calculate_reward(task_id, completion, timeout=10):
+    problem = human_eval_problems[task_id]
+    split_tests = problem["test"]
+    results = []
+    for test in split_tests:
+        res = check_correctness(test, completion, timeout)
+        results.append(res["passed"])
+
+    return sum(results) / len(results) # set test pass rate as reward</code></pre>
+
+    <h2>Visualizing the MCTS Tree</h2>
     <p>
-      What happens when dealing with problems that the LLM is not well trained on? How effective is
-      MCTS at improving LLM code quality?
+      Below is the tree graph for HumanEval-113 using MCTS. Each time step represents a single
+      iteration (rollout) of the MCTS algorithm, with the nodes selected at each iteration colored
+      in red. For this particular problem, the final solution was found on the 13th rollout.
     </p>
-    Sampling + filtering = top-50 sampling, 1.0 temp, 1024 max tokens per generation, 4096 context
-    length
-    <ul>
-      <li>pass@5 ⇒ 42.58% pass rate</li>
-      <li>pass@10 ⇒ 47.33% pass rate</li>
-      <li>pass@20 ⇒ 51.30% pass rate, ~7hr total run time</li>
-    </ul>
-    MCTS = 128 max rollouts, top-5 probs, 1.0 temp, 1024 max tokens per generation, 4096 context
-    length
-    <ul>
-      <li>46.75% pass rate, ~18.18 generations per problem, ~8.5hr total run time</li>
-    </ul>
-    <h4>Observations</h4>
+    <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
+    <label id="time-step-rollout-label" for="time-step-rollout">Time step:</label>
+    <div id="rollout-cy"></div>
+
+    <h2>Beating the baseline on HumanEval</h2>
+    <p>
+      If we recall from <a href="#s+f-results-table">above</a>, the following metrics were achieved
+      for S+F with 2048 context size, top-3 sampling, 1.0 temperature, and 256 max tokens:
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass@1</th>
+            <th>pass@5</th>
+            <th>pass@20</th>
+            <th>time for 20 samples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S+F</td>
+            <td>62.38%</td>
+            <td>84.60%</td>
+            <td>90.74%</td>
+            <td>~4h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Below are the results for MCTS with 128 max rollouts, 2048 context, top-3 probabilities, 1.0
+      temperature, and 256 max tokens:
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass rate</th>
+            <th>avg. unique generations</th>
+            <th>avg. rollouts</th>
+            <th>time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MCTS</td>
+            <td>92.59%</td>
+            <td>3.62</td>
+            <td>15.46</td>
+            <td>~1h 30m</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Discussions</h4>
     <ul>
       <li>
-        had to increase context length & max number of generated tokens to account for greater
-        verbosity of verilog source
+        MCTS achieves better benchmark performance than the 20-sample S+F baseline, despite
+        generating an average of less than 4 unique samples per problem (i.e. &lt;1/5 transformer
+        compute<sup><a href="#callout-1">[1]</a></sup
+        >). Comparing against S+F with a more similar compute budget (e.g. pass@5) shows a much
+        larger improvement in accuracy (84.60% vs 92.59%).
       </li>
       <li>
-        significantly more generations per problem for MCTS, lower quality/pass-rate than
-        ~equivalent 20-sample baseline
+        MCTS' average total sample count per problem is also lower than S+F (~15 avg. rollouts vs 20
+        samples) while running ~2x faster. This is largely possible because MCTS only explores the
+        most promising options and stops as soon as it's found a complete solution<sup
+          ><a href="#callout-2">[2]</a></sup
+        >.
       </li>
       <li>
-        makes sense because transfomer token probabilities are much less reliable, and thus using
-        LLM to determine which child tokens follow from a given node is less likely to find good
-        solutions
+        The speed-up for MCTS occurs despite the additional processing overhead of running tests for
+        each generated solution (avg. test time per unique solution was 3.82s).
       </li>
       <li>
-        introducing more randomness/variability in generation fares better (direct approach samples
-        from top-50 token probabilities)
+        Unlike S+F, running MCTS multiple times will produce the exact same solutions and results.
+        This is because node selection, expansion and simulation/evaluation are all deterministic
+        processes as opposed to the non-deterministic sampling of S+F.
       </li>
     </ul>
 
-    <h2 id="discussion">Recap: what have we learned?</h2>
+    <ol class="caption">
+      <li id="callout-1">
+        Technically, the avg. rollouts rather than no. of unique generations should be used to
+        compare against the number of samples generated per problem. But in practice, many rollouts
+        explore the same solution and thus much of the compute can be saved via caching of
+        previously generated programs, reward calculations and token probabilities.
+      </li>
+      <li id="callout-2">
+        One may suggest that we could also stop generation in S+F as soon as a correct solution is
+        found. But due to the probablistic nature of sampling, which cannot guarantee replication
+        across successive generations, we need to collect the full set of samples for every problem
+        in order to properly estimate the pass@k metrics for various values of k.
+      </li>
+    </ol>
+    <h2>Extending the experiment to VerilogEval</h2>
+    <p>
+      Using MCTS on the HumanEval dataset proved quite successful, outperforming the ~equivalent S+F
+      5-sample baseline by a decent margin and even the 20-sample baseline at much less compute
+      cost. But due to the raw strength of
+      <code class="inline-code">deepseek-coder-6.7B-instruct</code> in HumanEval and Python,
+      applying MCTS didn't show a significant improvement in <em>absolute</em> quality vs. the top
+      S+F results.
+    </p>
+    <p>
+      We thus wanted to know what would happen when dealing with problems that the LLM wasn't well
+      trained on, and how effective MCTS could be at improving the model's code quality compared to
+      standalone S+F. To this end we adapted our experiment to test on the
+      <a href="https://github.com/NVlabs/verilog-eval" target="_blank">VerilogEval</a> dataset,
+      which follows a very similar format as HumanEval but for testing proficiency in the
+      lesser-known
+      <a href="https://en.wikipedia.org/wiki/Verilog" target="_blank">Verilog language</a> as
+      opposed to Python.
+    </p>
+    <img class="dataset-example" src="public/verilogeval.png" alt="verlilog-eval example" />
+    <p class="caption">
+      A typical task within VerilogEval (source
+      <a href="https://arxiv.org/abs/2309.07544">VerilogEval</a>). Tests are also present within the
+      dataset but aren't shown in the diagram above.
+    </p>
+    <p>
+      Because we expected the deepseek LLM to be less capable in Verilog, we needed to adjust a few
+      generation parameters before running both S+F and MCTS. We increased the context length & max
+      number of generated tokens to account for the greater verbosity of Verilog code, and also
+      upped the top-k sampling from 3 to 50 to encourage more diverse model outputs.
+    </p>
+    <p>S+F with 4096 context size, top-50 sampling, 1.0 temperature, and 1024 max tokens:</p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass@1</th>
+            <th>pass@5</th>
+            <th>pass@20</th>
+            <th>time for 20 samples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S + F</td>
+            <td>29.71%</td>
+            <td>42.58%</td>
+            <td>51.30%</td>
+            <td>~7h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      MCTS with 128 max rollouts, 4096 context, top-5 probabilities, 1.0 temperature, 1024 max
+      tokens:
+    </p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>pass rate</th>
+            <th>avg. unique generations</th>
+            <th>avg. rollouts</th>
+            <th>time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MCTS</td>
+            <td>46.75%</td>
+            <td>18.18</td>
+            <td>73.46</td>
+            <td>~8h 30m</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Discussion</h4>
     <ul>
       <li>
-        Smaller language models fine-tuned for code generation instruction can show impressive
-        performance, but require varying degrees of prompting to ensure well-formatted outputs
-      </li>
-      <ul>
-        <li>
-          Consistency is still a concern due to the probabilistic nature of LLMs. You can end up
-          with significantly worse/better results depending on the generation parameters
-        </li>
-        <li>
-          Multiple sampling + filtering can alleviate this concern, but requires a decently large
-          number of samples (and therefore compute) to obtain consistently good results
-        </li>
-      </ul>
-      <li>
-        For programming languages the LLM is already quite adept/familiar with, MCTS enables the
-        model to reliably generate higher quality code than direct sampling with significantly less
-        compute
+        As expected, the much lower pass rates across the board for both S+F & MCTS proved that the
+        deepseek LLM was not as capable in Verilog.
       </li>
       <li>
-        For programming languages the LLM is weak/not familiar with, MCTS doesn’t do so well due to
-        its reliance on the LLM’s token probabilities to generate child branches/nodes to explore.
-        Direct generation with a larger sampling space performs better in this scenario, though the
-        absolute quality still remains low
+        MCTS required noticably more exploration (~5x greater avg. rollouts & unique generations)
+        despite achieving poorer quality/pass rates than compared to its performance on HumanEval.
+      </li>
+      <li>
+        S+F fared better than MCTS with a 20-sample baseline and was both more time efficient and
+        accurate than MCTS. The mean test time for Verilog code was 0.71s (as opposed to 3.82s for
+        Python), highlighting that this time testing overhead did not account much for the observed
+        slow-down in MCTS.
+      </li>
+      <li>
+        We suspect MCTS failed to achieve good solutions due to it's dependence on the quality of
+        the transfomer’s token probabilities for node selection & expansion. In this instance the
+        probabilities were badly calibrated and less reliable (a natural consequence of the LLM not
+        having seen enough Verilog data during training), leading to poorer judgment by MCTS of what
+        the most promising options in the search space were.
+      </li>
+      <li>
+        S+F was able to capitalise better on the increased randomness/variability in generation
+        (sampling from top-50 token probabilities), and therefore explored a wider range of
+        solutions that ended up faring better.
       </li>
     </ul>
+
+    <h2 id="discussion">What have we learned?</h2>
+
+    <p>
+      Our results from comparing S+F performance against MCTS in both the HumanEval and VerilogEval
+      datasets show that, when dealing with domains where an LLM is relatively proficient (e.g.
+      Python), combining the LLM's predictive capabilities with a specialised algorithm such as MCTS
+      does indeed produce higher quality results with significantly less compute.
+    </p>
+    <p>
+      The story changes however as we transition to areas where the LLM is much weaker (e.g.
+      Verilog). In this scenario, MCTS doesn't do well due to its reliance on the LLM’s (usually
+      incorrect) token probabilities to determine the next branches to explore. On the other hand,
+      S+F enables a more consistent boost in LLM performance despite being the simpler approach.
+    </p>
+    <p>
+      It's worth noting that for Verilog code generation, the overall pass rate still remained low
+      irrespective of the approach. This highlights the importance of fine-tuning language models
+      for specific tasks as one of the most effective means to improve accuracy. Even the reasonably
+      small
+      <code class="inline-code">deepseek-coder-6.7b-instruct</code> model showed impressive quality
+      and speed, despite running on a single consumer machine at 5-bit quantisation.
+    </p>
+
+    <h2>Future considerations</h2>
+    <p>
+      Although MCTS' good performance on HumanEval didn't carry through to the VerilogEval dataset,
+      we believe there is opportunity to make it more robust to fluctuations in the underlying LLM
+      ability by tweaking its reward function & selection/expansion policies:
+    </p>
+    <ol>
+      <li>
+        <b>Reward:</b> Picking a better heuristic to judge the validity of a partial program would
+        guide the search more effectively. For example, rather than relying solely on tests to
+        assign reward values, we could apply negative values for nodes that fail compilation, or
+        that represent tokens outside a pre-specified set of acceptable grammar.
+      </li>
+      <li>
+        <b>Selection:</b> As the model's token probabilities become more miscalibrated the harder
+        the domain, we can lower the weight given to the transformer probability during node
+        selection.
+      </li>
+      <li>
+        <b>Expansion:</b> Similar to selection, unreliable token probabilities can lead MCTS to
+        expand potentially unproductive branches. One simple improvement would be to expand a larger
+        number of nodes at each iteration (e.g. top-50 instead of top-3), but this doesn't always
+        lead to better exploration if only a small number of nodes have outsized likelihoods
+        relative to the rest. It might instead be worth trying to sample from rather than directly
+        choose the top-k probability nodes, even if it breaks the deterministic guarantee of MCTS.
+      </li>
+    </ol>
+
+    <p>
+      On a final note, going beyond pure MCTS we are cautiously optimistic about the general
+      approach of interweaving LLM capabilities with traditional/alternative algorithms (or even
+      other LLMs) to achieve greater robustness & accuracy. Recent research in
+      <a
+        href="https://deepmind.google/discover/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/"
+        target="_blank"
+        >using LLMs with evolutionary algorithms</a
+      >, <a href="https://arxiv.org/abs/2401.10020" target="_blank">self-rewarding LLMs</a>, and
+      other <a href="https://arxiv.org/abs/2401.08500" target="_blank">systemic strategies</a> show
+      promise in this direction, and we expect to continue developing both MCTS & these ideas for
+      future enquiry.
+    </p>
+    <footer><a href="https://github.com/rmshin/llm-mcts" target="_blank">View on GitHub</a></footer>
   </body>
   <script>
-    var cy, graph;
-    const slider = document.getElementById('time-step');
-    const sliderLabel = document.getElementById('time-step-label');
-    const graphCtr = document.getElementById('cy');
-    function renderGraph(graphData, timeStep) {
-      graph = graphData[timeStep];
-      cy = cytoscape({
-        container: graphCtr,
+    var treeData;
+    const treeGraph = document.getElementById('tree-cy');
+    function renderTree(timeStep) {
+      const tree = treeData[timeStep];
+      const treeCy = cytoscape({
+        container: treeGraph,
         elements: {
-          nodes: graph.nodes.map((node) => ({
-            data: { ...node },
-            style: graph.selectedNodes.includes(node.id)
-              ? { 'background-color': 'red' }
-              : undefined,
-          })),
+          nodes: tree.nodes,
+          edges: tree.edges,
+        },
+        panningEnabled: false,
+        zoomingEnabled: false,
+        boxSelectionEnabled: false,
+        layout: {
+          name: 'dagre',
+          align: 'UL',
+        },
+        style: [
+          {
+            selector: 'node',
+            style: {
+              'background-color': function (el) {
+                return Number(el.id()) > 14 ? 'green' : '#11479e';
+              },
+            },
+          },
+          {
+            selector: 'edge',
+            style: {
+              width: 3,
+              'line-color': '#9dbaea',
+              'target-arrow-color': '#9dbaea',
+              'target-arrow-shape': 'triangle',
+            },
+          },
+        ],
+      });
+      treeCy.autolock(true);
+      treeCy.panningEnabled(true);
+    }
+    fetch('public/graph_example_tree.json')
+      .then((res) => res.json())
+      .then((data) => {
+        treeData = data;
+        const treeSlider = document.getElementById('time-step-tree');
+        const treeSliderLabel = document.getElementById('time-step-tree-label');
+        treeSlider.max = Math.max.apply(null, Object.keys(treeData));
+
+        // handle first render
+        renderTree(treeSlider.value);
+        treeSliderLabel.textContent = `Time step: ${treeSlider.value}`;
+
+        // update tree upon time-step input changes
+        treeSlider.addEventListener(
+          'input',
+          (e) => (treeSliderLabel.textContent = `Time step: ${treeSlider.value}`)
+        );
+        treeSlider.addEventListener('input', (e) => renderTree(e.target.value));
+      });
+  </script>
+  <script>
+    var branchData;
+    const branchGraph = document.getElementById('branching-cy');
+    function renderBranching(factor) {
+      const tree = branchData[factor];
+      const treeCy = cytoscape({
+        container: branchGraph,
+        elements: {
+          nodes: tree.nodes,
+          edges: tree.edges,
+        },
+        panningEnabled: false,
+        zoomingEnabled: false,
+        boxSelectionEnabled: false,
+        layout: {
+          name: 'dagre',
+        },
+        style: [
+          {
+            selector: 'node',
+            style: { 'background-color': '#11479e' },
+          },
+          {
+            selector: 'edge',
+            style: {
+              width: 3,
+              'line-color': '#9dbaea',
+              'target-arrow-color': '#9dbaea',
+              'target-arrow-shape': 'triangle',
+            },
+          },
+        ],
+      });
+      treeCy.autolock(true);
+      treeCy.panningEnabled(true);
+    }
+    fetch('public/graph_branching_factor.json')
+      .then((res) => res.json())
+      .then((data) => {
+        branchData = data;
+        const bfInput = document.getElementById('tree-branch-factor');
+        const bfOutcomesLabel = document.getElementById('branch-factor-outcomes');
+        bfInput.min = Math.min.apply(null, Object.keys(branchData));
+        bfInput.max = Math.max.apply(null, Object.keys(branchData));
+        const depth = 4; // hardcoded depth of tree in example json
+
+        // handle first render
+        renderBranching(bfInput.value);
+        bfOutcomesLabel.textContent = `# total outcomes: ${bfInput.value ** depth}`;
+
+        // update tree upon branching factor input changes
+        bfInput.addEventListener('input', (e) => renderBranching(e.target.value));
+        bfInput.addEventListener('input', (e) => {
+          bfOutcomesLabel.textContent = `# total outcomes: ${e.target.value ** depth}`;
+        });
+        bfInput.addEventListener('blur', (_) => {
+          const val = Math.max(bfInput.min, Math.min(bfInput.value, bfInput.max));
+          if (bfInput.value != val) renderBranching(val);
+          bfInput.value = val;
+        });
+      });
+  </script>
+  <script>
+    const asymGraph = document.getElementById('asymmetric-cy');
+    fetch('public/graph_asymmetric.json')
+      .then((res) => res.json())
+      .then((data) => {
+        const treeCy = cytoscape({
+          container: asymGraph,
+          elements: {
+            nodes: data.nodes,
+            edges: data.edges,
+          },
+          panningEnabled: false,
+          zoomingEnabled: false,
+          boxSelectionEnabled: false,
+          layout: {
+            name: 'dagre',
+          },
+          style: [
+            {
+              selector: 'node',
+              style: { 'background-color': '#11479e' },
+            },
+            {
+              selector: 'edge',
+              style: {
+                width: 3,
+                'line-color': '#9dbaea',
+                'target-arrow-color': '#9dbaea',
+                'target-arrow-shape': 'triangle',
+              },
+            },
+          ],
+        });
+        treeCy.autolock(true);
+        treeCy.panningEnabled(true);
+      });
+  </script>
+  <script>
+    var graphData;
+    const rolloutGraph = document.getElementById('rollout-cy');
+    function renderGraph(timeStep) {
+      const graph = graphData[timeStep];
+      const rolloutCy = cytoscape({
+        container: rolloutGraph,
+        elements: {
+          nodes: graph.nodes.map((node) => ({ data: { ...node } })),
           edges: graph.edges.map(([n1, n2]) => ({
             data: { source: n1, target: n2, selectable: false },
-            style: graph.selectedNodes.includes(n2)
-              ? { 'line-color': 'red', 'target-arrow-color': 'red' }
-              : undefined,
           })),
         },
         style: [
           {
             selector: 'node',
             style: {
-              'background-color': '#666',
+              'background-color': function (el) {
+                return graph.selectedNodes.includes(Number(el.id())) ? 'red' : '#666';
+              },
               label: 'data(label)',
             },
           },
@@ -387,33 +1085,46 @@ for prompt, task_id in prompts:
             selector: 'edge',
             style: {
               width: 3,
-              'line-color': '#ccc',
-              'target-arrow-color': '#ccc',
+              'line-color': function (el) {
+                return graph.selectedNodes.includes(Number(el.data('target'))) ? 'red' : '#ccc';
+              },
+              'target-arrow-color': function (el) {
+                return graph.selectedNodes.includes(Number(el.data('target'))) ? 'red' : '#ccc';
+              },
               'target-arrow-shape': 'triangle',
               'curve-style': 'bezier',
             },
           },
         ],
         panningEnabled: false,
+        zoomingEnabled: false,
         boxSelectionEnabled: false,
         layout: {
           name: 'dagre',
           align: 'UL',
         },
       });
-      cy.autolock(true);
+      rolloutCy.autolock(true);
+      rolloutCy.panningEnabled(true);
     }
     fetch('public/graph_HumanEval_113.json')
       .then((res) => res.json())
-      .then((graphData) => {
-        slider.max = Math.max.apply(null, Object.keys(graphData));
-        renderGraph(graphData, slider.value);
-        sliderLabel.textContent = `Time step: ${slider.value}`;
-        slider.addEventListener(
+      .then((data) => {
+        graphData = data;
+        const rolloutSlider = document.getElementById('time-step-rollout');
+        const rolloutSliderLabel = document.getElementById('time-step-rollout-label');
+        rolloutSlider.max = Math.max.apply(null, Object.keys(graphData));
+
+        // handle first render
+        renderGraph(rolloutSlider.value);
+        rolloutSliderLabel.textContent = `Time step: ${rolloutSlider.value}`;
+
+        // update tree upon time-step input changes
+        rolloutSlider.addEventListener(
           'input',
-          (e) => (sliderLabel.textContent = `Time step: ${slider.value}`)
+          (e) => (rolloutSliderLabel.textContent = `Time step: ${rolloutSlider.value}`)
         );
-        slider.addEventListener('input', (e) => renderGraph(graphData, e.target.value));
+        rolloutSlider.addEventListener('input', (e) => renderGraph(e.target.value));
       });
   </script>
 </html>

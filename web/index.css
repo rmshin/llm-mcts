@@ -8,43 +8,78 @@ body {
   font-style: normal;
   max-width: 40rem;
   margin: auto;
+  margin-bottom: 8rem;
   font-size: 1rem;
   line-height: 1.4rem;
 }
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
   font-family: 'Lora', serif;
   font-optical-sizing: auto;
   font-style: normal;
-}
-h1,
-h2 {
-  margin-top: 3.8rem;
-  margin-bottom: 2.2rem;
 }
 h1 {
   font-size: 3rem;
   line-height: 3.2rem;
   font-weight: 800;
+  margin-top: 3.8rem;
 }
 h2 {
   font-size: 1.6rem;
   line-height: 1.8rem;
   font-weight: 600;
+  margin-top: 3.8rem;
+  margin-bottom: 2.2rem;
 }
 
 a {
   color: inherit;
   font-weight: 500;
 }
-
 p {
   margin-bottom: 1rem;
+}
+sup {
+  font-size: 0.7rem;
+  vertical-align: super;
+}
+
+ul,
+ol {
+  margin-left: 1.5rem !important;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+li {
+  line-height: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
+footer {
+  text-align: right;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+table {
+  width: 100%;
+  min-width: 35rem;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+th {
+  background-color: #f2f2f2;
 }
 
 .inline-code {
@@ -52,4 +87,72 @@ p {
   font-family: monospace;
   border-radius: 0.2rem;
   padding: 0.1rem 0.3rem;
+  white-space: nowrap;
+}
+
+.llm-example {
+  width: calc(100% - 1rem);
+  padding: 0.5rem;
+  background-color: #1e1e1e;
+}
+.llm-example:first-of-type {
+  margin-top: 1.5rem;
+}
+.mcts-steps {
+  width: 100%;
+}
+.p-ucb {
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 0.5rem;
+}
+.p-ucb-select {
+  width: 65%;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  margin-left: 10%;
+}
+.authors {
+  color: #939393;
+  margin: 0.5rem 0 2.2rem;
+}
+.caption {
+  color: #939393;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+  margin: 0.5rem 0.5rem 2.2rem;
+}
+.red {
+  color: red;
+}
+.blue {
+  color: #11479e;
+}
+.green {
+  color: green;
+}
+
+.dataset-example {
+  width: 90%;
+}
+
+#tree-cy {
+  width: 100%;
+  height: 370px;
+  display: block;
+}
+#branching-cy {
+  width: 100%;
+  height: 370px;
+  display: block;
+}
+#asymmetric-cy {
+  width: 100%;
+  height: 450px;
+  display: block;
+}
+#rollout-cy {
+  width: 100%;
+  height: 680px;
+  display: block;
 }
