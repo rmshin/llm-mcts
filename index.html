@@ -71,9 +71,6 @@
       >
     </p>
     <p>
-      We steer for accuracy by partial scoring in test benches, consistency by using greedy decoding, and cheap by small quantized models.
-    </p>
-    <p>
       We approach the problem by combining a pre-trained transformer model with an adapted version
       of the
       <a href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search" target="_blank"
@@ -82,8 +79,7 @@
       (MCTS) algorithm to guide the generation, taking inspiration from the paper
       <a href="https://arxiv.org/abs/2303.05510" target="_blank"
         >Planning with Large Language Models for Code Generation</a
-      >
-      . We compare the effectiveness of this approach against direct sampling of the transformer’s
+      >. We steer for <em>accuracy</em> by partial scoring in test benches, <em>consistency</em> by using greedy decoding, and <em>cheap</em> by small quantized models. We compare the effectiveness of this approach against direct sampling of the transformer’s
       unaided generations on the
       <a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a> and
       <a href="https://github.com/NVlabs/verilog-eval" target="_blank">VerilogEval</a> benchmarks,
@@ -120,7 +116,7 @@
     </p>
     <p>
       There are a number of ways we could mitigate the effect of hallucinations. 
-      We just naively temperature sample the LLM multiple times for the same prompt and filter out the incorrect ones that fail
+      We could, for instance, just naively sample the LLM multiple times for the same prompt and filter out the incorrect ones that fail
       compilation or a test bench. This is known as
       <b>sampling + filtering</b> (S+F), and it provides a reasonable baseline against which to
       compare alternative solutions.
@@ -194,9 +190,6 @@
         >llama-cpp-python</a
       >.
     </p>
-    <p>
-      We would like to point llama-cpp-python bindings did not yet support multibatch sampling, so we had to run the model in a single batch mode, sequentially. However, due to default prompt kv-caching, there was significant speedup in subsequent runs of the same prompt.
-    </p>
     <pre><code class="language-python">from llama_cpp import Llama
 
 model = Llama(
@@ -207,7 +200,9 @@ model = Llama(
     n_threads=10,
     logits_all=True, # include token probabilities in output
 )</code></pre>
-
+    <p>
+      We would like to point out that <code class="inline-code">llama-cpp-python</code> does not yet support batched inference, so we had to run the model in a single batch mode sequentially. However, thanks to default prompt kv-caching in <code class="inline-code">llama.cpp</code>, we were still able to process subsequent runs of the same prompt relatively quickly.
+    </p>
     <h2 id="prompting">Prompting</h2>
     <p>
       In order to better process and extract code from the generations given by
@@ -270,7 +265,7 @@ def few_shot_prompt(examples, question):
       <a href="https://deepgram.com/learn/humaneval-llm-benchmark#the-passk-metric" target="_blank"
         >pass@k</a
       >
-      metric for the LLM-generated code samples. The <b>pass@k</b> metric is defined as the probability that at least one of the k-generated samples for each task in the benchmark passes its unit tests. It can be seen as the overall "problem pass rate" of the LLM over the entire
+      metric for the LLM-generated code samples. The <b>pass@k</b> metric is defined as the probability that at least one of the k-generated samples for each task in the benchmark passes its unit tests. It can be seen as the overall "problem pass rate" of the LLM across the entire
       HumanEval problem set.
     </p>
 
@@ -447,17 +442,16 @@ for prompt, task_id in prompts_ids:
     <p>
       In the <b>selection</b> phase, the MCTS algorithm makes a decision on which node or branch it
       should explore or exploit next by assigning a kind of "priority" to each node. Greater weight is
-      typically given to nodes that are either higher in value (currently observed performance) or have fewer visits (not yet explored i.e. uncertainity). For our case of
+      typically given to nodes that are either higher in value (currently observed performance) or have fewer visits (not yet explored i.e. greater uncertainity). For our case of
       LLM code generation, the exact calculation of this priority is given by:
     </p>
     <img loading="lazy" src="public/p-ucb.png" alt="p-ucb function" class="p-ucb" />
     <p>and the node with the highest priority is selected:</p>
     <img loading="lazy" src="public/p-ucb-select.png" alt="p-ucb selection" class="p-ucb-select" />
     <p>
-      This formulation adapts a popular Upper Confidence Bound metric in RL with transfomer probabilities to weight the exploration, see more in <a href="https://arxiv.org/abs/2303.05510" target="_blank"
+      This formulation adapts a popular Upper Confidence Bound heuristic in RL with transfomer probabilities to weight the exploration, as described in Section D.1 of <a href="https://arxiv.org/abs/2303.05510" target="_blank"
       >Planning with Large Language Models for Code Generation</a
-    >.  What's more important is to realise
-      that the choice of which nodes to explore is a function of three main parameters: the node
+    >.  The choice of which nodes to explore is a function of three main parameters: the node
       value
       <b>Q</b> (to be elaborated further below), the node token probability <b>P</b> (provided by
       the LLM), and an <b>exploration term</b> that captures how often we've previously visited the
@@ -724,7 +718,7 @@ def get_top_k_tokens(curr_node, k=3):
         found. But due to the probablistic nature of sampling, which cannot guarantee replication
         across successive generations, we need to collect the full set of samples for every problem
         in order to properly estimate the pass@k metrics for various values of k.
-        One can definitely sample until success and calculate the empiricial expected k to compare with average rollout, but we suffice with estimating the pass@k metric.
+        We could alternatively sample until success and calculate the empiricial expected k to compare with average rollout, but we suffice with estimating the pass@k metric.
       </li>
     </ol>
     <h2>Extending the experiment to VerilogEval</h2>
