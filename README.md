@@ -20,7 +20,7 @@ git clone https://github.com/arunpatro/human-eval
 cd human-eval && pip install -e .
 ```
 
-Checkout the `nbs/humaneval.ipynb` for a demo. on how to use
+Checkout the `nbs/humaneval.ipynb` for a demo.
 
 ### Run experiments
 
