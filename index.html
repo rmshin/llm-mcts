@@ -124,9 +124,7 @@
     <p>
       Another approach is to search for the correct sequence of tokens using a
       <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)" target="_blank">tree-based</a>
-      search algorithm. Neither strategy is likely to prove definitive in solving the issue of LLM
-      accuracy, simply because the learned probabilities are miscalibrated. We'll explore them in greater depth to learn exactly how and when they might be
-      most useful.
+      search algorithm. Each strategy comes with its own pros and cons in improving LLM accuracy, and we'll explore them both in greater depth to learn exactly how and when they might be most useful.
     </p>
 
     <h2>Setting up with an LLM</h2>
@@ -406,12 +404,12 @@ for prompt, task_id in prompts_ids:
     <p>
       It is thus impractical to apply decision trees to code generation without also adopting some
       kind of strategy to significantly reduce the branching factor & resulting search space. This
-      is precisely the purpose of MCTS, which applies a heuristic (the
+      is precisely the purpose of MCTS, which applies the
       <a
         href="https://www.geeksforgeeks.org/upper-confidence-bound-algorithm-in-reinforcement-learning/"
         target="_blank"
-        >upper confidence bound</a
-      >) to identify the "winning" branches in a tree without computing the entire tree.
+        >Upper Confidence Bound</a
+      > heuristic to identify the "winning" branches in a tree without computing the entire tree.
     </p>
     <div id="asymmetric-cy"></div>
     <p class="caption">Example of MCTS–note the differing depths of the various subtrees.</p>
@@ -441,7 +439,7 @@ for prompt, task_id in prompts_ids:
     </p>
     <p>
       In the <b>selection</b> phase, the MCTS algorithm makes a decision on which node or branch it
-      should explore or exploit next by assigning a kind of "priority" to each node. Greater weight is
+      should explore/exploit next by assigning a kind of "priority" to each node. Greater weight is
       typically given to nodes that are either higher in value (currently observed performance) or have fewer visits (not yet explored i.e. greater uncertainty). For our case of
       LLM code generation, the exact calculation of this priority is given by:
     </p>
@@ -449,7 +447,7 @@ for prompt, task_id in prompts_ids:
     <p>and the node with the highest priority is selected:</p>
     <img loading="lazy" src="public/p-ucb-select.png" alt="p-ucb selection" class="p-ucb-select" />
     <p>
-      This formulation adapts a popular Upper Confidence Bound heuristic in RL with transformer probabilities to weight the exploration, as described in Section D.1 of <a href="https://arxiv.org/abs/2303.05510" target="_blank"
+      This formulation adapts UCB with transformer probabilities to weight the exploration, as described in Section D.1 of <a href="https://arxiv.org/abs/2303.05510" target="_blank"
       >Planning with Large Language Models for Code Generation</a
     >.  The choice of which nodes to explore is a function of three main parameters: the node
       value
@@ -480,7 +478,7 @@ for prompt, task_id in prompts_ids:
       iterations through the tree.
     </p>
     <p>
-      However due to the nested nature of search trees, any high-value nodes discovered deep in the
+      But due to the nested nature of search trees, any high-value nodes discovered deep in the
       hierarchy might not be reached again in successive searches (e.g. if the previous parent
       branches are never chosen). To ensure that this doesn't happen, a node's reward value is
       propagated to all its parents up to the tree's root. This is the final
@@ -725,7 +723,7 @@ def get_top_k_tokens(curr_node, k=3):
     <p>
       Using MCTS on the HumanEval dataset proved quite successful, outperforming the ~equivalent S+F
       5-sample baseline by a decent margin and even the 20-sample baseline at much less compute
-      cost. However due to the raw strength of
+      cost. But due to the raw strength of
       <code class="inline-code">deepseek-coder-6.7B-instruct</code> in HumanEval and Python,
       applying MCTS didn't show a significant improvement in <em>absolute</em> quality vs. the top
       S+F results.
@@ -749,8 +747,8 @@ def get_top_k_tokens(curr_node, k=3):
     <p>
       Because we expected the deepseek LLM to be less capable in Verilog, we needed to adjust a few
       generation parameters before running both S+F and MCTS. We increased the context length & max
-      number of generated tokens to account for the greater verbosity of Verilog code and also
-      upped the top-k sampling from 3 to 50 to encourage more diverse model outputs.
+      number of generated tokens to account for the greater verbosity of Verilog code. We also
+      increased the k in top-k sampling from 3 to 50 to enable more diverse model outputs.
     </p>
     <p>S+F with 4096 context size, top-50 sampling, 1.0 temperature, and 1024 max tokens:</p>
     <div class="table-wrapper">
@@ -857,7 +855,7 @@ def get_top_k_tokens(curr_node, k=3):
     <h2>Future considerations</h2>
     <p>
       Although MCTS' good performance on HumanEval didn't carry through to the VerilogEval dataset,
-      we believe there is an opportunity to make it more robust to fluctuations in the underlying LLM
+      we believe there are opportunities to make it more robust to fluctuations in the underlying LLM
       ability by tweaking its reward function & selection/expansion policies:
     </p>
     <ol>
