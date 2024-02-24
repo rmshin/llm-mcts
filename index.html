@@ -371,8 +371,10 @@ for prompt, task_id in prompts_ids:
       tokens that could follow (<b>branches</b> or <b>children</b>) until a specified maximum
       <b>depth</b> is reached.
     </p>
-    <input type="range" id="time-step-tree" name="time-step-tree" min="0" />
-    <label id="time-step-tree-label" for="time-step-tree">Time step:</label>
+    <div class="graph-control">
+      Time step:<label id="time-step-tree-label" for="time-step-tree"></label>
+      <input type="range" id="time-step-tree" name="time-step-tree" min="0" />
+    </div>
     <div id="tree-cy"></div>
     <p class="caption">
       A visualisation of a small decision tree. <span class="red">Red</span> represents the root
@@ -387,10 +389,11 @@ for prompt, task_id in prompts_ids:
       <b>branching factor</b> (the number of children at each node), even slight changes in these
       values can meaningfully impact the feasibility of the search.
     </p>
-    <input type="number" id="tree-branch-factor" name="tree-branch-factor" value="2" />
-    <label id="branch-factor-label" for="tree-branch-factor">Branching factor</label>
-    <label id="branch-factor-outcomes"># total outcomes:</label>
-    <label id="branch-factor-depth">(depth = 5)</label>
+    <div class="graph-control">
+      <label id="branch-factor-label" for="tree-branch-factor">Branching factor:</label>
+      <input type="number" id="tree-branch-factor" name="tree-branch-factor" value="2" />
+    </div>
+    <div class="graph-control"># Total outcomes:<label id="branch-factor-outcomes"></label></div>
     <div id="branching-cy"></div>
     <p class="caption">
       Try changing the branching factor of the tree above to see how it affects the number of total
@@ -623,8 +626,10 @@ def get_top_k_tokens(curr_node, k=3):
       iteration (rollout) of the MCTS algorithm, with the nodes selected at each iteration colored
       in red. For this particular problem, the final solution was found on the 13th rollout.
     </p>
-    <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
-    <label id="time-step-rollout-label" for="time-step-rollout">Time step:</label>
+    <div class="graph-control">
+      Time step: <label id="time-step-rollout-label" for="time-step-rollout"></label>
+      <input type="range" id="time-step-rollout" name="time-step-rollout" min="0" />
+    </div>
     <div id="rollout-cy"></div>
 
     <h2>Beating the baseline on HumanEval</h2>
@@ -909,7 +914,6 @@ def get_top_k_tokens(curr_node, k=3):
           nodes: tree.nodes,
           edges: tree.edges,
         },
-        panningEnabled: false,
         zoomingEnabled: false,
         boxSelectionEnabled: false,
         layout: {
@@ -937,7 +941,6 @@ def get_top_k_tokens(curr_node, k=3):
         ],
       });
       treeCy.autolock(true);
-      treeCy.panningEnabled(true);
     }
     fetch('public/graph_example_tree.json')
       .then((res) => res.json())
@@ -949,12 +952,12 @@ def get_top_k_tokens(curr_node, k=3):
 
         // handle first render
         renderTree(treeSlider.value);
-        treeSliderLabel.textContent = `Time step: ${treeSlider.value}`;
+        treeSliderLabel.textContent = `${treeSlider.value}`;
 
         // update tree upon time-step input changes
         treeSlider.addEventListener(
           'input',
-          (e) => (treeSliderLabel.textContent = `Time step: ${treeSlider.value}`)
+          (e) => (treeSliderLabel.textContent = `${treeSlider.value}`)
         );
         treeSlider.addEventListener('input', (e) => renderTree(e.target.value));
       });
@@ -970,8 +973,6 @@ def get_top_k_tokens(curr_node, k=3):
           nodes: tree.nodes,
           edges: tree.edges,
         },
-        panningEnabled: false,
-        zoomingEnabled: false,
         boxSelectionEnabled: false,
         layout: {
           name: 'dagre',
@@ -1007,12 +1008,12 @@ def get_top_k_tokens(curr_node, k=3):
 
         // handle first render
         renderBranching(bfInput.value);
-        bfOutcomesLabel.textContent = `# total outcomes: ${bfInput.value ** depth}`;
+        bfOutcomesLabel.textContent = `${bfInput.value ** depth}`;
 
         // update tree upon branching factor input changes
         bfInput.addEventListener('input', (e) => renderBranching(e.target.value));
         bfInput.addEventListener('input', (e) => {
-          bfOutcomesLabel.textContent = `# total outcomes: ${e.target.value ** depth}`;
+          bfOutcomesLabel.textContent = `${e.target.value ** depth}`;
         });
         bfInput.addEventListener('blur', (_) => {
           const val = Math.max(bfInput.min, Math.min(bfInput.value, bfInput.max));
@@ -1055,7 +1056,6 @@ def get_top_k_tokens(curr_node, k=3):
           ],
         });
         treeCy.autolock(true);
-        treeCy.panningEnabled(true);
       });
   </script>
   <script>
@@ -1096,8 +1096,8 @@ def get_top_k_tokens(curr_node, k=3):
             },
           },
         ],
-        panningEnabled: false,
         zoomingEnabled: false,
+        pan: { y: 40, x: 10 },
         boxSelectionEnabled: false,
         layout: {
           name: 'dagre',
@@ -1105,7 +1105,6 @@ def get_top_k_tokens(curr_node, k=3):
         },
       });
       rolloutCy.autolock(true);
-      rolloutCy.panningEnabled(true);
     }
     fetch('public/graph_HumanEval_113.json')
       .then((res) => res.json())
@@ -1117,12 +1116,12 @@ def get_top_k_tokens(curr_node, k=3):
 
         // handle first render
         renderGraph(rolloutSlider.value);
-        rolloutSliderLabel.textContent = `Time step: ${rolloutSlider.value}`;
+        rolloutSliderLabel.textContent = `${rolloutSlider.value}`;
 
         // update tree upon time-step input changes
         rolloutSlider.addEventListener(
           'input',
-          (e) => (rolloutSliderLabel.textContent = `Time step: ${rolloutSlider.value}`)
+          (e) => (rolloutSliderLabel.textContent = `${rolloutSlider.value}`)
         );
         rolloutSlider.addEventListener('input', (e) => renderGraph(e.target.value));
       });
