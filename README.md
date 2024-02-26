@@ -1,8 +1,8 @@
 # llm-mcts
 
-This is a project to explore Monte-Carlo Tree Search (MCTS) for Code-Gen tasks. We first test our method on the Human-Eval dataset.
+This is a project to explore Monte-Carlo Tree Search (MCTS) for Code-Gen tasks. We first test our method on the Human-Eval dataset, and extend to the Verilog-Eval dataset. For a detailed explanation of the experiments please see the accompanying blog at /web/index.html also hosted at https://localhost:3000/web/index.html. 
 
-## Setup
+## Env Setup
 
 This project uses `conda` to manage its python environment and packages. To install all relevant libraries, run the following:
 
@@ -11,7 +11,7 @@ conda env create -f environment.yml
 conda activate llm-mcts
 ```
 
-### Setup Human-Eval
+## Human-Eval
 
 We use a modified human-eval dataset/enviroment from https://github.com/arunpatro/human-eval. This fork contains updated code for python-3.10 and also extends the error feedback to include the traceback.
 
@@ -22,13 +22,14 @@ cd human-eval && pip install -e .
 
 Checkout the `nbs/humaneval.ipynb` for a demo.
 
-### Running MCTS code generation
+### Run experiments
 
 ```sh
+python src/baselines.py
 python src/mcts.py
 ```
 
-### Setup Verilog-Eval
+## Verilog-Eval
 
 We use a modified verilog-eval dataset/enviroment from https://github.com/arunpatro/verilog-eval. This fork contains updated code for python-3.10 and also extends the error feedback to include the traceback, vcdcat for further waveform analysis.
 
@@ -48,14 +49,9 @@ iverilog -V
 vvp -V
 ```
 
-### Running baselines for Verilog
+### Run experiments
 
 ```sh
 PYTHONPATH="./verilog" python src/baselines.py verilog
-```
-
-### Running MCTS for Verilog
-
-```sh
 PYTHONPATH="./verilog" python src/mcts.py verilog
 ```

@@ -32,12 +32,15 @@
   <body>
     <h1>Monte Carlo Tree Search for Code Generation using LLMs</h1>
     <p class="authors">
-      by <a href="https://arunpatro.github.io/" target="_blank">Arun Patro</a> and
-      <a href="https://github.com/rmshin" target="_blank">Robert Shin</a>.<br />(<a
+      by <a href="https://github.com/rmshin" target="_blank">Robert Shin</a> and
+      <a href="https://arunpatro.github.io/" target="_blank">Arun Patro</a>.<br />(<a
         href="https://github.com/rmshin/llm-mcts"
         target="_blank"
         >View on GitHub</a
       >)
+    </p>
+    <p>
+      Date: 2024-02-25
     </p>
     <p>
       There have been a slew of LLMs released to the public over the past ~12 months that have shown
@@ -63,7 +66,7 @@
     </p>
     <p>
       Many of these models are impressive at generating short snippets of code, and often fare well
-      even for complex problem descriptions–albeit with some hallucinations due to the probabilistic
+      even for complex problem descriptions, albeit with some hallucinations due to the probabilistic
       nature of LLMs. In this blog post we explore the following:
       <em
         >is it possible to achieve LLM code generation that is accurate, consistent, and relatively
@@ -79,25 +82,23 @@
       (MCTS) algorithm to guide the generation, taking inspiration from the paper
       <a href="https://arxiv.org/abs/2303.05510" target="_blank"
         >Planning with Large Language Models for Code Generation</a
-      >
-      . We compare the effectiveness of this approach against direct sampling of the transformer’s
+      >. We compare the effectiveness of this approach against direct sampling of the transformer’s
       unaided generations on the
       <a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a> and
-      <a href="https://github.com/NVlabs/verilog-eval" target="_blank">VerilogEval</a> benchmarks,
+      <a href="https://github.com/NVlabs/verilog-eval" target="_blank">VerilogEval</a> benchmarks
       and detail the process & observations gathered along the way. Jump ahead to the
       <a href="#discussion">final discussion</a> if you’re curious about the results!
     </p>
     <h2>Background</h2>
     <p>
-      At a high level, language models output the tokens (characters) that they've been trained to
-      recognise as the most probable ones to come after a given sequence or prompt. It can be seen
-      as a kind of <em>statistical predictor</em>, and it turns out that such an approach works
-      surprisingly well in generating all kinds of text (like source code).
+      Language models function by predicting the most likely next tokens (sequence of characters) that follow a given prompt or sequence. They generate text based on probabilities and patterns derived from their training data, essentially acting as statistical predictors.
+      It turns out that such an approach works
+      surprisingly well in generating all kinds of text including source code for computer programs.
     </p>
     <p>
-      But as impressive as they are, LLMs also come with their own quirks and limitations. One
+      But as impressive as they are, LLMs also come with their quirks and limitations. One
       well-known issue is the tendency for models to hallucinate and generate responses that are
-      either subtly incorrect or outright made up. This is obviously not what we want when
+      either subtly incorrect or outright made up. This is not what we want when
       generating code, where we expect the output to be both functionally correct & consistent over
       time.
     </p>
@@ -117,19 +118,16 @@
       Example of incorrect Python code output from DeepSeek Coder 6.7B (running on llama.cpp).
     </p>
     <p>
-      There are a number of ways we could approach solving this problem, but the simplest is to just
-      run the LLM multiple times for the same prompt and filter out any incorrect ones that fail
+      There are several ways we could mitigate the effect of hallucinations. 
+      We could, for instance, just naively sample the LLM multiple times for the same prompt and filter out the incorrect ones that fail
       compilation or a test bench. This is known as
       <b>sampling + filtering</b> (S+F), and it provides a reasonable baseline against which to
       compare alternative solutions.
     </p>
     <p>
-      Another approach is, rather than relying on the LLM to directly generate code on its own, to
-      incorporate its predictions as part of a
+      Another approach is to search for the correct sequence of tokens using a
       <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)" target="_blank">tree-based</a>
-      search algorithm. Neither strategy is likely to prove definitive in solving the issue of LLM
-      accuracy, but we'll explore them in greater depth to learn exactly how and when they might be
-      most useful.
+      search algorithm. Each strategy comes with its own pros and cons in improving LLM accuracy, and we'll explore them both in greater depth to learn exactly how and when they might be most useful.
     </p>
 
     <h2>Setting up with an LLM</h2>
@@ -173,7 +171,7 @@
         >hard limit for GPU memory usage</a
       >
       at roughly ~70% of total memory), which degraded the model quality beyond our acceptable
-      limit. On the other hand, with the smaller Phi-2 model we struggled to get it to follow the
+      limit. On the other hand, we struggled to get the smaller Phi-2 model to follow the
       output format instructions specified in <a href="#prompting">our prompts</a>, making it
       difficult to automatically evaluate the model’s code output on benchmark test cases.
     </p>
@@ -187,7 +185,7 @@
       quantized version of <code class="inline-code">deepseek-coder-6.7B-instruct</code>, due to its
       superior quality & inference speed. Running under
       <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp</a>, the model
-      could generate an average of ~22.5 tokens/s and we integrated it via the python bindings
+      could generate an average of ~22.5 tokens/s and we integrated it via the Python bindings
       provided by
       <a href="https://llama-cpp-python.readthedocs.io/en/latest/" target="_blank"
         >llama-cpp-python</a
@@ -203,10 +201,12 @@ model = Llama(
     n_threads=10,
     logits_all=True, # include token probabilities in output
 )</code></pre>
-
+    <p>
+      We would like to point out that <code class="inline-code">llama-cpp-python</code> does not yet support batched inference, so we had to run the model in a single batch mode sequentially. However, thanks to the default prompt kv-caching in <code class="inline-code">llama.cpp</code>, we were still able to process subsequent runs of the same prompt relatively quickly.
+    </p>
     <h2 id="prompting">Prompting</h2>
     <p>
-      In order to better process and extract code from the generations given by
+      To better process and extract code from the generations given by
       <code class="inline-code">deepseek-coder-6.7B-instruct</code>, we employed
       <a href="https://www.promptingguide.ai/techniques/fewshot" target="_blank"
         >few-shot prompting</a
@@ -222,7 +222,7 @@ model = Llama(
 def few_shot_prompt(examples, question):
     """
     Please answer the following question following the examples.
-    Generate valid python code by indenting 4 spaces always.
+    Generate valid Python code by indenting 4 spaces always.
 
     {% for example in examples %}
     Question:
@@ -247,7 +247,7 @@ def few_shot_prompt(examples, question):
     <p>
       We chose to specifically test the model's Python proficiency via the
       <a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a> dataset which,
-      though far from being a perfect measure, is an established rubric in evaluating LLM code
+      though far from being a perfect measure, is an established benchmark in evaluating LLM code
       performance. HumanEval consists of 164 programming tasks in Python of varying difficulty, with
       each task containing at least an ID, prompt, reference solution, and test to appraise model
       output. Here is an example of what a single task in the dataset looks like:
@@ -266,9 +266,7 @@ def few_shot_prompt(examples, question):
       <a href="https://deepgram.com/learn/humaneval-llm-benchmark#the-passk-metric" target="_blank"
         >pass@k</a
       >
-      metric for the LLM-generated code samples. <b>Pass@k</b> is a probabilistic calculation that
-      represents the likelihood that at least one of the top k-generated samples for each HumanEval
-      task passes its tests. It can be seen as the overall "pass rate" of the LLM over the entire
+      metric for the LLM-generated code samples. The <b>pass@k</b> metric is defined as the probability that at least one of the k-generated samples for each task in the benchmark passes its unit tests. It can be seen as the overall "problem pass rate" of the LLM across the entire
       HumanEval problem set.
     </p>
 
@@ -276,9 +274,9 @@ def few_shot_prompt(examples, question):
     <p>
       With the S+F strategy, we expected a higher number of samples generated per prompt to increase
       the LLM's accuracy. In an ideal world, we would've generated upwards of ~200 samples, but due
-      to both hardware & time constraints we limited the generations to 20 samples per task. This
+      to both hardware & time constraints, we limited the generations to 20 samples per task. This
       has the downside of higher variance in the ensuing pass@k calculations, but we did not expect
-      it to be to so significant as to distort the experiment results.
+      it to be so significant as to distort the experiment results.
     </p>
 
     <p>
@@ -348,8 +346,8 @@ for prompt, task_id in prompts_ids:
         else it's overfitted for benchmarks)!
       </li>
       <li>
-        The accuracy improvements of S+F do not come for free, however. Both compute budget &
-        processing time grow in proportion to the number of samples; 5 sample time was roughly 1/4
+        The accuracy improvements of S+F do not come for free, however. Both compute &
+        processing time grow linearly with number of samples; 5 sample time was roughly 1/4
         the time for 20 samples (~1h vs ~4h).
       </li>
     </ul>
@@ -365,7 +363,7 @@ for prompt, task_id in prompts_ids:
       tokens that passes the tests defined for each HumanEval task.
     </p>
     <p>
-      We start by modelling the problem using a
+      We start by modeling the problem using a
       <a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a>. Given
       the initial prompt description (the <b>root</b>), we recursively map out all the possible next
       tokens that could follow (<b>branches</b> or <b>children</b>) until a specified maximum
@@ -379,13 +377,13 @@ for prompt, task_id in prompts_ids:
     <p class="caption">
       A visualisation of a small decision tree. <span class="red">Red</span> represents the root
       node (i.e. the initial prompt), <span class="blue">blue</span> represents child nodes
-      (subsequent tokens). <span class="green">Green</span> represents the final set of all possible
+      (subsequent tokens), and <span class="green">green</span> represents the final set of all possible
       outcomes. Play around with the time-step slider above to see how the tree grows as it deepens.
     </p>
     <p>
       Finding the solution with this method simply requires selecting the best option from the final
       list of outcomes, but this is only possible when the outcome space is small. Because the
-      computation needed to map a full tree increases exponentially with it's depth and
+      computation needed to map a full tree increases exponentially with its depth and
       <b>branching factor</b> (the number of children at each node), even slight changes in these
       values can meaningfully impact the feasibility of the search.
     </p>
@@ -406,18 +404,18 @@ for prompt, task_id in prompts_ids:
       <a href="https://homepages.cwi.nl/~aeb/go/misc/gostat.html" target="_blank"
         >average of 211 turns to complete</a
       >
-      with a branching factor of ~250. This equates to ~10<sup>500</sup> possible outcomes needed to
+      with an average branching factor of ~250. This equates to ~10<sup>500</sup> possible outcomes needed to
       be computed, which is already far more than can be processed in any reasonable length of time.
     </p>
     <p>
       It is thus impractical to apply decision trees to code generation without also adopting some
       kind of strategy to significantly reduce the branching factor & resulting search space. This
-      is precisely the purpose of MCTS, which applies a heuristic (the
+      is precisely the purpose of MCTS, which applies the
       <a
         href="https://www.geeksforgeeks.org/upper-confidence-bound-algorithm-in-reinforcement-learning/"
         target="_blank"
-        >upper confidence bound</a
-      >) to identify the "winning" branches in a tree without computing the entire tree.
+        >Upper Confidence Bound</a
+      > heuristic to identify the "winning" branches in a tree without computing the entire tree.
     </p>
     <div id="asymmetric-cy"></div>
     <p class="caption">Example of MCTS–note the differing depths of the various subtrees.</p>
@@ -447,16 +445,17 @@ for prompt, task_id in prompts_ids:
     </p>
     <p>
       In the <b>selection</b> phase, the MCTS algorithm makes a decision on which node or branch it
-      should explore next by assigning a kind of "priority" to each node. Greater weight is
-      typically given to nodes that are either higher in value or have fewer visits. For our case of
+      should explore/exploit next by assigning a kind of "priority" to each node. Greater weight is
+      typically given to nodes that are either higher in value (currently observed performance) or have fewer visits (not yet explored i.e. greater uncertainty). For our case of
       LLM code generation, the exact calculation of this priority is given by:
     </p>
     <img loading="lazy" src="public/p-ucb.png" alt="p-ucb function" class="p-ucb" />
     <p>and the node with the highest priority is selected:</p>
     <img loading="lazy" src="public/p-ucb-select.png" alt="p-ucb selection" class="p-ucb-select" />
     <p>
-      It is not necessary to understand the above in detail. What's more important is to realise
-      that the choice of which nodes to explore is a function of three main parameters: the node
+      This formulation adapts UCB with transformer probabilities to weight the exploration, as described in Section D.1 of <a href="https://arxiv.org/abs/2303.05510" target="_blank"
+      >Planning with Large Language Models for Code Generation</a
+    >.  The choice of which nodes to explore is a function of three main parameters: the node
       value
       <b>Q</b> (to be elaborated further below), the node token probability <b>P</b> (provided by
       the LLM), and an <b>exploration term</b> that captures how often we've previously visited the
@@ -472,23 +471,23 @@ for prompt, task_id in prompts_ids:
     <p>
       Then following expansion comes <b>evaluation</b>. It is here that the value of the node is
       determined via the <b>reward</b> or <b>value function</b>–a quantitative measure to rank
-      nodes, such that choosing higher value nodes would yield better end outcomes. But each node in
+      nodes, such that choosing higher value nodes would yield better end outcomes. However each node in
       the tree represents an incomplete intermediate state that is often difficult to evaluate
-      directly. Thus we instead evalute a chosen node's "expected" end outcome by
+      directly. Thus we instead evaluate a chosen node's "expected" end outcome by
       <b>simulating</b> the remaining branch expansions.
     </p>
     <p>
       We achieve this simulation by having an LLM complete the remaining sequence (program) from the
       node's partial state. This completed program is then evaluated against a bench of tests from
       the HumanEval dataset, to obtain a pass rate between 0 - 1 as the node's value. Code that
-      passes more tests end up with higher values, and consequently are explored more in future
+      passes more tests ends up with higher values and consequently is explored more in future
       iterations through the tree.
     </p>
     <p>
       But due to the nested nature of search trees, any high-value nodes discovered deep in the
       hierarchy might not be reached again in successive searches (e.g. if the previous parent
       branches are never chosen). To ensure that this doesn't happen, a node's reward value is
-      propagated to all it's parents up to the tree's root. This is the final
+      propagated to all its parents up to the tree's root. This is the final
       <b>back-propagation</b> phase that completes a single iteration of MCTS, and once finished we
       return to the top (root) of the tree to restart the cycle.
     </p>
@@ -498,7 +497,7 @@ for prompt, task_id in prompts_ids:
       We use a simple <code class="inline-code">Node</code> class to represent the nodes of the
       Monte-Carlo tree. Remember that a node is equivalent to a branch, and it represents a possible
       token (character) that could come next in the sequence of generated text. Each node carries
-      its own values for generation state, number of visits, node value, LLM token probability, and
+      its values for generation state, number of visits, node value, LLM token probability, and
       children.
     </p>
     <pre><code class="language-python">class Node:
@@ -518,7 +517,7 @@ for prompt, task_id in prompts_ids:
                 self._parent.backprop(value)</code></pre>
     <p>
       For each HumanEval task, the tree is expanded and evaluated for a fixed number of iterations
-      (called <b>rollouts</b>). In each rollout we perform selection, expansion, evaluation and
+      (called <b>rollouts</b>). In each rollout we perform selection, expansion, evaluation, and
       back-propagation, and at the end of all iterations return the best found solution.
     </p>
     <pre><code class="language-python">max_rollouts = 128 # max number of iterations through tree
@@ -561,7 +560,7 @@ for prompt, task_id in prompts:
     </p>
     <p>
       The generated program is evaluated against the respective tests from HumanEval to obtain the
-      nodes value.
+      node's value.
     </p>
     <pre><code class="language-python">        # evaluation
         reward = match_cached_programs(curr_node.state, program_dict)
@@ -574,7 +573,7 @@ for prompt, task_id in prompts:
             program_dict[generated_program] = reward
           </code></pre>
     <p>
-      Finally we back-propagate the reward up the tree to all its parents (including the root). We
+      Finally, we back-propagate the reward up the tree to all its parents (including the root). We
       stop when a reward of 1.0 is found, as this represents a fully correct solution and thus there
       is no more exploration to do.
     </p>
@@ -645,7 +644,7 @@ def get_top_k_tokens(curr_node, k=3):
             <th>pass@1</th>
             <th>pass@5</th>
             <th>pass@20</th>
-            <th>time for 20 samples</th>
+            <th>total time (20 samples/task)</th>
           </tr>
         </thead>
         <tbody>
@@ -696,8 +695,8 @@ def get_top_k_tokens(curr_node, k=3):
         larger improvement in accuracy (84.60% vs 92.59%).
       </li>
       <li>
-        MCTS' average total sample count per problem is also lower than S+F (~15 avg. rollouts vs 20
-        samples) while running ~2x faster. This is largely possible because MCTS only explores the
+        MCTS' average sample count per problem is also lower than S+F (~15 avg. rollouts vs 20
+        samples) while running ~2x faster to achieve slightly better accuracy. This is largely possible because MCTS only explores the
         most promising options and stops as soon as it's found a complete solution<sup
           ><a href="#callout-2">[2]</a></sup
         >.
@@ -708,7 +707,7 @@ def get_top_k_tokens(curr_node, k=3):
       </li>
       <li>
         Unlike S+F, running MCTS multiple times will produce the exact same solutions and results.
-        This is because node selection, expansion and simulation/evaluation are all deterministic
+        This is because node selection, expansion, and simulation/evaluation are all deterministic
         processes as opposed to the non-deterministic sampling of S+F.
       </li>
     </ul>
@@ -722,9 +721,10 @@ def get_top_k_tokens(curr_node, k=3):
       </li>
       <li id="callout-2">
         One may suggest that we could also stop generation in S+F as soon as a correct solution is
-        found. But due to the probablistic nature of sampling, which cannot guarantee replication
+        found. However due to the probabilistic nature of sampling, which cannot guarantee replication
         across successive generations, we need to collect the full set of samples for every problem
-        in order to properly estimate the pass@k metrics for various values of k.
+        to properly estimate the pass@k metrics for various values of k.
+        We could alternatively sample until success and calculate the empirical expected k to compare with the average rollout of MCTS, but we suffice with estimating the pass@k metric.
       </li>
     </ol>
     <h2>Extending the experiment to VerilogEval</h2>
@@ -739,7 +739,7 @@ def get_top_k_tokens(curr_node, k=3):
     <p>
       We thus wanted to know what would happen when dealing with problems that the LLM wasn't well
       trained on, and how effective MCTS could be at improving the model's code quality compared to
-      standalone S+F. To this end we adapted our experiment to test on the
+      standalone S+F. To this end, we adapted our experiment to test on the
       <a href="https://github.com/NVlabs/verilog-eval" target="_blank">VerilogEval</a> dataset,
       which follows a very similar format as HumanEval but for testing proficiency in the
       lesser-known
@@ -755,8 +755,8 @@ def get_top_k_tokens(curr_node, k=3):
     <p>
       Because we expected the deepseek LLM to be less capable in Verilog, we needed to adjust a few
       generation parameters before running both S+F and MCTS. We increased the context length & max
-      number of generated tokens to account for the greater verbosity of Verilog code, and also
-      upped the top-k sampling from 3 to 50 to encourage more diverse model outputs.
+      number of generated tokens to account for the greater verbosity of Verilog code. We also
+      increased the k in top-k sampling from 3 to 50 to enable more diverse model outputs.
     </p>
     <p>S+F with 4096 context size, top-50 sampling, 1.0 temperature, and 1024 max tokens:</p>
     <div class="table-wrapper">
@@ -814,7 +814,7 @@ def get_top_k_tokens(curr_node, k=3):
         deepseek LLM was not as capable in Verilog.
       </li>
       <li>
-        MCTS required noticably more exploration (~5x greater avg. rollouts & unique generations)
+        MCTS required noticeably more exploration (~5x greater avg. rollouts & unique generations)
         despite achieving poorer quality/pass rates than compared to its performance on HumanEval.
       </li>
       <li>
@@ -824,15 +824,15 @@ def get_top_k_tokens(curr_node, k=3):
         slow-down in MCTS.
       </li>
       <li>
-        We suspect MCTS failed to achieve good solutions due to it's dependence on the quality of
-        the transfomer’s token probabilities for node selection & expansion. In this instance the
+        We suspect MCTS failed to achieve good solutions due to its dependence on the quality of
+        the transformer’s token probabilities for node selection & expansion. In this instance the
         probabilities were badly calibrated and less reliable (a natural consequence of the LLM not
         having seen enough Verilog data during training), leading to poorer judgment by MCTS of what
         the most promising options in the search space were.
       </li>
       <li>
         S+F was able to capitalise better on the increased randomness/variability in generation
-        (sampling from top-50 token probabilities), and therefore explored a wider range of
+        (sampling from top-50 token probabilities) and therefore explored a wider range of
         solutions that ended up faring better.
       </li>
     </ul>
@@ -841,7 +841,7 @@ def get_top_k_tokens(curr_node, k=3):
 
     <p>
       Our results from comparing S+F performance against MCTS in both the HumanEval and VerilogEval
-      datasets show that, when dealing with domains where an LLM is relatively proficient (e.g.
+      datasets show that when dealing with domains where an LLM is relatively proficient (e.g.
       Python), combining the LLM's predictive capabilities with a specialised algorithm such as MCTS
       does indeed produce higher quality results with significantly less compute.
     </p>
@@ -852,7 +852,7 @@ def get_top_k_tokens(curr_node, k=3):
       S+F enables a more consistent boost in LLM performance despite being the simpler approach.
     </p>
     <p>
-      It's worth noting that for Verilog code generation, the overall pass rate still remained low
+      It's worth noting that for Verilog code generation, the overall pass rate remained low
       irrespective of the approach. This highlights the importance of fine-tuning language models
       for specific tasks as one of the most effective means to improve accuracy. Even the reasonably
       small
@@ -863,7 +863,7 @@ def get_top_k_tokens(curr_node, k=3):
     <h2>Future considerations</h2>
     <p>
       Although MCTS' good performance on HumanEval didn't carry through to the VerilogEval dataset,
-      we believe there is opportunity to make it more robust to fluctuations in the underlying LLM
+      we believe there are opportunities to make it more robust to fluctuations in the underlying LLM
       ability by tweaking its reward function & selection/expansion policies:
     </p>
     <ol>
