@@ -7,7 +7,7 @@ body {
   font-weight: 400;
   font-style: normal;
   max-width: 40rem;
-  margin: auto;
+  margin: 0 max(1rem, 50% - 40rem / 2);
   margin-bottom: 8rem;
   font-size: 1rem;
   line-height: 1.4rem;
@@ -98,7 +98,7 @@ th {
 .llm-example:first-of-type {
   margin-top: 1.5rem;
 }
-.mcts-steps {
+.mcts-example {
   width: 100%;
 }
 .p-ucb {
